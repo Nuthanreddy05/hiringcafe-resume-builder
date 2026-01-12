@@ -1,0 +1,12 @@
+Act as a Backend Architect. Based on the "H1 Sponsors Jobs" spec, design the PostgreSQL database schema using SQLAlchemy ORM models.
+
+Key Tables:
+1. `companies`: id (UUID), name (unique), normalized_name, social_links (JSONB), h1b_history_summary (JSONB).
+2. `jobs`: id (UUID), title, company_id (FK), location_city, location_state, description_text, apply_url, sponsorship_status (ENUM: SPONSORED, NOT_MENTIONED, EXCLUDED), confidence_score (Float), posted_at, created_at.
+3. `scraped_logs`: id, source_domain, job_id (FK), status, raw_s3_key.
+
+Constraints:
+- Ensure proper indexes on `jobs.posted_at`, `jobs.sponsorship_status`.
+- Add a unique constraint for deduplication: Unique(company_id, title, location_city).
+
+Output the Python code for `models.py`.

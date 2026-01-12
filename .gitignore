@@ -1,0 +1,24 @@
+# Environment & Secrets
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# User Data & DB
+jobs.db
+profile.json
+google_credentials.json
+
+# Outputs
+Google Auto Internet/
+Google Auto/
+debug_screenshots/
+batch_debug.log
+*.pdf
+*.log
+
+# Temp
+failed_jobs.json
+debug_resume_*.txt
+Test_Generated_CVs/

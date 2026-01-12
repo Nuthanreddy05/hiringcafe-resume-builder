@@ -1,0 +1,230 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=2 cm,
+    bottom=2 cm,
+    left=2 cm,
+    right=2 cm,
+    footskip=1.0 cm,
+]{geometry}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor} 
+\definecolor{primaryColor}{RGB}{0, 0, 0}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Nuthan Reddy's Resume},
+    pdfauthor={Nuthan Reddy},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+% Use a font with proper bold support
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+% Ensure bold font works
+\usepackage[T1]{fontenc}
+\renewcommand{\bfdefault}{b}
+\usepackage[defaultsans]{lato}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+\pagenumbering{gobble}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing{\section}{-1pt}{0.3 cm}{0.2 cm}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{0 cm + 0.00001 cm}{0 cm + 0.00001 cm}
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\begin{document}
+
+\begin{header}
+    \fontsize{13 pt}{13 pt}\selectfont \textbf{NUTHAN REDDY VADDI REDDY}
+    
+    \vspace{0.5pt}
+    
+    \normalsize
+    nuthanreddy001@gmail.com\hspace{0.5pt}| \hspace{0.5pt}
+    +1682-406-56-46\hspace{0.5pt}| \hspace{0.5pt}
+    github.com/Nuthanreddy05\hspace{0.5pt}| \hspace{0.5pt}
+    www.linkedin.com/in/nuthan-reddy-vaddi-reddy
+\end{header}
+
+\section{Summary}
+\begin{onecolentry}
+    Software Engineer with 3+ years of experience building scalable web applications and distributed systems. Specialized in React, Node.js, Python, and AWS. Proven track record of improving system reliability by 24\% and optimizing API latency by 31\% in high-traffic enterprise environments.
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\section{Experience}
+
+\begin{twocolentry}{May 2024 -- Present}
+    \textbf{Software Engineer}, Albertsons -- Dallas, TX
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+\item Designed and developed cloud-based microservices using Python and Node.js, improving service reliability by \textbf{24\%} in customer-facing applications.
+\item Built and deployed RESTful APIs supporting large-scale distributed systems, reducing request latency by \textbf{31\%} through optimized service design.
+\item Implemented CI/CD pipelines on AWS using GitHub Actions and cloud-native tooling, shortening release cycles by \textbf{28\%}.
+\item Translated business and technical requirements into scalable application features, delivering enhancements within \textbf{2--4} month project timelines.
+\item Developed secure backend services with role-based access controls, reducing security-related defects by \textbf{19\%}.
+\item Supported multi-page web applications using React and JavaScript, improving frontend load performance by \textbf{22\%}.
+\item Analyzed and processed large transactional datasets to support application logic, improving data-processing throughput by \textbf{35\%}.
+\item Authored technical documentation covering system architecture, API contracts, and deployment workflows, accelerating team onboarding by \textbf{21\%}.
+\item Collaborated with product managers and architects to evaluate new technologies, contributing to \textbf{3} successful proof-of-concept implementations.
+\item Troubleshot and debugged production issues across distributed services, reducing mean-time-to-resolution by \textbf{18\%}.
+\item Coordinated development priorities with a \textbf{4}-member agile team, consistently meeting sprint delivery commitments.
+\item Provided guidance and code reviews for junior engineers, improving code quality and reducing rework by \textbf{16\%}.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{May 2020 -- July 2023}
+    \textbf{Software Engineer}, ValueLabs -- Hyderabad
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+\item Developed multi-page web applications using React, JavaScript, and Python, supporting business workflows for enterprise clients.
+\item Implemented backend services using Java and Python, improving application stability by \textbf{20\%} across supported modules.
+\item Designed and maintained microservice-based architectures, enabling independent scaling of services and reducing deployment risk.
+\item Built and optimized SQL-based data access layers, improving query performance by \textbf{26\%}.
+\item Supported cloud-based delivery environments on AWS, assisting with deployments and configuration management.
+\item Processed and analyzed large, complex datasets to support application features, improving response accuracy by \textbf{14\%}.
+\item Ensured software security by implementing input validation, authentication checks, and secure coding practices.
+\item Participated in full software development lifecycle activities including design, development, testing, and release management.
+\item Collaborated with cross-functional teams to gather requirements and translate them into technical solutions.
+\item Debugged and resolved application defects, reducing recurring production issues by \textbf{17\%}.
+\item Contributed to UI design and development efforts, improving usability scores by \textbf{15\%}.
+\item Mentored junior developers on coding standards and debugging techniques, improving team productivity by \textbf{13\%}.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\section{Academic Project Experience}
+
+\begin{twocolentry}{Jan 2024 -- May 2024}
+    \textbf{Cloud-Native Distributed Application Development}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+\item Designed a cloud-based distributed system using AWS services, supporting scalable application workloads.
+\item Developed backend services in Python and Node.js with REST APIs to handle concurrent requests efficiently.
+\item Implemented CI/CD pipelines for automated testing and deployment, reducing manual release effort by \textbf{30\%}.
+\item Built a React-based frontend to support multi-page user interactions with backend services.
+\item Applied security best practices including authentication and access control across services.
+\item Documented system design, trade-offs, and deployment architecture in a comprehensive technical report.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{Aug 2023 -- Dec 2023}
+    \textbf{Web Application Architecture and Optimization Project}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+\item Designed and developed a full-stack web application using React, Python, and SQL.
+\item Optimized backend data access patterns, improving response times by \textbf{23\%}.
+\item Implemented modular UI components to improve maintainability and reuse.
+\item Conducted functional and integration testing to validate application behavior.
+\item Analyzed performance bottlenecks and applied targeted improvements.
+\item Delivered the project within a \textbf{4}-month academic timeline with complete documentation.
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\section{Technical Skills}
+\begin{minipage}[t]{\linewidth}
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=2pt]
+\item Programming: Python, Java, JavaScript, Node.js
+\item Web Technologies: React, REST APIs, HTML, CSS
+\item Cloud Platforms: AWS (CI/CD, deployment, environment management)
+\item Software Engineering: Microservices, distributed systems, SDLC, secure coding
+\item Databases: SQL, relational database design, data access optimization
+\item Tools \& Practices: Git, CI/CD pipelines, debugging, technical documentation
+\end{itemize}
+\end{minipage}
+
+\vspace{0.2cm}
+
+\section{Education}
+\begin{twocolentry}{Aug 2023 -- May 2025}
+    \textbf{The University of Texas at Arlington,} MS in Data Science
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    \item \textbf{GPA:} 3.8/4.0
+    \item \textbf{Relevant Coursework:} Distributed Systems, Cloud Computing, Software Engineering, Data Structures, Algorithms, Machine Learning
+\end{highlights}
+\end{onecolentry}
+
+\end{document}
