@@ -1,0 +1,300 @@
+2022	2023	2024
+1	EY logo	EY	Professional Services	
+633	3488	8456
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+2	Amazon logo	Amazon	Technology	
+1484	1787	2211
+Supply ChainFin. - AccountingMarketing
+3	Deloitte logo	Deloitte	Professional Services	
+690	1622	1261
+Fin. - AccountingITConsulting
+4	PriceWaterhouseCoopers logo	PriceWaterhouseCoopers	Professional Services	
+523	534	764
+Fin. - AccountingITInvmt Occupations
+5	Goldman Sachs Group logo	Goldman Sachs Group	Financial Services	
+644	971	502
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+6	Microsoft Corporation logo	Microsoft Corporation	Technology	
+495	502	473
+MarketingFinancial MgmtConsulting
+7	Google logo	Google	Technology	
+370	361	462
+MarketingInvmt OccupationsConsulting
+8	McKinsey & Company logo	McKinsey & Company	Consulting	
+335	392	443
+ConsultingMgmt & StrategyHR
+9	Credit Suisse logo	Credit Suisse	Financial Services	
+159	178	396
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+10	Deutsche Bank logo	Deutsche Bank	Financial Services	
+137	177	336
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+11	Tata Consultancy Services logo	Tata Consultancy Services	Technology	
+20	29	305
+ITConsulting
+12	J.P. Morgan Chase logo	J.P. Morgan Chase	Financial Services	
+467	289	218
+Fin. - AccountingInvmt OccupationsConsulting
+13	Citigroup Inc. logo	Citigroup Inc.	Financial Services	
+354	318	193
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+14	Boston Consulting Group logo	Boston Consulting Group	Consulting	
+325	282	185
+ConsultingMarketingSupply Chain
+15	KPMG logo	KPMG	Professional Services	
+236	248	184
+Fin. - AccountingInvmt OccupationsConsulting
+16	Morgan Stanley logo	Morgan Stanley	Financial Services	
+279	171	173
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+17	Wipro Limited logo	Wipro Limited	Consulting	
+112	145	158
+ConsultingSupply ChainIT
+18	BlackRock logo	BlackRock	Financial Services	
+305	335	149
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+19	Cognizant Technology Solutions logo	Cognizant Technology Solutions	Consulting	
+292	277	136
+ConsultingITHR
+20	Infosys logo	Infosys	Consulting	
+488	286	133
+ConsultingMgmt & StrategyMarketing
+21	Cummins Inc. logo	Cummins Inc.	Automotive/Transportation Manufacturing	
+56	119	117
+Supply ChainMarketingFin. - Accounting
+22	PJT Partners logo	PJT Partners	Financial Services	
+24	29	106
+Invmt Occupations
+23	Bank of America logo	Bank of America	Financial Services	
+247	204	104
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+24	Tesla logo	Tesla	Automotive/Transportation Manufacturing	
+106	78	98
+Supply ChainMgmt & StrategyFin. - Accounting
+25	Apple Inc. logo	Apple Inc.	Consumer Products	
+219	83	86
+Supply ChainMgmt & StrategyMarketing
+26	State Street Bank and Trust Company logo	State Street Bank and Trust Company	Financial Services	
+42	39	86
+Fin. - AccountingFinancial MgmtSupply Chain
+27	Accenture logo	Accenture	Consulting	
+117	99	80
+ConsultingMgmt & StrategyIT
+28	AQR Capital Management logo	AQR Capital Management	Financial Services	
+33	52	76
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+29	Cisco Systems, Inc. logo	Cisco Systems, Inc.	Technology	
+103	51	76
+Supply ChainInvmt OccupationsFinancial Mgmt
+30	ByteDance logo	ByteDance	Media Arts and Entertainment	
+36	37	74
+Supply ChainMarketingFin. - Accounting
+31	BDO logo	BDO	Professional Services	
+93	138	73
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+32	EXL Service logo	EXL Service	Professional Services	
+142	145	69
+ConsultingInvmt Occupations
+33	RSM International logo	RSM International	Professional Services	
+76	85	65
+Fin. - AccountingITFinancial Mgmt
+34	Grant Thornton logo	Grant Thornton	Professional Services	
+78	80	65
+Fin. - AccountingFinancial MgmtMgmt & Strategy
+35	Adobe Systems Incorporated logo	Adobe Systems Incorporated	Technology	
+68	33	63
+MarketingITInvmt Occupations
+36	LTI Mindtree logo	LTI Mindtree	Consulting	
+24	63	63
+ConsultingITMarketing
+37	Tech Mahindra Ltd logo	Tech Mahindra Ltd	Technology	
+14	48	62
+ConsultingITHR
+38	Walmart logo	Walmart	Retail and Wholesale Trade	
+65	38	61
+Supply ChainITFinancial Mgmt
+39	Uber logo	Uber	Technology	
+80	69	61
+MarketingFin. - AccountingConsulting
+40		Open Avenues Foundation	Non-profit, NGO, IGO	
+6	16	60
+Invmt OccupationsFin. - AccountingMarketing
+41		Mphasis	Technology	
+6	42	58
+ConsultingITHR
+42	Capgemini logo	Capgemini	Consulting	
+9	98	57
+ConsultingITMarketing
+43	Amgen logo	Amgen	Healthcare	
+57	58	55
+Supply ChainInvmt OccupationsMarketing
+44	eBay logo	eBay	Technology	
+17	6	55
+Fin. - AccountingInvmt OccupationsIT
+45	HP Inc logo	HP Inc	Consumer Products	
+40	30	55
+MarketingSupply ChainHR
+46	UBS logo	UBS	Financial Services	
+105	71	54
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+47	Societe Generale logo	Societe Generale	Financial Services	
+54	56	54
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+48	Dell Technologies logo	Dell Technologies	Technology	
+123	125	54
+MarketingSupply ChainFin. - Accounting
+49	Millennium logo	Millennium	Financial Services	
+28	20	51
+Fin. - AccountingInvmt Occupations
+50	Balyasny Asset Management logo	Balyasny Asset Management	Consulting	
+20	21	50
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+51	Barclays logo	Barclays	Financial Services	
+167	87	49
+Fin. - AccountingInvmt OccupationsMarketing
+52	IQVIA Holdings Inc. logo	IQVIA Holdings Inc.	Healthcare	
+38	40	49
+ConsultingMarketingMgmt & Strategy
+53		ROCKY MOUNTAIN INSTITUTE	Energy and Utility	
+17	35	49
+Supply ChainMarketing
+54	Macias Gini & O'Connell logo	Macias Gini & O'Connell	Financial Services	
+24	30	48
+Fin. - AccountingFinancial Mgmt
+55	Jefferies Group logo	Jefferies Group	Financial Services	
+82	78	47
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+56	Visa Inc. logo	Visa Inc.	Financial Services	
+19	10	47
+ITMarketingConsulting
+57		Cumming Group	Professional Services	
+23	23	45
+Mgmt & StrategyFinancial Mgmt
+58		System Soft Technologies	Consulting	
+10	23	44
+ITMarketingHR
+59	Qualcomm logo	Qualcomm	Technology	
+53	63	44
+Supply ChainInvmt OccupationsFin. - Accounting
+60	Rivian Automotive logo	Rivian Automotive	Automotive/Transportation Manufacturing	
+26	19	43
+Supply ChainHRFin. - Accounting
+61	PayPal logo	PayPal	Financial Services	
+27	24	41
+Fin. - AccountingInvmt OccupationsMarketing
+62	Siemens AG logo	Siemens AG	Energy and Utility	
+36	54	41
+Supply ChainMarketingMgmt & Strategy
+63	Sumitomo Mitsui Banking logo	Sumitomo Mitsui Banking	Financial Services	
+1	2	40
+Invmt OccupationsFinancial MgmtFin. - Accounting
+64	Prime Healthcare logo	Prime Healthcare	Healthcare	
+6	9	39
+Invmt OccupationsConsultingFin. - Accounting
+65	ASML logo	ASML	Technology	
+20	25	38
+Mgmt & StrategyInvmt OccupationsSupply Chain
+66	Meta logo	Meta	Technology	
+254	98	38
+MarketingSupply ChainHR
+67	Turner Construction Company logo	Turner Construction Company	Industrial Products & Manufacturing	
+1	8	38
+Mgmt & StrategyFinancial Mgmt
+68		UST	Technology	
+19	21	37
+ConsultingITMarketing
+69	Salesforce logo	Salesforce	Technology	
+67	24	36
+Fin. - AccountingMarketingIT
+70	TikTok logo	TikTok	Technology	
+10	4	35
+Supply ChainMarketingIT
+71	Turner & Townsend logo	Turner & Townsend	Industrial Products & Manufacturing	
+37	37	35
+Financial MgmtMgmt & Strategy
+72	Citadel logo	Citadel	Financial Services	
+30	28	34
+Invmt OccupationsFin. - AccountingIT
+73	CBRE Group logo	CBRE Group	Real Estate	
+11	20	33
+Invmt OccupationsMarketingFin. - Accounting
+74	Medtronic logo	Medtronic	Healthcare	
+27	32	33
+MarketingSales
+75		ValueMomentum	Technology	
+3	3	33
+ConsultingIT
+76	Nomura Holdings logo	Nomura Holdings	Financial Services	
+36	20	32
+Invmt OccupationsFin. - AccountingFinancial Mgmt
+77	Royal Bank of Canada logo	Royal Bank of Canada	Financial Services	
+50	18	32
+Fin. - AccountingInvmt OccupationsFinancial Mgmt
+78	Bloomberg L.P. logo	Bloomberg L.P.	Financial Services	
+15	11	31
+Invmt OccupationsFin. - AccountingIT
+79	Simon-Kucher & Partners logo	Simon-Kucher & Partners	Consulting	
+14	5	31
+Marketing
+80	Bain & Company logo	Bain & Company	Consulting	
+67	55	31
+ConsultingMgmt & Strategy
+81	Intercontinental Exchange logo	Intercontinental Exchange	Financial Services	
+18	31	30
+Invmt OccupationsFin. - AccountingSupply Chain
+82	LinkedIn logo	LinkedIn	Technology	
+31	15	30
+MarketingMgmt & StrategyIT
+83	Wayfair logo	Wayfair	Retail and Wholesale Trade	
+37	31	30
+Supply ChainFin. - AccountingConsulting
+84	Marcum LLP logo	Marcum LLP	Financial Services	
+11	29	29
+Fin. - AccountingInvmt Occupations
+85	Baker Tilly logo	Baker Tilly	Consulting	
+13	20	29
+Fin. - AccountingInvmt Occupations
+86		Coforge	Consulting	
+21	24	29
+Consulting
+87		Bankers Healthcare Group	Financial Services	
+9	10	27
+Fin. - AccountingFinancial Mgmt
+88	Thermo Fisher logo	Thermo Fisher	Healthcare	
+33	29	27
+Financial MgmtSupply ChainMarketing
+89	General Motors logo	General Motors	Automotive/Transportation Manufacturing	
+9	12	27
+Mgmt & StrategyFinancial MgmtInvmt Occupations
+90	MSCI Inc. logo	MSCI Inc.	Financial Services	
+31	27	27
+Fin. - AccountingInvmt Occupations
+91		AdventHealth	Healthcare	
+1	2	27
+ConsultingFinancial MgmtInvmt Occupations
+92	Wells Fargo logo	Wells Fargo	Financial Services	
+58	35	26
+Fin. - AccountingITSupply Chain
+93	Fidelity Investments logo	Fidelity Investments	Financial Services	
+28	26	26
+Invmt OccupationsFin. - AccountingIT
+94	Applied Materials logo	Applied Materials	Industrial Products & Manufacturing	
+25	35	26
+Fin. - AccountingSupply ChainInvmt Occupations
+95		LIONTREE	Consulting	
+5	4	26
+Invmt Occupations
+96	Micron Technology logo	Micron Technology	Technology	
+33	38	26
+Supply ChainInvmt OccupationsMarketing
+97	DoorDash logo	DoorDash	Technology	
+47	16	25
+MarketingInvmt OccupationsConsulting
+98	Honeywell logo	Honeywell	Consumer Products	
+45	26	25
+Mgmt & StrategySupply ChainFin. - Accounting
+99	Alvarez & Marsal logo	Alvarez & Marsal	Consulting	
+24	27	25
+ConsultingFin. - Accounting
+100	Moelis & Company logo	Moelis & Company	Financial Services	
+20	14	25

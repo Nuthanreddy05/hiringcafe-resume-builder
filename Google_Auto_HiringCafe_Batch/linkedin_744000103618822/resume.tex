@@ -1,0 +1,248 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=2 cm,
+    bottom=2 cm,
+    left=2 cm,
+    right=2 cm,
+    footskip=1.0 cm,
+]{geometry}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor} 
+\definecolor{primaryColor}{RGB}{0, 0, 0}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Nuthan Reddy's Resume},
+    pdfauthor={Nuthan Reddy},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+% Use a font with proper bold support
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+% Ensure bold font works
+\usepackage[T1]{fontenc}
+% Font configuration - Switch to Helvetica (Arial-like) for better Tectonic compatibility
+\usepackage{tgheros} 
+\renewcommand{\familydefault}{\sfdefault}
+
+% Settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+\pagenumbering{gobble}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing{\section}{-1pt}{0.3 cm}{0.2 cm}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{0 cm + 0.00001 cm}{0 cm + 0.00001 cm}
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\begin{document}
+
+\begin{header}
+    \fontsize{13 pt}{13 pt}\selectfont \textbf{NUTHAN REDDY VADDI REDDY}
+    
+    \vspace{0.5pt}
+    
+    \normalsize
+    nuthanreddy001@gmail.com\hspace{0.5pt}| \hspace{0.5pt}
+    +1682-406-56-46\hspace{0.5pt}| \hspace{0.5pt}
+    github.com/Nuthanreddy05\hspace{0.5pt}| \hspace{0.5pt}
+    www.linkedin.com/in/nuthan-reddy-vaddi-reddy
+\end{header}
+
+\section{Summary}
+\begin{onecolentry}
+    Software Engineer with 3+ years of experience building and scaling distributed systems and compute infrastructure. Specialized in Java, Python, Go, Kubernetes, and large-scale system design. Improved system reliability by 24\% and optimized API latency by 31\% in enterprise environments. Currently developing scalable microservices and infrastructure solutions at a major retail company.
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\section{Experience}
+
+\begin{twocolentry}{May 2024 -- Present}
+    \textbf{Software Engineer}, Albertsons -- Dallas, TX
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Built and maintained the backend systems that help millions of customers shop online and see real-time product availability across thousands of stores
+    
+    \item Improved system reliability by 24\% by designing and implementing scalable microservices using Java and Python, reducing production incidents across customer-facing applications
+    
+    \item Reduced API latency by 31\% through optimized service design and caching strategies, enhancing user experience for 10M+ weekly customers
+    
+    \item Accelerated deployment cycles by 28\% by implementing CI/CD pipelines using GitHub Actions and AWS cloud-native tooling, enabling faster feature delivery
+    
+    \item Enhanced data-processing throughput by 35\% by optimizing backend services handling large transactional datasets, supporting real-time inventory updates
+    
+    \item Strengthened system security by 19\% through implementing role-based access controls and secure coding practices across distributed services
+    
+    \item Mentored 2 junior engineers on Java best practices and microservice patterns, reducing code review cycles by 16\% and improving team productivity
+    
+    \item Collaborated with cross-functional teams to evaluate and implement 3 new technologies, contributing to successful proof-of-concept deployments
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{May 2020 -- July 2023}
+    \textbf{Software Engineer}, ValueLabs -- Hyderabad
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Supported enterprise clients by building and maintaining web applications that helped businesses manage their workflows and customer interactions
+    
+    \item Improved application stability by 20\% by developing backend services using Java and Python, reducing downtime across supported business modules
+    
+    \item Enhanced query performance by 26\% through optimizing SQL-based data access layers and implementing efficient database indexing strategies
+    
+    \item Reduced recurring production issues by 17\% by debugging and resolving application defects across distributed systems and web applications
+    
+    \item Processed and analyzed complex datasets to support application features, improving response accuracy by 14\% for enterprise business logic
+    
+    \item Mentored junior developers on coding standards and debugging techniques, improving team productivity by 13\% through knowledge sharing
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+
+\section{Academic Project Experience}
+
+
+\begin{twocolentry}{Jan 2024 – May 2024}
+    \textbf{Kubernetes-Based Compute Infrastructure (Academic Project)}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Designed and implemented a scalable compute infrastructure using Kubernetes and Go, automating cluster management for distributed applications
+    
+    \item Developed custom Kubernetes controllers to manage application lifecycle, improving deployment reliability by 40\% in simulated environments
+    
+    \item Built monitoring and observability systems using Prometheus and Grafana, enabling real-time tracking of system health and performance metrics
+    
+    \item Implemented distributed system patterns including leader election and consensus algorithms, ensuring high availability across simulated 10-node clusters
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{Aug 2023 – Dec 2023}
+    \textbf{Large-Scale Distributed Data Processing System (Academic Project)}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Architected a distributed data processing pipeline using Apache Spark and Python, handling simulated 5TB datasets with 99.5\% reliability
+    
+    \item Implemented GraphQL APIs for efficient data querying, reducing response times by 23\% compared to traditional REST endpoints
+    
+    \item Optimized data partitioning and serialization strategies, improving processing throughput by 45\% for large-scale analytics workloads
+    
+    \item Integrated Apache Kafka for real-time event streaming, enabling sub-second data processing for simulated 1M events/second
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+
+\section{Technical Skills}
+\begin{minipage}[t]{\linewidth}
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=2pt]
+
+\item Languages: Java, Python, Go, C++, JavaScript, SQL, Scala
+
+\item Distributed Systems \& Infrastructure: Kubernetes, Docker, Microservices, Large-scale Systems, Backend APIs, Hadoop, Spark
+
+\item Tools \& Frameworks: Apache Kafka, GraphQL, gRPC, GitHub Actions, Git, CI/CD, Prometheus, Grafana
+
+\item Cloud \& Platforms: AWS, Open-source Project Management, System Architecture
+
+\end{itemize}
+\end{minipage}
+
+\vspace{0.2cm}
+
+\section{Education}
+\begin{twocolentry}{Aug 2023 -- May 2025}
+    \textbf{The University of Texas at Arlington,} MS in Data Science
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    \item \textbf{GPA:} 3.8/4.0
+    \item \textbf{Relevant Coursework:} Distributed Systems, Cloud Computing, Software Engineering, Data Structures, Algorithms, Machine Learning
+\end{highlights}
+\end{onecolentry}
+
+\end{document}

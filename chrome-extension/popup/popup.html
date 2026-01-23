@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>SmartJobApply</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 SmartJobApply</h1>
+            <p class="tagline">Personal Job Auto-Filler</p>
+        </header>
+
+        <div id="loading-view">
+            <div class="spinner"></div>
+            <p>Connecting to Desktop...</p>
+        </div>
+
+        <div id="error-view" class="hidden">
+            <p class="error-msg"></p>
+            <button id="retry-btn" class="btn-secondary">Retry</button>
+        </div>
+
+        <div id="job-list" class="hidden">
+            <!-- Jobs injected here -->
+        </div>
+
+        <div id="empty-view" class="hidden">
+            <p>🎉 All caught up!</p>
+            <p class="subtext">No pending jobs in Google Auto folder.</p>
+        </div>
+
+        <footer>
+            <span id="status-text">Ready</span>
+            <button id="settings-btn" class="icon-btn">⚙️</button>
+        </footer>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

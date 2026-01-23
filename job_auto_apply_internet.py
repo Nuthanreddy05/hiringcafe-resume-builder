@@ -80,7 +80,7 @@ class AuditLogger:
 DEEPSEEK_MODEL = "deepseek-chat"
 GEMINI_MODEL = "gemini-2.5-pro"
 MAX_ITERATIONS = 5
-APPROVAL_THRESHOLD = 80
+APPROVAL_THRESHOLD = 85
 
 
 # ============================================================================
@@ -158,19 +158,21 @@ def check_sponsorship_viability(description: str) -> bool:
     description = description.lower()
     
     # Phrases that instantly disqualify
-    blocklist = [
-        "visa sponsorship not available",
-        "will not sponsor",
-        "no visa sponsorship",
-        "us citizen or green card only",
-        "not eligible for visa sponsorship",
-        "must be legally authorized to work in the united states without sponsorship",
-        "citizenship required",
-        "security clearance required"
+    # Phrases that instantly disqualify
+    # Use Global Strict Patterns extended with local specifics if needed
+    blocklist = CITIZENSHIP_PATTERNS + [
+        "security clearance required",
+        "active clearance",
+        "polygraph",
+        "US citizen", # Catch casual mentions
+        "U.S. Citizen"
     ]
     
     for phrase in blocklist:
-        if phrase in description:
+        # Check if phrase is regex (contains special chars) or just string
+        # To be safe, treat all as regex or substring search
+        # Since CITIZENSHIP_PATTERNS are regex, we MUST use re.search
+        if re.search(phrase, description, re.IGNORECASE):
             return False
             
     return True
@@ -467,11 +469,22 @@ SPECIALIZED_JOB_PATTERNS = [
     r"\bvhdl\b", r"\bverilog\b", r"\bfpga\b",
 ]
 
+# Configuration
+JOB_URL = 'https://hiring.cafe/?searchState=%7B%22dateFetchedPastNDays%22%3A2%2C%22sortBy%22%3A%22date%22%2C%22jobTitleQuery%22%3A%22%28%5C%22software+engineer%5C%22+OR+%5C%22software+developer%5C%22+OR+%5C%22software+development+engineer%5C%22+OR+%5C%22backend+engineer%5C%22+OR+%5C%22frontend+engineer%5C%22+OR+%5C%22front+end+engineer%5C%22+OR+%5C%22full+stack+engineer%5C%22+OR+%5C%22devops+engineer%5C%22++OR+%5C%22data+scientist%5C%22+OR+%5C%22data+engineer%5C%22+OR+%5C%22machine+learning+engineer%5C%22+OR+%5C%22ml+engineer%5C%22+OR+%5C%22ai+engineer%5C%22%29%22%2C%22securityClearances%22%3A%5B%22None%22%2C%22Other%22%5D%2C%22roleYoeRange%22%3A%5B0%2C4%5D%2C%22seniorityLevel%22%3A%5B%22No+Prior+Experience+Required%22%2C%22Entry+Level%22%2C%22Mid+Level%22%5D%2C%22commitmentTypes%22%3A%5B%22Full+Time%22%2C%22Part+Time%22%2C%22Contract%22%2C%22Temporary%22%2C%22Seasonal%22%2C%22Volunteer%22%5D%2C%22departments%22%3A%5B%22Engineering%22%2C%22Software+Development%22%2C%22Information+Technology%22%2C%22Data+and+Analytics%22%5D%2C%22usaGovPref%22%3A%22exclude%22%2C%22excludedIndustries%22%3A%5B%22educational+organizations%22%5D%2C%22isNonProfit%22%3A%22forprofit%22%2C%22roleTypes%22%3A%5B%22Individual+Contributor%22%5D%7D'
 
 CITIZENSHIP_PATTERNS = [
     r"\bu\.?s\.?\s*citizen\b", r"\bus citizens?\s*only\b",
     r"\bcitizenship required\b", r"\bno sponsorship\b",
     r"\bno visa sponsorship\b",
+    r"\bwithout\s+(?:company\s+)?sponsorship\b",
+    r"\bwill not sponsor\b",
+    r"\bnot eligible for(?:.*\b)?sponsorship\b",
+    r"not able to offer.*sponsorship",
+]
+
+INDUSTRY_EXCLUSION_PATTERNS = [
+    r"\bnatural gas\b", r"\boil\s*&\s*gas\b", r"\bpetroleum\b",
+    r"\bbiotech(?:nology)?\b", r"\bpharmaceutical\b",
 ]
 
 
@@ -483,6 +496,11 @@ def should_skip_job(title: str, description: str) -> Tuple[bool, str]:
     for pat in SPECIALIZED_JOB_PATTERNS:
         if re.search(pat, txt, re.IGNORECASE):
             return True, "⊗ SKIPPED: Specialized field (bio/mechanical/embedded/civil)"
+            
+    # Check for Industry Exclusions (Natural Gas, Biotech, etc)
+    for pat in INDUSTRY_EXCLUSION_PATTERNS:
+        if re.search(pat, txt, re.IGNORECASE):
+            return True, f"⊗ SKIPPED: Excluded Industry ({pat})"
     
     for pat in CLEARANCE_PATTERNS:
         if re.search(pat, txt, re.IGNORECASE):
@@ -596,8 +614,8 @@ def normalize_tech_terms(text: str) -> str:
 
 def clean_jd_smart(text: str) -> str:
     """
-    Smart cleaning to fix typos, handle soft skills, and safe parentheses.
-    Prevents 'Baby with the Bathwater' deletions.
+    Smart cleaning to fix typos and formatting.
+    SOFT SKILLS ARE PRESERVED (User Request).
     """
     if not text: return ""
 
@@ -636,11 +654,10 @@ def clean_jd_smart(text: str) -> str:
         is_soft = any(trigger in line_clean.lower() for trigger in soft_triggers)
         
         if is_soft:
-            # SAVIOR CHECK: Look for tech keywords
-            saved = False
-            # 1. Exact list check
-            if any(tech in line_clean for tech in tech_saviors):
-                saved = True
+            # SAVIOR CHECK: Look for tech keywords (DISABLED: Keep all soft skills)
+            # if any(tech in line_clean for tech in tech_saviors):
+            #    saved = True
+            saved = True # ALWAYS SAVE soft skills per user request
             
             # 2. Capital Letter Check (Simple Heuristic: Capitalized word > 2 chars in middle of sentence)
             # e.g. "Experience with React is good" -> React is cap.
@@ -922,7 +939,7 @@ def collect_job_links(start_url: str, max_jobs: int, headless: bool = True) -> L
     return result
 
 
-def fetch_job_from_hiringcafe(context: BrowserContext, job_url: str) -> Optional[Job]:
+def fetch_job_from_hiringcafe(context: BrowserContext, job_url: str, deepseek_client: OpenAI) -> Optional[Job]:
     """
     1. Open HiringCafe viewjob page
     2. Click Apply -> Get career page URL
@@ -1028,10 +1045,17 @@ def fetch_job_from_hiringcafe(context: BrowserContext, job_url: str) -> Optional
             apply_url=apply_url,
         )
         
-        # Check if should skip
-        # is_relevant, reason = check_relevance_with_ai(original_jd_text)
-        is_relevant = True
-        reason = "Forced for testing"
+        
+        # v18.0: SIMPLIFIED FEEDBACK LOOP
+        # We removed the separate "Feasibility" and "Strategist" layers.
+        # Logic is now handled entirely by the Writer Prompt + Strict Evaluator Feedback Loop.
+        
+        # Check if should skip (Legacy Relevance Check)
+        rel_result = ai_check_relevance(full_jd, deepseek_client)
+        is_relevant = rel_result.get("relevant", True)
+        reason = rel_result.get("reason", "Unknown")
+        # is_relevant = True
+        # reason = "Forced for testing"
         if not is_relevant:
             print(f"   ⊗ SKIPPED: {reason}")
             return None
@@ -1062,57 +1086,249 @@ def log_trace(path: Path, step_name: str, content: str):
         f.write(f"\n{'='*80}\n[{timestamp}] {step_name}\n{'='*80}\n{content}\n")
 
 def ai_clean_jd(jd_text, deepseek_client):
-    """Layer 1: Use AI to extract ONLY technical requirements"""
+    """
+    Layer 1: Clean JD while preserving 100% of ATS-critical keywords
     
-    prompt = f"""Extract ONLY the technical job requirements. Remove all non-technical content.
+    STRATEGY:
+    - ATS systems score resumes by counting keyword matches
+    - We must preserve EVERY skill (hard + soft) for maximum ATS score
+    - Remove only marketing fluff that adds no scoring value
+    - Keep sponsorship mentions for Layer 2 to evaluate
+    """
+    
+    prompt = f"""You are an ATS keyword extraction expert. Your job is to clean this job description while preserving EVERY keyword that an Applicant Tracking System would score.
 
-REMOVE: Company marketing, salary, benefits, EEO, application instructions, work location
+**CRITICAL - PRESERVE 100% OF THESE:**
 
-KEEP ONLY: Job responsibilities, required skills/tools/languages, experience, education, preferred qualifications, citizenship/clearance requirements
+1. **HARD SKILLS** (Programming languages, frameworks, tools, technologies):
+   Examples: Python, Java, AWS, Docker, React, SQL, MongoDB, Git, CI/CD, Kubernetes
 
-Job Description:
-{jd_text}
+2. **SOFT SKILLS** (ATS scores these heavily):
+   - Communication: Written, Verbal, Active Listening, Presentation
+   - Leadership: Mentoring, Coaching, Team Lead, Influence, Delegation
+   - Collaboration: Cross-functional, Teamwork, Stakeholder Management
+   - Problem-Solving: Analytical, Critical Thinking, Troubleshooting, Debugging
+   - Adaptability: Fast-paced, Agile, Flexible, Growth Mindset
+   - Organization: Time Management, Prioritization, Multi-tasking
+   - Initiative: Self-starter, Proactive, Ownership, Accountability
+   - Attention to Detail, Quality-focused, Process Improvement
 
-Return clean technical requirements only."""
+3. **EXPERIENCE REQUIREMENTS:**
+   - Years of experience (e.g., "3+ years", "5-7 years")
+   - Education (Bachelor's, Master's, degree requirements)
+   - Certifications (AWS Certified, PMP, etc.)
+
+4. **JOB RESPONSIBILITIES:**
+   - ALL duties and responsibilities
+   - Day-to-day tasks
+   - Project types
+
+5. **QUALIFICATIONS:**
+   - Required skills
+   - Preferred/nice-to-have skills
+   - Domain knowledge
+
+6. **WORK CONTEXT** (Important for matching):
+   - Work authorization/sponsorship mentions (keep verbatim - don't interpret)
+   - Security clearance mentions
+   - Travel requirements
+   - Work location/remote policy
+
+**REMOVE ONLY:**
+- Company history/About Us marketing text
+- "Why join us" / company culture fluff
+- Office perks (free lunch, gym, happy hours)
+- Detailed benefits descriptions (401k details, insurance plans)
+- EEO statements (except work authorization sentences)
+- Application instructions (how to apply)
+
+**OUTPUT FORMAT:**
+Return cleaned JD with structure:
+[Any work authorization/sponsorship statements if present]
+
+**Responsibilities:**
+[Bullet list of all responsibilities]
+
+**Required Skills/Tools/Languages:**
+[Comprehensive list - hard AND soft skills]
+
+**Preferred Qualifications:**
+[Nice-to-have skills]
+
+**Experience Requirements:**
+[Years, education, certifications]
+
+**Example Input:**
+"About Us: We're a leading fintech company... [3 paragraphs]
+Responsibilities: Build scalable APIs, collaborate with product teams, mentor junior developers...
+Requirements: 5+ years Python, AWS, strong communication skills, Bachelor's degree
+Benefits: 401k matching, health insurance... [2 paragraphs]"
+
+**Example Output:**
+**Responsibilities:** Build scalable APIs, collaborate with product teams, mentor junior developers
+
+**Required Skills:** Python, AWS, communication skills, collaboration, mentoring
+
+**Experience Requirements:** 5+ years of experience, Bachelor's degree
+
+---
+Job Description to Clean:
+{jd_text}"""
 
     try:
         response = deepseek_client.chat.completions.create(
             model="deepseek-chat",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.1,
-            max_tokens=2000
+            max_tokens=2500
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
         print(f"      ⚠️  AI cleaning failed: {e}")
         return jd_text
 
+
 def ai_check_relevance(clean_jd, deepseek_client):
-    """Layer 2: Check if job is SOFTWARE/DATA domain"""
+    """
+    Layer 2: Filter out non-software/data jobs AND sponsorship blockers
     
-    prompt = f"""Determine if this is a SOFTWARE or DATA engineering job.
+    STRATEGY:
+    - Only process jobs we can actually apply to (software/data domain)
+    - Only process jobs that will sponsor (or don't mention restrictions)
+    - Reduce wasted processing on irrelevant jobs
+    - Two separate checks: domain fit + work authorization
+    """
+    
+    prompt = f"""You are a job relevance filter for a SOFTWARE/DATA ENGINEERING candidate. Evaluate if this job is relevant and if there are any blocking work authorization issues.
 
-SKIP IF: Security clearance, US citizenship required, embedded systems, medical devices, electrical/mechanical/civil engineering, hardware, bioinformatics
+**PART 1: DOMAIN RELEVANCE CHECK**
 
-KEEP IF: Software engineering, data engineering, ML/AI, DevOps, mobile dev (ANY tech stack OK)
+✅ **KEEP these jobs (Software/Data domains):**
+- Software Engineering: Backend, Frontend, Full-stack, Mobile, Web
+- Data Engineering: ETL/ELT, Data Pipelines, Data Warehousing
+- DevOps/SRE/Platform Engineering: CI/CD, Cloud Infrastructure, Kubernetes
+- Machine Learning/AI Engineering: ML Models, NLP, Computer Vision
+- Cloud Engineering: AWS, Azure, GCP architecture and services
+- API Development: REST, GraphQL, Microservices
+- Database Engineering: SQL, NoSQL, Database Administration
+- QA/Test Automation: Test frameworks, automation engineering
 
-Job: {clean_jd}
+ANY tech stack is acceptable: Python, Java, C#, JavaScript, Go, Rust, etc.
 
-JSON only: {{"relevant": true/false, "reason": "brief", "domain": "software|data|embedded|other", "blocking_issue": "none|clearance|citizenship|domain_mismatch"}}"""
+❌ **SKIP these jobs (Wrong domains):**
+- Hardware/Embedded: Firmware, FPGA, Circuit Design, PCB
+- Non-Software Engineering: Civil, Mechanical, Electrical, Chemical Engineering
+- Pure Science: Research Scientist, Lab Technician (unless ML/Data Science)
+- Energy/Resource Industries: Oil & Gas, Natural Gas, Petroleum operations
+- Biotech/Pharma: Drug discovery, Clinical trials (unless software role)
+- Manual Labor/Trades: Construction, Manufacturing Operations
+- Sales/Marketing: Unless "Sales Engineer" or "Marketing Data Analyst"
+- IT Support/Help Desk: Desktop support, Level 1 support (unless DevOps)
+
+**PART 2: WORK AUTHORIZATION CHECK**
+
+❌ **BLOCKING - SKIP if EXPLICITLY states:**
+Hard blocks:
+- "Sponsorship not available"
+- "Will not sponsor" / "Cannot sponsor"
+- "No visa sponsorship"
+- "US Citizenship required" / "Must be US Citizen"
+- "Must be authorized to work without sponsorship"
+- "Green Card required"
+- "Security clearance required" / "Active clearance required"
+- "Polygraph required"
+- "Graduation date after August 2025" / "Must graduate in 2026" / "Class of 2026" (SKIP FUTURE GRADS)
+
+✅ **OK - KEEP if:**
+- No mention of sponsorship/citizenship (MOST JOBS - this is fine!)
+- "Sponsorship available" / "Will sponsor"
+- Only mentions "work authorization" in EEO statement
+- Only mentions "citizenship" in non-discrimination clause
+
+**CRITICAL:** If there's NO mention of sponsorship at all, that means it's FINE. Absence of restriction = OK to apply.
+
+**EXAMPLES:**
+
+Example 1 - KEEP:
+"We're seeking a Senior Software Engineer with 5+ years Python experience..."
+[No sponsorship mention]
+→ KEEP: Software domain + No restrictions mentioned
+
+Example 2 - SKIP:
+"Looking for Firmware Engineer... Security clearance required"
+→ SKIP: Wrong domain (embedded) + Clearance required
+
+Example 3 - SKIP:
+"Data Engineer needed. US Citizenship required."
+→ SKIP: Wrong domain but citizenship restriction
+
+Example 4 - KEEP:
+"Backend Engineer... We do not discriminate based on citizenship or national origin"
+→ KEEP: Software domain + EEO statement is NOT a restriction
+
+Example 5 - KEEP:
+"Machine Learning Engineer... visa sponsorship available for qualified candidates"
+→ KEEP: ML domain + Sponsorship available
+
+---
+Job Description to Evaluate:
+{clean_jd}
+
+**OUTPUT FORMAT (JSON):**
+{{
+  "relevant": true/false,
+  "reason": "Brief explanation (e.g., 'Software engineering role with Python/AWS - relevant' or 'Embedded firmware role - wrong domain')",
+  "blocking_issue": null or "citizenship" or "clearance" or "wrong_domain"
+}}
+
+Be very careful: Only mark blocking_issue if EXPLICITLY stated. If unsure, keep the job."""
 
     try:
         response = deepseek_client.chat.completions.create(
             model="deepseek-chat",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.1,
-            max_tokens=300
+            max_tokens=500
         )
-        import json, re
+        
         result = response.choices[0].message.content.strip()
-        result = re.sub(r'^```json\s*|\s*```$', '', result, flags=re.MULTILINE)
-        return json.loads(result)
-    except:
-        return {"relevant": True, "reason": "Check failed", "domain": "unknown", "blocking_issue": "none"}
+        
+        # Parse JSON response
+        try:
+            # Clean markdown JSON block if present
+            if "```json" in result:
+                result = result.split("```json")[1].split("```")[0].strip()
+            elif "```" in result:
+                result = result.split("```")[1].split("```")[0].strip()
+                
+            import json
+            parsed = json.loads(result)
+            
+            # Determine if we should skip
+            if not parsed.get("relevant", True):
+                return {"relevant": False, "reason": parsed.get("reason", "Not relevant"), "blocking_issue": parsed.get("blocking_issue")}
+            
+            if parsed.get("blocking_issue"):
+                 return {"relevant": False, "reason": f"Blocking issue: {parsed['blocking_issue']} - {parsed.get('reason', '')}", "blocking_issue": parsed.get("blocking_issue")}
+                
+            return {"relevant": True, "reason": parsed.get("reason", "Relevant and no restrictions")}
+            
+        except json.JSONDecodeError:
+            # Fallback: if can't parse, be conservative and keep the job
+            print(f"      ⚠️  Could not parse relevance JSON, keeping job by default")
+            return {"relevant": True, "reason": "Could not parse response - keeping job"}
+            
+    except Exception as e:
+        print(f"      ⚠️  Relevance check failed: {e}")
+        return {"relevant": True, "reason": f"Check failed, keeping job: {e}"}
+
+
+
+
+# v18.0: STRATEGY FUNCTIONS REMOVED
+# The Strategy Logic is now embedded directly in the Writer Prompts and Evaluator Feedback Loop.
+# This keeps the pipeline purely iterative.
+
 
 
 def escape_latex_special_chars(text: str) -> str:
@@ -1125,15 +1341,18 @@ def escape_latex_special_chars(text: str) -> str:
     if not isinstance(text, str):
         return text
 
-    # 1. Convert Markdown bold (**text**) to LaTeX (\textbf{text})
     if "**" in text:
         text = re.sub(r'\*\*(.*?)\*\*', r'\\textbf{\1}', text)
 
+    # 1b. ALLOW raw \textbf{...} if AI outputs it (User Request)
+    # We must ensure we don't escape the leading \ of \textbf
+    # But we DO need to escape other backslashes. 
+    # Current strategy: We escape all special chars, but use negative lookbehind for \.
+    
     # 2. Escape special chars using Negative Lookbehind to avoid double-escaping
     # Values to escape: % $ & # _ { }
-    # Note: \ is tricky. We generally assume \ is for a command if followed by letters.
+    # Note: excluding { } for now as they are used in \textbf{}
     
-    # Simple chars that just need a backslash if not present
     chars_to_escape = ['%', '$', '&', '#', '_']
     for char in chars_to_escape:
         # Replace char with \char, BUT ONLY if it's not preceded by \
@@ -1162,11 +1381,63 @@ def recursive_escape(data):
     else:
         return data
 
+def apply_bolding_to_metrics(data):
+    """
+    Recursively wraps metrics (%, $) in \textbf{} for LaTeX.
+    Expects input strings to be ALREADY escaped (e.g. 25\%).
+    """
+    if isinstance(data, dict):
+        return {k: apply_bolding_to_metrics(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [apply_bolding_to_metrics(v) for v in data]
+    elif isinstance(data, str):
+        # Regex to find:
+        # 1. Percentages: 25\% or 25.5\% (Note: recursive_escape adds \)
+        # 2. Money: \$50K, \$100, \$1.5M
+        # 3. Large Numbers: 10TB, 50GB (Optional, but user mentioned 10TB)
+        # We target strict patterns to avoid false positives.
+        
+        # Pattern groups:
+        # Group 1: Percentages (e.g. 25\% or 30\%)
+        # Group 2: Money (e.g. \$50K)
+        # Group 3: Data Sizes (e.g. 10TB) - Added per prompt example
+        
+        # Note: In regex, matching a Literal backslash requires checks.
+        
+        def bold_repl(match):
+            val = match.group(0)
+            # Avoid double bolding if AI already did it
+            if "textbf" in val: return val
+            
+            # Additional check: If the match is inside an existing \textbf{...}, skip it.
+            # This is hard with regex alone, but 'textbf' check above catches the immediate inner match.
+            # If the input string is "\textbf{25\%}", the regex might match "25\%".
+            # We need to rely on the fact that if we search recursively, we might hit it.
+            
+            return f"\\textbf{{{val}}}"
+
+        # Improved Pattern:
+        # We use a negative lookbehind/lookahead strategy or just simple exclusion
+        # But for safety, let's keep it simple: If the string ALREADY has \textbf, do not touch it.
+        if "\\textbf" in data:
+            return data
+            
+        pattern = r'(\d+(?:\.\d+)?\\%)|(\\\$\d+(?:,\d+)*(?:\.\d+)?[KkMmBb]?)|(\d+(?:\.\d+)?[TGMgK]B)'
+        
+        return re.sub(pattern, bold_repl, data)
+    else:
+        return data
+
 def render_resume_from_template(template_path: str, json_data: dict) -> str:
     """Render the Jinja2 LaTeX template with JSON data (Escaping LaTeX chars)"""
     try:
         # Pre-process JSON to escape chars
         safe_json = recursive_escape(json_data)
+        
+        # Apply Bolding Logic Programmatically (User Requirement: Percentage Pop)
+        # RE-ENABLED: Fallback for when AI Writer output fails to include \textbf{}
+        styled_json = apply_bolding_to_metrics(safe_json)
+        # styled_json = safe_json
         
         env = jinja2.Environment(
             block_start_string='{%',
@@ -1178,9 +1449,10 @@ def render_resume_from_template(template_path: str, json_data: dict) -> str:
             loader=jinja2.FileSystemLoader(os.path.dirname(template_path))
         )
         template = env.get_template(os.path.basename(template_path))
-        return template.render(**safe_json)
+        return template.render(**styled_json)
     except Exception as e:
         raise RuntimeError(f"Template rendering failed: {e}")
+
 
 
 def generate_resume_json_deepseek(
@@ -1194,17 +1466,28 @@ def generate_resume_json_deepseek(
 ) -> dict:
     """Use DeepSeek to generate tailored resume CONTENT (JSON only)"""
     
+    # [v2.0 Logic] Calculate Soft Skills Ratio
+    soft_skills = ["communication", "collaboration", "teamwork", "leadership", "mentoring", "ownership", "problem-solving"]
+    soft_count = sum(1 for s in soft_skills if s in cleaned_jd.lower())
+    total_words = len(cleaned_jd.split())
+    # Heuristic: Approximate keyword density
+    soft_ratio = str(round(soft_count / (total_words * 0.05 + 1), 2)) # Normalized ratio
+    
     prompt = f"""{resume_prompt}
 
 JOB INFORMATION:
 Title: {job.title}
 Company: {job.company}
+Soft Skills Ratio: {soft_ratio} (>0.1 suggests higher weight)
 
 JOB DESCRIPTION (trimmed):
 {cleaned_jd}
 
 BASE RESUME JSON:
 {base_resume_json}
+
+### v17.0 STRATEGIC BLUEPRINT (EXECUTE THIS):
+{json.dumps(job.strategy, indent=2) if hasattr(job, 'strategy') else "No Strategy Provided."}
 """
 
     if trace_path:
@@ -1242,68 +1525,9 @@ BASE RESUME JSON:
         return json_data
     
     except Exception as e:
-        raise RuntimeError(f"DeepSeek API error: {e}")
-
-
-
-
-def refine_resume_with_feedback(
-    deepseek_client: OpenAI,
-    previous_resume_tex: str,
-    feedback: str,
-    cleaned_jd: str,
-    job: Job,
-    trace_path: Optional[Path] = None,
-    audit_logger: Optional['AuditLogger'] = None,
-) -> str:
-    """Refine resume based on Gemini feedback (iterations 2 and 3)"""
-    
-    prompt = f"""You are refining a resume based on evaluator feedback.
-
-PREVIOUS RESUME:
-{previous_resume_tex}
-
-JOB: {job.title} at {job.company}
-JOB REQUIREMENTS:
-{cleaned_jd}
-
-EVALUATOR FEEDBACK:
-{feedback}
-
-    4. Implementation Priority Matrix (Rank ALL adjustments)
-
-    INSTRUCTIONS:
-    1. Address the 'HIGH IMPACT' and 'MEDIUM IMPACT' items from the feedback.
-    2. Enforce the METRIC BOUNDARIES (e.g., small team size, realistic cost savings).
-    3. Ensure Tech alignment (ValueLabs = Entry/Mid, Albertsons = Mid).
-    4. Maintain the specific LaTeX structure provided.
-    5. DO NOT invent domain experience (Medical, Fintech) if not in base resume.
-    
-    CRITICAL: Return ONLY complete LaTeX code (\\documentclass to \\end{{document}})
-    NO markdown, NO commentary, ONLY LaTeX."""
-
-    if trace_path:
-        log_trace(trace_path, "DeepSeek REFINE Prompt", prompt)
-
-    if audit_logger:
-        audit_logger.log(f"05_writer_prompt_refine.txt", prompt)
-
-    try:
-        response = deepseek_client.chat.completions.create(
-            model=DEEPSEEK_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.1,
-        )
-        latex = response.choices[0].message.content.strip()
-        if trace_path:
-             log_trace(trace_path, "DeepSeek REFINE Output", latex)
-        
-        if audit_logger:
-            audit_logger.log(f"06_generated_raw_latex_refine.txt", latex)
-
-        return latex
-    except Exception as e:
-        raise Exception(f"DeepSeek refinement error: {e}")
+        print(f"      ❌ DeepSeek Generation Failed: {e}")
+        # Fallback: return empty dict or try to parse partial
+        return {}
 
 
 def evaluate_resume_with_gemini(
@@ -1311,241 +1535,95 @@ def evaluate_resume_with_gemini(
     resume_latex: str,
     job: Job,
     cleaned_jd: str,
+    prompt_template: str,
     trace_path: Optional[Path] = None,
     audit_logger: Optional['AuditLogger'] = None,
 ) -> Tuple[int, str, bool]:
     """Use Gemini to evaluate resume quality and provide feedback"""
     
-    prompt = f"""You are an elite Senior Hiring Manager and Executive Recruiter with 25+ years of experience.
-    MISSION: Provide comprehensive feedback to transform this resume into a championship-caliber application.
+    # Inject dynamic values into template
+    current_date = datetime.now().strftime("%B %Y")
+    prompt = prompt_template.replace("{current_date}", current_date)
     
-    JOB: {job.title} at {job.company}
-    REQUIREMENTS:
-    {cleaned_jd}
-    
-    RESUME:
-    {resume_latex}
-    
-    REALISM CHECKS (STRICT LIABILITY):
-    1. **NO JD COPYING (Major Penalty):** 
-       - Check if phrases are copied verbatim from the JD. If >2 phrases are exact copies, SCORE < 70.
-       - Demand rephrasing into "Action + Tool + Result".
+    # Construct the full prompt context
+    full_prompt = f"""
+{prompt}
 
-    2. **REALISM & DOMAIN HONESTY (Major Penalty):**
-       - Candidate has 3 years exp (ValueLabs) + 1.5 years (Albertsons).
-       - If they claim "Mentored junior engineers", PENALIZE. (Use "Onboarded" or "Code Reviewed").
-       - If they claim "Architected" or "Spearheaded", PENALIZE.
-       - If they rename projects to match the JD's domain (e.g. Finance -> Healthcare), PENALIZE.
+*** RESUME TO EVALUATE (LaTeX Source) ***
+{resume_latex}
 
-    3. **KEYWORD STUFFING:**
-       - If a tool (e.g. Kafka) appears >4 times, penalize.
-
-    4. **IMPACT METRICS:**
-       - Are the metrics realistic? (e.g. <30% improvement, <$100k savings).
-       - Reject "100% improvement" or "Saved $1M".
-
-    5. **ATS ALIGNMENT:**
-       - Does it mention the core stack (Languages, Frameworks, DBs) from the JD?
-
-    SCORING RULES (MANDATORY):
-    - **BULLET COUNT:** Expect **6-8 high-density bullets** per role. Do NOT ask for more.
-    - **XYZ FORMULA:** Bullets MUST follow "Action + Metric + Method". Penalize if missing.
-    - **SUMMARY CHECK:** Must be 3-4 lines, Role Specific, and include Hard Skills. Ignore "Summary" header check, focus on content.
-    - **NO FLUFF:** Penalize generic phrases like "Responsible for...".
-    
-    DELIVER YOUR EXPERT ANALYSIS:
-    
-    1. DIAGNOSTIC VERDICT
-       - Current strength (Poor/Average/Good/Excellent/Outstanding)
-       - Interview likelihood (with reasoning)
-       - ATS Score /100
-       - Realism Audit (Flag inflated claims)
-    
-    2. TECHNOLOGY & SKILLS VALIDATION
-       - Check if technologies listed for ValueLabs/Albertsons match reality for those roles.
-       - Flag mismatch (e.g. claiming niche fintech tools at a retail company).
-    
-    3. STRATEGIC GAPS ANALYSIS
-       - What is missing for a 4-year experienced engineer?
-       - Career progression logic check.
-       
-    4. ACTIONABLE IMPROVEMENT DIRECTIVES
-       - Content Additions
-       - Language Optimization
-       - Structural Adjustments
-       
-    5. IMPLEMENTATION PRIORITY MATRIX (CRITICAL)
-       - HIGH IMPACT (Must-fix for interview chance)
-       - MEDIUM IMPACT (Significant strengthening)
-       - LOW IMPACT: IGNORE. Do NOT list small "polish" items. We only care about major flaws.
-       
-    6. ITERATION COMMITMENT
-       - If there are NO 'HIGH IMPACT' or 'MEDIUM IMPACT' issues, you MUST say:
-       "STATUS: READY FOR SUBMISSION"
-       - Only say "STATUS: ITERATE" if there is a fundamental flaw (e.g. missing tools, generic bullets).
-       - Do NOT iterate for small wording tweaks. Approval bar is "Strong Candidate", not "Impossible Perfection".
-    
-    RESPOND FORMAT:
-    
-    STATUS: [ITERATE / READY FOR SUBMISSION]
-    TOTAL SCORE: __/100
-    
-    VERDICT: [text]
-    REALISM: [PASS/FAIL - comments]
-    
-    FEEDBACK:
-    [Detailed analysis following the sections above]
-    """
+*** JOB DESCRIPTION ***
+{cleaned_jd}
+"""
 
     try:
         if audit_logger:
-            audit_logger.log("07_evaluator_prompt.txt", prompt)
-
+            audit_logger.log("07_evaluation_prompt.md", full_prompt)
+            
+        print(f"      -> Sending to Gemini ({GEMINI_MODEL})...")
         response = gemini_client.models.generate_content(
             model=GEMINI_MODEL,
-            contents=prompt,
-            config=genai.types.GenerateContentConfig(temperature=0.7),
+            contents=full_prompt,
+            config=genai.types.GenerateContentConfig(
+                temperature=0.2, # Low temperature for strict evaluation
+            )
         )
         
-        text = response.text.strip()
-        if trace_path:
-             log_trace(trace_path, "Gemini EVALUATION Output", text)
+        evaluation_text = response.text
         
         if audit_logger:
-            audit_logger.log("08_evaluator_feedback_raw.txt", text)
-
-        # Parse score with multiple patterns (handling markdown like **85**)
-        score_patterns = [
-            r"TOTAL SCORE:[\s*]*(\d+)",
-            r"ATS SCORE:[\s*]*(\d+)",
-            r"SCORE:[\s*]*(\d+)",
-            r"RATING:[\s*]*(\d+)"
-        ]
-        
-        score = 0
-        for pattern in score_patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                print(f"      👀 Debug: Found raw score match: '{match.group(0)}'")
-                score = int(match.group(1))
-                break
-        
-        # Check for specific success phrases
-        ready_phrases = [
-            "READY FOR SUBMISSION",
-            "CHAMPIONSHIP STATUS", 
-            "STATUS: READY"
-        ]
-        text_upper = text.upper()
-        # Use constant APPROVAL_THRESHOLD instead of hardcoded 90
-        approved = any(phrase in text_upper for phrase in ready_phrases) or score >= APPROVAL_THRESHOLD
-        
-        feedback = text.strip()
-        return score, feedback, approved
-    
-    except Exception as e:
-        raise RuntimeError(f"Gemini API error: {e}")
+            audit_logger.log("08_evaluation_raw_response.md", evaluation_text)
 
 
-def iterative_resume_generation(
-    deepseek_client: OpenAI,
-    gemini_client: genai.Client,
-    base_resume_tex: str,
-    resume_prompt: str,
-    job: Job,
-    cleaned_jd: str,
-    trace_path: Optional[Path] = None,
-    audit_logger: Optional['AuditLogger'] = None,
-) -> Optional[IterationResult]:
-    """
-    Iterative process:
-    1. DeepSeek writes resume
-    2. Gemini evaluates (score 0-100)
-    3. Repeat until score >= 85 or max iterations reached
-    """
-    
-    print(f"\n   🤖 Starting iterative resume generation...")
-    
-    best_iteration = None
-    best_score = 0
-    current_resume = base_resume_tex # Start with base
-    last_feedback = ""
-    
-    current_resume = base_resume_tex # Start with base
-    last_feedback = ""
-    
-    # JD is already cleaned and passed as cleaned_jd argument
-    print(f"      using pre-cleaned JD: {len(cleaned_jd)} chars")
-
-    for i in range(1, MAX_ITERATIONS + 1):
-        print(f"\n   📝 Iteration {i}/{MAX_ITERATIONS}")
+        # Parse JSON Response (v2.0 Evaluator)
+        print(f"      🔍 RAW GEMINI RESPONSE: {evaluation_text[:200]}...")
         
-        # DeepSeek writes
-        print(f"      -> DeepSeek: Generating resume...")
         try:
-            if i == 1:
-                # Iteration 1: Generate from Base
-                latex = generate_resume_with_deepseek(
-                    deepseek_client, base_resume_tex, resume_prompt, job, cleaned_jd, trace_path, audit_logger
-                )
-            else:
-                # Iteration 2+: Refine previous draft
-                print(f"      Use previous draft + feedback")
-                latex = refine_resume_with_feedback(
-                    deepseek_client, current_resume, last_feedback, cleaned_jd, job, trace_path, audit_logger
-                )
-        except Exception as e:
-            print(f"      ✗ DeepSeek failed: {e}")
-            # If refinement fails, try to keep previous or break?
-            if i > 1: break 
-            continue
-        
-        # Validate LaTeX
-        if not ("\\documentclass" in latex and "\\begin{document}" in latex and "\\end{document}" in latex):
-            print(f"      ✗ Invalid LaTeX structure")
-            continue
-        
-        print(f"      ✓ Generated {len(latex)} chars of LaTeX")
-        current_resume = latex # Update current resume for next loop
-        
-        # Gemini evaluates
-        print(f"      -> Gemini: Evaluating quality...")
-        try:
-            score, feedback, approved = evaluate_resume_with_gemini(
-                gemini_client, latex, job, cleaned_jd, trace_path, audit_logger
-            )
-        except Exception as e:
-            print(f"      ✗ Gemini evaluation failed: {e}")
-            score, feedback = 0, f"Evaluation error: {e}"
-        
-        print(f"      ⭐ Score: {score}/100")
-        
-        iteration = IterationResult(
-            iteration=i,
-            latex_content=latex,
-            gemini_score=score,
-            gemini_feedback=feedback,
-            model_used=DEEPSEEK_MODEL,
-        )
-        
-        if score > best_score:
-            best_score = score
-            best_iteration = iteration
-            print(f"      🏆 New Best Score: {best_score}")
-        
-        last_feedback = feedback
-        
-        # Check if approved
-        if approved:
-            print(f"      ✅ APPROVED (score >= {APPROVAL_THRESHOLD})")
-            return iteration
-        
-        # Provide feedback for next iteration
-        if i < MAX_ITERATIONS:
-            print(f"      🔄 Score {score} < {APPROVAL_THRESHOLD}. Refining...")
+            # Clean possible markdown code blocks
+            clean_json = evaluation_text.strip()
+            if clean_json.startswith("```json"):
+                clean_json = clean_json[7:]
+            if clean_json.endswith("```"):
+                clean_json = clean_json[:-3]
             
-    print(f"\n   ⚠️  Max iterations reached. Using best: score={best_score}")
-    return best_iteration
+            parsed = json.loads(clean_json.strip())
+            
+            # v2.0 Logic: 'overall_score'
+            score = parsed.get("overall_score")
+            
+            # Fallback: 'score'
+            if score is None:
+                score = parsed.get("score", 0)
+                
+            # Handle "85/100" strings
+            if isinstance(score, str):
+                if "/" in score:
+                    score = int(score.split("/")[0])
+                else:
+                    score = int(float(score))
+                    
+            score = int(score) if score is not None else 0
+            
+            # Parse Status
+            approved = score >= APPROVAL_THRESHOLD
+            
+            return score, evaluation_text, approved
+
+        except json.JSONDecodeError:
+            print(f"      ⚠️ JSON Decode Failed. Falling back to Regex.")
+            # Fallback to Regex for safety
+            score_match = re.search(r'"overall_score":\s*(\d+)', evaluation_text)
+            if not score_match:
+                score_match = re.search(r'"score":\s*(\d+)', evaluation_text)
+            
+            score = int(score_match.group(1)) if score_match else 0
+            approved = score >= APPROVAL_THRESHOLD
+            return score, evaluation_text, approved
+
+        
+    except Exception as e:
+        print(f"      ❌ Gemini Evaluation Failed: {e}")
+        return 0, f"Evaluation failed: {e}", False
 
 
 # ============================================================================
@@ -1656,7 +1734,21 @@ def save_job_package(
     # 3. Save best resume LaTeX
     (package_dir / "resume.tex").write_text(best_iteration.latex_content, encoding="utf-8")
     
-    # 4. Copy PDF as NuthanReddy.pdf
+    # 4. Save meta.json (CRITICAL for Chrome Extension Sync)
+    # This file matches what folder_reader.py expects, making the job instantly visible in the extension
+    meta_content = {
+        "company": job.company,
+        "title": job.title,
+        "job_url": job.url,
+        "apply_url": job.apply_url,
+        "resume_text": best_iteration.resume_json.get("summary", "")[:500], # Preview
+        "status": "generated", # Initial status
+        "created_at": str(datetime.now())
+    }
+    (package_dir / "meta.json").write_text(json.dumps(meta_content, indent=2), encoding="utf-8")
+    print(f"      ✓ Synced to Chrome Extension (meta.json created)")
+
+    # 5. Copy PDF as NuthanReddy.pdf
     final_pdf = package_dir / "NuthanReddy.pdf"
     final_pdf.write_bytes(pdf_path.read_bytes())
     
@@ -1702,50 +1794,25 @@ def main_hiringcafe():
     parser = argparse.ArgumentParser(
         description="HiringCafe Job Application Automation with DeepSeek + Gemini"
     )
-    parser.add_argument(
-        "--start_url",
-        required=True,
-        help="HiringCafe search URL with filters"
-    )
-    parser.add_argument(
-        "--max_jobs",
-        type=int,
-        default=5,
-        help="Maximum jobs to process"
-    )
-    parser.add_argument(
-        "--headless",
-        action="store_true",
-        help="Run browser in headless mode"
-    )
-    parser.add_argument(
-        "--out_dir",
-        default=str(Path.home() / "Desktop" / "Google Auto Internet"),
-        help="Output directory (default: ~/Desktop/Google Auto)"
-    )
-    parser.add_argument(
-        "--profile",
-        default="profile.json",
-        help="Path to profile.json for auto-submission"
-    )
-    parser.add_argument(
-        "--base_resume",
-        default="base_resume.tex",
-        help="Base LaTeX resume template"
-    )
-    parser.add_argument(
-        "--resume_prompt",
-        default="resume_json_prompt.txt",
-        help="Resume customization instructions (JSON mode)"
-    )
-    
-    parser.add_argument(
-        "--resume_template",
-        default="resume_template.tex",
-        help="Jinja2 LaTeX template"
-    )
-    
-    parser.add_argument("--audit", action="store_true", help="Enable visual audit mode (save step-by-step artifacts)")
+    import csv
+    # job_aggregator is imported at top of file, no need to import here again if it was in lines 1-1400.
+    # But just in case:
+    try:
+        import job_aggregator
+    except ImportError:
+        pass # Assuming unused if running scrape_full_jd logic inline
+
+    parser.add_argument("--start_url", required=True, help="HiringCafe search URL with filters")
+    parser.add_argument("--max_jobs", type=int, default=5, help="Maximum jobs to process")
+    parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
+    parser.add_argument("--out_dir", default=str(Path.home() / "Desktop" / "Google Auto"), help="Output directory")
+    parser.add_argument("--profile", default="profile.json", help="Path to profile.json for auto-submission")
+    parser.add_argument("--base_resume", default="base_resume.tex", help="Base LaTeX resume template")
+    parser.add_argument("--resume_prompt", default="resume_json_prompt_v3.txt", help="Resume customization instructions (JSON mode)")
+    parser.add_argument("--evaluator_prompt", default="resume_evaluator_prompt_v3.txt", help="Evaluator instructions")
+    parser.add_argument("--iteration_prompt", default="resume_iteration_prompt_v3.txt", help="Iteration instructions (JSON mode)")
+    parser.add_argument("--resume_template", default="resume_template.tex", help="Jinja2 LaTeX template")
+    parser.add_argument("--audit", action="store_true", help="Enable visual audit mode")
     
     args = parser.parse_args()
     
@@ -1763,14 +1830,10 @@ def main_hiringcafe():
     # Validate API keys
     if not os.getenv("DEEPSEEK_API_KEY"):
         print("❌ ERROR: DEEPSEEK_API_KEY not set")
-        print("   export DEEPSEEK_API_KEY='sk-...'")
         return
-    
-    
     
     if not os.getenv("GEMINI_API_KEY"):
         print("❌ ERROR: GEMINI_API_KEY not set")
-        print("   export GEMINI_API_KEY='AIzaSy...'")
         return
     
     # Initialize API clients
@@ -1778,11 +1841,8 @@ def main_hiringcafe():
         api_key=os.getenv("DEEPSEEK_API_KEY"),
         base_url="https://api.deepseek.com"
     )
-    
     gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
-
-    
     profile_path = Path(args.profile)
     if not profile_path.exists():
          print(f"❌ ERROR: Profile not found: {profile_path}")
@@ -1794,6 +1854,7 @@ def main_hiringcafe():
     # Load Files
     base_resume_path = Path(args.base_resume)
     resume_prompt_path = Path(args.resume_prompt)
+    evaluator_prompt_path = Path(args.evaluator_prompt)
     template_path = str(Path(args.resume_template).resolve())
     
     if not base_resume_path.exists():
@@ -1804,8 +1865,13 @@ def main_hiringcafe():
         print(f"❌ ERROR: Resume prompt not found: {resume_prompt_path}")
         return
 
+    if not evaluator_prompt_path.exists():
+        print(f"❌ ERROR: Evaluator prompt not found: {evaluator_prompt_path}")
+        return
+
     base_resume_tex = base_resume_path.read_text(encoding="utf-8")
     resume_prompt = resume_prompt_path.read_text(encoding="utf-8")
+    evaluator_prompt = evaluator_prompt_path.read_text(encoding="utf-8")
     
     output_root = Path(args.out_dir)
     output_root.mkdir(parents=True, exist_ok=True)
@@ -1822,6 +1888,7 @@ def main_hiringcafe():
     print(f"Approval score: {APPROVAL_THRESHOLD}")
     print(f"Max iterations: {MAX_ITERATIONS}")
     print(f"Headless:       {args.headless}")
+    print(f"Evaluator Prompt: {args.evaluator_prompt}")
     print("=" * 80)
     
     # Step 1: Collect job links
@@ -1831,7 +1898,9 @@ def main_hiringcafe():
         print("\n❌ No job links found. Check your HiringCafe URL.")
         return
     
-    # Process each joby
+    # [FIX] Reverse link order (Oldest -> Newest)
+    job_links.reverse()
+    
     processed = 0
     skipped = 0
     failed = 0
@@ -1847,122 +1916,112 @@ def main_hiringcafe():
             print(f"URL: {job_url}")
             
             try:
-                # Prepare output folder early
-                # We need folder_name to extract ID, but we usually build it from job object.
-                # However, fetch_job_from_hiringcafe returns 'job'.
-                
-                # Fetch job from HiringCafe -> career page
-                job = fetch_job_from_hiringcafe(context, job_url)
-                
+                # Fetch job
+                job = fetch_job_from_hiringcafe(context, job_url, deepseek_client)
                 if not job:
                     skipped += 1
                     continue
 
-                # Now we have job, let's setup folders
+                # Setup folders
                 folder_name = build_folder_name(job)
                 job_output_dir = output_root / folder_name
                 job_output_dir.mkdir(parents=True, exist_ok=True)
-                trace_path = job_output_dir / "workflow_trace.txt"
                 
-                # Audit Init
+                # Check duplication
+                if (job_output_dir / "NuthanReddy.pdf").exists():
+                    print(f"   ⏩ SKIPPING: Already processed ({folder_name})")
+                    processed += 1
+                    continue
+
+                trace_path = job_output_dir / "workflow_trace.txt"
                 audit_logger = AuditLogger(job.job_id, job.company, output_root, args.audit)
                 
-                # Step 1 & 2: Data & Extraction
+                # Log Raw
                 audit_logger.log("01_raw_scraped_data.json", json.dumps(job.__dict__, default=str, indent=2))
                 audit_logger.log("02_extracted_jd_raw.txt", job.description)
                 
-                # Trim JD for LLM
+                # Clean JD
+                # Clean JD
                 trimmed_jd = trim_job_description(job.description)
-                # Smart Clean (Fixes typos, safe trimming)
                 trimmed_jd = clean_jd_smart(trimmed_jd)
                 print(f"   ✂️  Trimmed JD: {len(trimmed_jd)} chars")
 
-                # AI Clean JD ONCE (before iterations)
                 print(f"   🤖 AI cleaning JD...")
                 try:
                     cleaned_jd = ai_clean_jd(trimmed_jd, deepseek_client)
-                    ai_savings = 100 - (len(cleaned_jd) / len(trimmed_jd) * 100) if len(trimmed_jd) > 0 else 0
-                    print(f"   ✓ Cleaned: {len(trimmed_jd)} -> {len(cleaned_jd)} chars ({ai_savings:.1f}% saved)")
-                    
-                    # Step 3: Cleaning Diff
-                    audit_logger.log("03_jd_cleaning_report.md", f"BEFORE: {len(trimmed_jd)}\nAFTER: {len(cleaned_jd)}\n\n--- CLEANED TEXT ---\n{cleaned_jd}")
+                    print(f"   ✓ Cleaned: {len(trimmed_jd)} -> {len(cleaned_jd)} chars")
+                    audit_logger.log("03_jd_cleaning_report.md", f"BEFORE: {len(trimmed_jd)}\nAFTER: {len(cleaned_jd)}\n\n{cleaned_jd}")
                 except Exception as e:
-                    print(f"   ⚠️  AI cleaning failed: {e}, using trimmed JD")
+                    print(f"   ⚠️  AI cleaning failed: {e}")
                     cleaned_jd = trimmed_jd
 
-                # --- SPONSORSHIP CHECK ---
-                if not check_sponsorship_viability(cleaned_jd):
-                     print(f"   ⛔ SKIPPING: Sponsorship denial detected.")
-                     skipped += 1
-                     continue
-                # -------------------------
-
-                # Check relevance ONCE
-                print(f"   🔍 Checking relevance...")
-                try:
-                    relevance = ai_check_relevance(cleaned_jd, deepseek_client)
-                    
-                    # Step 4: Relevance
-                    audit_logger.log("04_relevance_logic.txt", str(relevance))
-                    
-                    if not relevance.get("relevant", True):
-                        print(f"   ⊗ SKIPPED: {relevance.get('reason')}")
-                        print(f"      Domain: {relevance.get('domain')}, Issue: {relevance.get('blocking_issue')}")
-                        skipped += 1
-                        continue
-                    print(f"   ✓ Relevant: {relevance.get('reason')}")
-                except Exception as e:
-                    print(f"   ⚠️  Relevance check failed: {e}, proceeding")
-
-                # Trim JD for LLM
-                # Iterative resume generation
-                # Iterative resume generation loop
+                # Relevance check
+                audit_logger.log("04_relevance.md", "Skipping explicit relevance check to ensure High Recall.")
+                
+                # Iteration Loop
                 all_iterations = []
                 best_iteration = None
-                feedback = None # No feedback for the first iteration
+                feedback = None 
+                current_resume_json = {}
 
                 for i in range(1, MAX_ITERATIONS + 1):
                     print(f"\n   ⚙️  Iteration {i}/{MAX_ITERATIONS}")
                     current_prompt = resume_prompt
+                    
                     if feedback:
                         print(f"      Use previous draft + feedback")
-                        # Use concatenation to avoid f-string errors if feedback contains { or }
-                        current_prompt = (
-                            resume_prompt + 
-                            "\n\n--- PREVIOUS DRAFT JSON (EDIT THIS) ---\n" +
-                            json.dumps(best_iteration['resume_data'] if best_iteration else resume_data, indent=2) +
-                            "\n\n--- CRITICAL FEEDBACK FROM LAST ITERATION ---\n" + 
-                            str(feedback) + 
-                            "\n\nINSTRUCTION: Refine the PREVIOUS DRAFT based on feedback. Do not start from scratch if the previous content was good."
-                        )
+                        
+                        iteration_prompt_path = Path(args.iteration_prompt)
+                        if iteration_prompt_path.exists():
+                            # Load dynamic iteration prompt from file
+                            base_iter_prompt = iteration_prompt_path.read_text(encoding="utf-8")
+                            current_prompt = (
+                                base_iter_prompt + 
+                                "\n\n--- PREVIOUS DRAFT JSON ---\n" +
+                                json.dumps(best_iteration['resume_data'] if best_iteration else current_resume_json, indent=2) +
+                                "\n\n--- FEEDBACK ---\n" + 
+                                str(feedback) + 
+                                "\n\nINSTRUCTION: Refine based on feedback."
+                            )
+                        else:
+                            # Fallback to legacy logic
+                            current_prompt = (
+                                resume_prompt + 
+                                "\n\n--- PREVIOUS DRAFT JSON ---\n" +
+                                json.dumps(best_iteration['resume_data'] if best_iteration else current_resume_json, indent=2) +
+                                "\n\n--- FEEDBACK ---\n" + 
+                                str(feedback) + 
+                                "\n\nINSTRUCTION: Refine based on feedback."
+                            )
                     
                     try:
-                        # Step 5: Generate Resume JSON
+                        # Generate JSON
                         resume_data = generate_resume_json_deepseek(
                             deepseek_client,
-                            base_resume_path.read_text(encoding="utf-8"), # Pass base resume content
+                            base_resume_tex, # Use base resume texture as context
                             current_prompt,
                             job,
                             cleaned_jd,
                             trace_path,
                             audit_logger
                         )
+                        current_resume_json = resume_data
                         
-                        # Step 6: Render LaTeX from JSON
+                        # Render LaTeX
                         generated_latex = render_resume_from_template(template_path, resume_data)
-                        print(f"      ✓ Rendered LaTeX via Template")
+                        print(f"      ✓ Rendered LaTeX")
                         
-                        # Step 7: Evaluate with Gemini
-                        print(f"      -> Gemini: Evaluating quality...")
+                        # Evaluate (Gemini)
                         score, feedback, approved = evaluate_resume_with_gemini(
                             gemini_client,
                             generated_latex,
                             job,
                             cleaned_jd,
+                            evaluator_prompt, # PASS TEMPLATE HERE
                             trace_path,
                             audit_logger
                         )
-
+                        print(f"      ⭐ Score: {score}/100")
 
                         iteration_result = IterationResult(
                             iteration=i,
@@ -1979,397 +2038,49 @@ def main_hiringcafe():
                             best_iteration = iteration_result
                             break
                         else:
-                            print(f"      ❌ Not approved. Score: {score}. Feedback: {feedback}")
-                            # Continue to next iteration with feedback
+                            print(f"      ❌ Not approved. Score: {score}")
+                            # Loop will continue
                             
                     except Exception as e:
-                        print(f"      ❌ Generation/Evaluation failed for iteration {i}: {e}")
-                        feedback = f"Previous attempt failed with error: {e}. Please try again, focusing on generating valid JSON and LaTeX."
-                        # Don't break, try again with feedback if possible, or just skip this iteration's result
+                        print(f"      ❌ Iteration failed: {e}")
+                        feedback = f"Error: {e}"
                         continue
                 
-                if not best_iteration:
-                    # If no iteration was approved, pick the best one based on score
-                    if all_iterations:
-                        best_iteration = pick_best_resume(all_iterations)
+                # Post-Loop Handling
+                if not best_iteration and all_iterations:
+                     best_iteration = max(all_iterations, key=lambda x: x.gemini_score)
+                     print(f"   🏆 Using best iteration: score {best_iteration.gemini_score}")
+
+                if best_iteration:
+                    pdf_path = compile_latex_to_pdf(best_iteration.latex_content, output_root, "NuthanReddy")
+                    if pdf_path:
+                        save_job_package(output_root, job, cleaned_jd, best_iteration, all_iterations, pdf_path)
+                        print(f"   ✅ Processed: {job.title}")
+                        processed += 1
+                        print("\n   🚀 Ready for Batch Execution")
+                        print(f"      Run: python loader.py --source '{output_root}'")
                     else:
-                        print(f"\n   ✗ All iterations failed and no valid resumes were generated.")
+                        print("   ❌ PDF Compile failed")
                         failed += 1
-                        continue
-                
-                print(f"\n   🏆 Best iteration: #{best_iteration.iteration} (score: {best_iteration.gemini_score})")
-                
-                # Compile to PDF
-                pdf_path = compile_latex_to_pdf(
-                    best_iteration.latex_content,
-                    output_root,
-                    "NuthanReddy"
-                )
-                
-                if not pdf_path:
-                    print(f"\n   ✗ PDF compilation failed")
-                    # Save LaTeX anyway for debugging
-                    debug_dir = output_root / f"FAILED_{build_folder_name(job)}"
-                    debug_dir.mkdir(parents=True, exist_ok=True)
-                    (debug_dir / "resume.tex").write_text(best_iteration.latex_content, encoding="utf-8")
-                    (debug_dir / "JD.txt").write_text(cleaned_jd, encoding="utf-8")
+                else:
+                    print("   ❌ Failed to generate any valid resume")
                     failed += 1
-                    continue
-                
-                # Save package
-                package_dir = save_job_package(
-                    output_root, job, cleaned_jd, best_iteration, all_iterations, pdf_path
-                )
-                
-                print(f"\n   ✅ SUCCESS: {package_dir.name}/")
-                processed += 1
-                
-                # Auto-Submit (Decoupled)
-                print("\n   🚀 Ready for Batch Execution (Decoupled)")
-                print(f"      Run: python loader.py --source '{output_root}'")
-                print(f"      Run: python production_batch.py")
-                
-                # Step 9: Final Package
-                audit_logger.log("09_final_package_check.md", f"PDF: {pdf_path}\nStatus: Ready for Batcher")
-                
-                # Rate limiting
-                time.sleep(2)
-            
+                    
             except Exception as e:
-                print(f"\n   ✗ Unexpected error: {e}")
+                print(f"   ❌ Job failed: {e}")
                 failed += 1
                 continue
-        
+                
         context.close()
         browser.close()
     
-    # Final summary
-    print("\n" + "=" * 80)
-    print("📊 FINAL SUMMARY")
-    print("=" * 80)
-    print(f"✅ Processed:  {processed}")
-    print(f"⊗ Skipped:     {skipped}")
-    print(f"✗ Failed:      {failed}")
-    print(f"📁 Output:     {output_root.resolve()}")
-    print("=" * 80)
-
-def pick_best_resume(iterations: list) -> 'IterationResult':
-    """Select the best iteration based on score"""
-    if not iterations:
-        return None
-    return max(iterations, key=lambda x: x.gemini_score)
-
-def main_jobspy():
-    parser = argparse.ArgumentParser(
-        description="HiringCafe Job Application Automation with DeepSeek + Gemini"
-    )
-    import csv
-    import job_aggregator
-
-    parser.add_argument("--start_url", help="HiringCafe URL (if provided, skips JobSpy scraping)")
-    parser.add_argument("--search_term", default="Software Engineer", help="Job title to scrape from internet")
-    parser.add_argument("--location", default="United States", help="Job location")
-    parser.add_argument("--max_jobs", type=int, default=5, help="Maximum jobs to process")
-    parser.add_argument("--headless", action="store_true", help="Run browser in headless mode")
-    parser.add_argument("--out_dir", default=str(Path.home() / "Desktop" / "Google Auto Internet"), help="Output directory")
-    parser.add_argument("--profile", default="profile.json", help="Path to profile.json for auto-submission")
-    parser.add_argument("--base_resume", default="base_resume.tex", help="Base LaTeX resume template")
-    parser.add_argument("--resume_prompt", default="resume_json_prompt.txt", help="Resume customization instructions (JSON mode)")
-    parser.add_argument("--resume_template", default="resume_template.tex", help="Jinja2 LaTeX template")
-    parser.add_argument("--audit", action="store_true", help="Enable visual audit mode")
-
-    args = parser.parse_args()
-
-    # Validate API Keys
-    if not os.getenv("DEEPSEEK_API_KEY"):
-        print("❌ ERROR: DEEPSEEK_API_KEY not set")
-        return
-    if not os.getenv("GEMINI_API_KEY"):
-        print("❌ ERROR: GEMINI_API_KEY not set")
-        return
-
-    # Initialize Clients
-    deepseek_client = OpenAI(
-        api_key=os.getenv("DEEPSEEK_API_KEY"),
-        base_url="https://api.deepseek.com"
-    )
-    gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
-    # Load Files
-    base_resume_path = Path(args.base_resume)
-    resume_prompt_path = Path(args.resume_prompt)
-    template_path_obj = Path(args.resume_template)
-
-    if not base_resume_path.exists():
-        print(f"❌ ERROR: Base resume not found: {base_resume_path}")
-        return
-    if not resume_prompt_path.exists():
-        print(f"❌ ERROR: Resume prompt not found: {resume_prompt_path}")
-        return
-    
-    # Resolve template absolute path (critical for Jinja2)
-    template_path = str(template_path_obj.resolve())
-
-    profile_path = Path(args.profile)
-    if not profile_path.exists():
-         print(f"❌ ERROR: Profile not found: {profile_path}")
-         return
-    
-    with open(profile_path) as f:
-        profile = json.load(f)
-
-    base_resume_tex = base_resume_path.read_text(encoding="utf-8")
-    resume_prompt = resume_prompt_path.read_text(encoding="utf-8")
-
-    output_root = Path(args.out_dir)
-    output_root.mkdir(parents=True, exist_ok=True)
-
-    # Print configuration
-    print("=" * 80)
-    print("🚀 GOOGLE AUTO - INTERNET PIPELINE")
-    print("=" * 80)
-    print(f"Search:         {args.search_term}")
-    print(f"Location:       {args.location}")
-    print(f"Max jobs:       {args.max_jobs}")
-    print(f"Output dir:     {output_root.resolve()}")
-    print("=" * 80)
-
-    # Step 1: Scrape Jobs (Internet)
-    search_terms = [t.strip() for t in args.search_term.split(',')]
-    all_jobs_map = {} 
-
-    for term in search_terms:
-        print(f"\n🌍 Scraping Internet for: '{term}' ...")
-        
-        safe_term = "".join(x for x in term if x.isalnum())
-        term_csv = output_root / "internet_jobs" / f"jobs_{safe_term}.csv"
-        term_csv.parent.mkdir(parents=True, exist_ok=True)
-        
-        csv_file = job_aggregator.run_aggregator(
-            search_term=term,
-            location=args.location,
-            results_wanted=args.max_jobs,
-            output_file=str(term_csv)
-        )
-        
-        if not csv_file or not Path(csv_file).exists():
-            print(f"   ⚠️ No results for '{term}'")
-            continue
-
-        print(f"   📋 Reading jobs for '{term}'...")
-        with open(csv_file, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if not row.get("title") or not row.get("company"):
-                    continue
-                # Use ID from CSV or generate one
-                jid = row.get("id") or now_stamp()
-                if jid in all_jobs_map:
-                    continue
-                    
-                job = Job(
-                    url=row.get("job_url", ""),
-                    title=row.get("title", ""),
-                    company=row.get("company", ""),
-                    description=row.get("description", ""),
-                    apply_url=row.get("job_url_direct") or row.get("job_url", ""),
-                    job_id=jid
-                )
-                all_jobs_map[jid] = job
-
-    jobs_to_process = list(all_jobs_map.values())
-    print(f"\n   ✓ Total unique jobs loaded: {len(jobs_to_process)}")
-
-    processed = 0
-    skipped = 0
-    failed = 0
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=args.headless)
-        context = browser.new_context()
-
-        for idx, job in enumerate(jobs_to_process, 1):
-            print("\n" + "=" * 80)
-            print(f"🔍 JOB {idx}/{len(jobs_to_process)}")
-            print("=" * 80)
-            print(f"Title: {job.title}")
-            print(f"Company: {job.company}")
-
-            try:
-                # Folder setup
-                folder_name = build_folder_name(job)
-                job_output_dir = output_root / folder_name
-                job_output_dir.mkdir(parents=True, exist_ok=True)
-                trace_path = job_output_dir / "workflow_trace.txt"
-
-                # Audit Init
-                audit_logger = AuditLogger(job.job_id, job.company, output_root, args.audit)
-                
-                # Step 1: Log Raw Data
-                audit_logger.log("01_raw_scraped_data.json", json.dumps(job.__dict__, default=str, indent=2))
-                audit_logger.log("02_extracted_jd_raw.txt", job.description)
-
-                # Trim JD
-                trimmed_jd = trim_job_description(job.description)
-                # Smart Clean
-                trimmed_jd = clean_jd_smart(trimmed_jd)
-                print(f"   ✂️  Trimmed JD: {len(trimmed_jd)} chars")
-
-                # AI Clean JD
-                print(f"   🤖 AI cleaning JD...")
-                try:
-                    cleaned_jd = ai_clean_jd(trimmed_jd, deepseek_client)
-                    ai_savings = 100 - (len(cleaned_jd) / len(trimmed_jd) * 100) if len(trimmed_jd) > 0 else 0
-                    print(f"   ✓ Cleaned: {len(trimmed_jd)} -> {len(cleaned_jd)} chars ({ai_savings:.1f}% saved)")
-                    audit_logger.log("03_jd_cleaning_report.md", f"BEFORE: {len(trimmed_jd)}\nAFTER: {len(cleaned_jd)}\n\n--- CLEANED TEXT ---\n{cleaned_jd}")
-                except Exception as e:
-                    print(f"   ⚠️  AI cleaning failed: {e}, using trimmed JD")
-                    cleaned_jd = trimmed_jd
-
-                # Check Relevance
-                print(f"   🔍 Checking relevance...")
-                try:
-                    relevance = ai_check_relevance(cleaned_jd, deepseek_client)
-                    relevance["relevant"] = True # FORCED
-                    audit_logger.log("04_relevance_logic.txt", str(relevance))
-                    if not relevance.get("relevant", True):
-                        print(f"   ⊗ SKIPPED: {relevance.get('reason')}")
-                        skipped += 1
-                        continue
-                    print(f"   ✓ Relevant (Forced): {relevance.get('reason')}")
-                except Exception as e:
-                    print(f"   ⚠️  Relevance check failed: {e}, proceeding")
-
-                # Iterative Generation Loop
-                all_iterations = []
-                best_iteration = None
-                feedback = None
-
-                for i in range(1, MAX_ITERATIONS + 1):
-                    print(f"\n   ⚙️  Iteration {i}/{MAX_ITERATIONS}")
-                    current_prompt = resume_prompt
-                    if feedback:
-                        print(f"      Use previous draft + feedback")
-                        # Use concatenation to avoid f-string errors if feedback contains { or }
-                        current_prompt = (
-                            resume_prompt + 
-                            "\n\n--- PREVIOUS DRAFT JSON (EDIT THIS) ---\n" +
-                            json.dumps(best_iteration['resume_data'] if best_iteration else resume_data, indent=2) +
-                            "\n\n--- CRITICAL FEEDBACK FROM LAST ITERATION ---\n" + 
-                            str(feedback) + 
-                            "\n\nINSTRUCTION: Refine the PREVIOUS DRAFT based on feedback. Do not start from scratch if the previous content was good."
-                        )
-                    
-                    try:
-                        # Step 5: Generate Resume JSON
-                        # Note: Passing base_resume_tex as the 'base_resume_json' string content for context
-                        resume_data = generate_resume_json_deepseek(
-                            deepseek_client,
-                            base_resume_tex, 
-                            current_prompt,
-                            job,
-                            cleaned_jd,
-                            trace_path,
-                            audit_logger
-                        )
-                        
-                        # Step 6: Render LaTeX
-                        generated_latex = render_resume_from_template(template_path, resume_data)
-                        print(f"      ✓ Rendered LaTeX via Template")
-                        
-                        # Step 7: Evaluate
-                        print(f"      -> Gemini: Evaluating quality...")
-                        score, feedback, approved = evaluate_resume_with_gemini(
-                            gemini_client,
-                            generated_latex,
-                            job,
-                            cleaned_jd,
-                            trace_path,
-                            audit_logger
-                        )
-
-                        iteration_result = IterationResult(
-                            iteration=i,
-                            resume_json=resume_data,
-                            latex_content=generated_latex,
-                            gemini_score=score,
-                            gemini_feedback=feedback,
-                            approved=approved
-                        )
-                        all_iterations.append(iteration_result)
-
-                        if approved:
-                            print(f"      ✅ APPROVED! Score: {score}")
-                            best_iteration = iteration_result
-                            break
-                        else:
-                            print(f"      ❌ Not approved. Score: {score}. Feedback: {feedback}")
-                            continue
-
-                    except Exception as e:
-                        print(f"      ❌ Generation/Evaluation failed for iteration {i}: {e}")
-                        feedback = f"Previous attempt failed with error: {e}. Please try again."
-                        continue
-
-                # Post-Loop Handling
-                if not best_iteration:
-                    if all_iterations:
-                        best_iteration = pick_best_resume(all_iterations)
-                        print(f"\n   🏆 Best iteration (fallback): #{best_iteration.iteration} (score: {best_iteration.gemini_score})")
-                    else:
-                        print(f"\n   ✗ All iterations failed.")
-                        failed += 1
-                        continue
-
-                # Compile
-                pdf_path = compile_latex_to_pdf(
-                    best_iteration.latex_content,
-                    output_root,
-                    "NuthanReddy"
-                )
-
-                if not pdf_path:
-                    print(f"\n   ✗ PDF compilation failed")
-                    failed += 1
-                    continue
-
-                # Save Package
-                package_dir = save_job_package(
-                    output_root, job, cleaned_jd, best_iteration, all_iterations, pdf_path
-                )
-                
-                print(f"\n   ✅ SUCCESS: {package_dir.name}/")
-                processed += 1
-
-                # Auto-Submit (Decoupled)
-                print("\n   🚀 Ready for Batch Execution (Decoupled)")
-                print(f"      Run: python loader.py --source '{output_root}'")
-                audit_logger.log("09_final_package_check.md", f"PDF: {pdf_path}\nStatus: Ready for Batcher")
-
-                time.sleep(2)
-
-            except Exception as e:
-                 print(f"\n   ✗ Unexpected error: {e}")
-                 failed += 1
-                 continue
-    
-    # Final summary
-    print("\n" + "=" * 80)
-    print("📊 FINAL SUMMARY")
-    print("=" * 80)
-    print(f"✅ Processed:  {processed}")
-    print(f"⊗ Skipped:     {skipped}")
-    print(f"✗ Failed:      {failed}")
-    print(f"📁 Output:     {output_root.resolve()}")
-    print("=" * 80)
+    # Summary
+    print(f"\n✅ Processed: {processed}, ❌ Failed: {failed}")
 
 def main():
-    """Router: Call HiringCafe or JobSpy main based on --start_url"""
     import sys
-    if '--start_url' in sys.argv:
-        main_hiringcafe()
-    else:
-        main_jobspy()
+    # Only using HiringCafe mode for consistency verification
+    main_hiringcafe()
 
 if __name__ == "__main__":
     main()

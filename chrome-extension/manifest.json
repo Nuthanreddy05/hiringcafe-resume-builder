@@ -1,0 +1,90 @@
+{
+    "manifest_version": 3,
+    "name": "SmartJobApply - Personal Auto-Filler",
+    "version": "1.0.0",
+    "description": "Auto-fill job applications with AI-generated resumes",
+    "permissions": [
+        "storage",
+        "tabs",
+        "scripting",
+        "nativeMessaging"
+    ],
+    "host_permissions": [
+        "*://boards.greenhouse.io/*",
+        "*://*.greenhouse.io/*",
+        "*://jobs.lever.co/*",
+        "*://*.lever.co/*",
+        "*://*.myworkdayjobs.com/*",
+        "*://*.taleo.net/*",
+        "*://*.smartrecruiters.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://boards.greenhouse.io/*",
+                "*://*.greenhouse.io/*",
+                "*://jobs.lever.co/*",
+                "*://*.lever.co/*",
+                "*://*.myworkdayjobs.com/*",
+                "*://*.taleo.net/*",
+                "*://*.smartrecruiters.com/*",
+                "*://jobs.ashbyhq.com/*",
+                "*://*.ashbyhq.com/*"
+            ],
+            "js": [
+                "utils/constants.js",
+                "content-scripts/visual-feedback.js",
+                "content-scripts/field-finder.js",
+                "content-scripts/detector.js",
+                "content-scripts/greenhouse.js",
+                "content-scripts/ashby.js",
+                "content-scripts/taleo.js",
+                "content-scripts/lever.js",
+                "content-scripts/smartrecruiters.js",
+                "content-scripts/question-solver.js",
+                "content-scripts/resume-uploader.js"
+            ],
+            "run_at": "document_end",
+            "all_frames": true
+        },
+        {
+            "matches": [
+                "*://*.adp.com/*",
+                "*://*.workforcenow.adp.com/*",
+                "*://recruiting.adp.com/*"
+            ],
+            "js": [
+                "utils/constants.js",
+                "content-scripts/visual-feedback.js",
+                "content-scripts/field-finder.js",
+                "content-scripts/detector.js",
+                "content-scripts/generic.js",
+                "content-scripts/question-solver.js",
+                "content-scripts/resume-uploader.js"
+            ],
+            "run_at": "document_end",
+            "all_frames": true
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "utils/constants.js",
+                "content-scripts/visual-feedback.js",
+                "content-scripts/field-finder.js",
+                "content-scripts/detector.js",
+                "content-scripts/generic.js",
+                "content-scripts/question-solver.js",
+                "content-scripts/resume-uploader.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "action": {
+        "default_popup": "popup/popup.html"
+    }
+}

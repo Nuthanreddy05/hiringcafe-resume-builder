@@ -1,0 +1,86 @@
+{
+    "summary": "Software Engineer with 3+ years of experience building scalable web applications and distributed systems. Specialized in React, Node.js, Python, and AWS. Proven track record of improving system reliability by 24% and optimizing API latency by 31% in high-traffic enterprise environments.",
+    "role_albertsons": "Software Engineer",
+    "experience_albertsons": [
+        "Designed and developed cloud-based microservices using Python and Node.js, improving service reliability by 24% in customer-facing applications.",
+        "Built and deployed RESTful APIs supporting large-scale distributed systems, reducing request latency by 31% through optimized service design.",
+        "Implemented CI/CD pipelines on AWS using GitHub Actions and cloud-native tooling, shortening release cycles by 28%.",
+        "Translated business and technical requirements into scalable application features, delivering enhancements within 2--4 month project timelines.",
+        "Developed secure backend services with role-based access controls, reducing security-related defects by 19%.",
+        "Supported multi-page web applications using React and JavaScript, improving frontend load performance by 22%.",
+        "Analyzed and processed large transactional datasets to support application logic, improving data-processing throughput by 35%.",
+        "Authored technical documentation covering system architecture, API contracts, and deployment workflows, accelerating team onboarding by 21%.",
+        "Collaborated with product managers and architects to evaluate new technologies, contributing to 3 successful proof-of-concept implementations.",
+        "Troubleshot and debugged production issues across distributed services, reducing mean-time-to-resolution by 18%.",
+        "Coordinated development priorities with a 4-member agile team, consistently meeting sprint delivery commitments.",
+        "Provided guidance and code reviews for junior engineers, improving code quality and reducing rework by 16%."
+    ],
+    "role_valuelabs": "Software Engineer",
+    "experience_valuelabs": [
+        "Developed multi-page web applications using React, JavaScript, and Python, supporting business workflows for enterprise clients.",
+        "Implemented backend services using Java and Python, improving application stability by 20% across supported modules.",
+        "Designed and maintained microservice-based architectures, enabling independent scaling of services and reducing deployment risk.",
+        "Built and optimized SQL-based data access layers, improving query performance by 26%.",
+        "Supported cloud-based delivery environments on AWS, assisting with deployments and configuration management.",
+        "Processed and analyzed large, complex datasets to support application features, improving response accuracy by 14%.",
+        "Ensured software security by implementing input validation, authentication checks, and secure coding practices.",
+        "Participated in full software development lifecycle activities including design, development, testing, and release management.",
+        "Collaborated with cross-functional teams to gather requirements and translate them into technical solutions.",
+        "Debugged and resolved application defects, reducing recurring production issues by 17%.",
+        "Contributed to UI design and development efforts, improving usability scores by 15%.",
+        "Mentored junior developers on coding standards and debugging techniques, improving team productivity by 13%."
+    ],
+    "projects": [
+        {
+            "name": "Cloud-Native Distributed Application Development",
+            "duration": "Jan 2024 -- May 2024",
+            "bullets": [
+                "Designed a cloud-based distributed system using AWS services, supporting scalable application workloads.",
+                "Developed backend services in Python and Node.js with REST APIs to handle concurrent requests efficiently.",
+                "Implemented CI/CD pipelines for automated testing and deployment, reducing manual release effort by 30%.",
+                "Built a React-based frontend to support multi-page user interactions with backend services.",
+                "Applied security best practices including authentication and access control across services.",
+                "Documented system design, trade-offs, and deployment architecture in a comprehensive technical report."
+            ]
+        },
+        {
+            "name": "Web Application Architecture and Optimization Project",
+            "duration": "Aug 2023 -- Dec 2023",
+            "bullets": [
+                "Designed and developed a full-stack web application using React, Python, and SQL.",
+                "Optimized backend data access patterns, improving response times by 23%.",
+                "Implemented modular UI components to improve maintainability and reuse.",
+                "Conducted functional and integration testing to validate application behavior.",
+                "Analyzed performance bottlenecks and applied targeted improvements.",
+                "Delivered the project within a 4-month academic timeline with complete documentation."
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "name": "Programming",
+            "keywords": "Python, Java, JavaScript, Node.js"
+        },
+        {
+            "name": "Web Technologies",
+            "keywords": "React, REST APIs, HTML, CSS"
+        },
+        {
+            "name": "Cloud Platforms",
+            "keywords": "AWS (CI/CD, deployment, environment management)"
+        },
+        {
+            "name": "Software Engineering",
+            "keywords": "Microservices, distributed systems, SDLC, secure coding"
+        },
+        {
+            "name": "Databases",
+            "keywords": "SQL, relational database design, data access optimization"
+        },
+        {
+            "name": "Tools & Practices",
+            "keywords": "Git, CI/CD pipelines, debugging, technical documentation"
+        }
+    ],
+    "coursework": "Distributed Systems, Cloud Computing, Software Engineering, Data Structures, Algorithms, Machine Learning"
+}

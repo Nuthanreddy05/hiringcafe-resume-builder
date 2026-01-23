@@ -71,18 +71,18 @@ class JobManager:
     def __init__(self):
         init_db()
         
-    def add_job(self, job_id: str, url: str, company: str = "", resume_path: str = "", folder_path: str = "", ats_type: str = "") -> bool:
+    def add_job(self, job_id: str, url: str, company: str = "", resume_path: str = "", folder_path: str = "", ats_type: str = "", cover_letter: str = "") -> bool:
         conn = get_db_connection()
         try:
             c = conn.cursor()
             c.execute(
-                "INSERT OR IGNORE INTO jobs (id, url, company, status, resume_path, folder_path, ats_type) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (job_id, url, company, 'pending', resume_path, folder_path, ats_type)
+                "INSERT OR IGNORE INTO jobs (id, url, company, status, resume_path, folder_path, ats_type, cover_letter) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (job_id, url, company, 'pending', resume_path, folder_path, ats_type, cover_letter)
             )
             # Update if exists (for re-loading)
             c.execute(
-                "UPDATE jobs SET resume_path = ?, folder_path = ?, ats_type = ? WHERE id = ?",
-                (resume_path, folder_path, ats_type, job_id)
+                "UPDATE jobs SET resume_path = ?, folder_path = ?, ats_type = ?, cover_letter = ? WHERE id = ?",
+                (resume_path, folder_path, ats_type, cover_letter, job_id)
             )
             conn.commit()
             return True

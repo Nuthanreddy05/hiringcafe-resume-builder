@@ -1,0 +1,250 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=2 cm,
+    bottom=2 cm,
+    left=2 cm,
+    right=2 cm,
+    footskip=1.0 cm,
+]{geometry}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor} 
+\definecolor{primaryColor}{RGB}{0, 0, 0}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Nuthan Reddy's Resume},
+    pdfauthor={Nuthan Reddy},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+% Use a font with proper bold support
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+% Ensure bold font works
+\usepackage[T1]{fontenc}
+% Font configuration - Switch to Helvetica (Arial-like) for better Tectonic compatibility
+\usepackage{tgheros} 
+\renewcommand{\familydefault}{\sfdefault}
+
+% Settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+\pagenumbering{gobble}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing{\section}{-1pt}{0.3 cm}{0.2 cm}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{0 cm + 0.00001 cm}{0 cm + 0.00001 cm}
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\begin{document}
+
+\begin{header}
+    \fontsize{13 pt}{13 pt}\selectfont \textbf{NUTHAN REDDY VADDI REDDY}
+    
+    \vspace{0.5pt}
+    
+    \normalsize
+    nuthanreddy001@gmail.com\hspace{0.5pt}| \hspace{0.5pt}
+    +1682-406-56-46\hspace{0.5pt}| \hspace{0.5pt}
+    github.com/Nuthanreddy05\hspace{0.5pt}| \hspace{0.5pt}
+    www.linkedin.com/in/nuthan-reddy-vaddi-reddy
+\end{header}
+
+\section{Summary}
+\begin{onecolentry}
+    Software Engineer with 3+ years of experience building scalable applications for financial and enterprise systems. Specialized in Java, Python, microservices, and distributed systems. Proven track record of improving system reliability by 24\% and optimizing API latency by 31\% in high-traffic environments. Currently developing electronic trading systems and workflow management capabilities at scale.
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\section{Experience}
+
+\begin{twocolentry}{May 2024 -- Present}
+    \textbf{Software Engineer}, Albertsons -- Dallas, TX
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Built and maintained backend systems for the company's online grocery platform, helping millions of customers complete their shopping smoothly and see real-time product availability
+    
+    \item Improved system reliability by \textbf{24\%} by designing and developing cloud-based microservices using Java, Python, and Node.js in customer-facing applications
+    
+    \item Reduced API request latency by \textbf{31\%} by building and deploying RESTful APIs supporting large-scale distributed systems through optimized service design and caching strategies
+    
+    \item Shortened release cycles by \textbf{28\%} by implementing CI/CD pipelines on AWS using GitHub Actions and cloud-native tooling, enabling faster feature delivery
+    
+    \item Improved data-processing throughput by \textbf{35\%} by analyzing and processing large transactional datasets using Python and optimized algorithms to support application logic
+    
+    \item Reduced security-related defects by \textbf{19\%} by developing secure backend services with role-based access controls, input validation, and secure coding practices
+    
+    \item Accelerated team onboarding by \textbf{21\%} by authoring comprehensive technical documentation covering system architecture, API contracts, and deployment workflows
+    
+    \item Reduced mean-time-to-resolution by \textbf{18\%} by troubleshooting and debugging production issues across distributed services using monitoring tools and log analysis
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{May 2020 -- July 2023}
+    \textbf{Software Engineer}, ValueLabs -- Hyderabad
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Supported enterprise clients by building web applications that automated business workflows and provided data-driven insights across multiple industries
+    
+    \item Improved application stability by \textbf{20\%} by implementing backend services using Java and Python with microservice-based architectures across supported modules
+    
+    \item Enhanced query performance by \textbf{26\%} by building and optimizing SQL-based data access layers with indexing and schema optimization techniques
+    
+    \item Reduced recurring production issues by \textbf{17\%} by debugging and resolving application defects using systematic testing and root cause analysis
+    
+    \item Improved response accuracy by \textbf{14\%} by processing and analyzing large, complex datasets using Python and data processing libraries to support application features
+    
+    \item Automated deployment processes on AWS using Infrastructure-as-Code principles, reducing manual configuration errors by \textbf{15\%} and supporting a \textbf{99.9\%} uptime for client environments
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+
+\section{Academic Project Experience}
+
+
+\begin{twocolentry}{Jan 2024 – May 2024}
+    \textbf{Electronic Trading System Simulation (Academic Capstone)}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Designed high-performance, low-latency trading system using Java and microservices architecture, processing \textbf{10K+ simulated transactions/second} with \textbf{<50ms} response time
+    
+    \item Implemented complex workflow management using BPMN and DMN standards, enabling automated decision-making and life-cycle management for trading operations
+    
+    \item Built RESTful APIs and UI components using React and JavaScript, providing real-time trading dashboards and monitoring interfaces
+    
+    \item Developed comprehensive automated testing suite using JUnit and integration tests, achieving \textbf{95\%} code coverage and reducing regression defects
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{Aug 2023 – Dec 2023}
+    \textbf{Distributed Business Process Management System (Academic)}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Architected distributed system using microservices and event-driven architecture, enabling scalable workflow execution across \textbf{5+} independent services
+    
+    \item Implemented data visualization dashboards using React and charting libraries, providing business process analytics and performance metrics
+    
+    \item Optimized data processing pipelines using Python and SQL, improving data transformation throughput by \textbf{40\%} through parallel processing techniques
+    
+    \item Deployed containerized services using Docker on AWS, implementing CI/CD pipelines for automated testing and deployment
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+
+\section{Technical Skills}
+\begin{minipage}[t]{\linewidth}
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=2pt]
+
+\item Languages: Java, Python, JavaScript, SQL, Linux/Unix Scripting
+
+\item Frameworks \& Architecture: React, Node.js, Microservices, REST APIs, Object-Oriented Programming, Functional Programming
+
+\item Cloud \& Infrastructure: AWS, Docker, CI/CD, GitHub Actions
+
+\item Databases: Relational Databases, Non-relational Databases, SQL Optimization, Data Visualization
+
+\item Software Engineering: SDLC, Agile Development, Automated Testing, System Integration, Workflow Management (BPMN/DMN), Data Structures, Data Processing
+
+\end{itemize}
+\end{minipage}
+
+\vspace{0.2cm}
+
+\section{Education}
+\begin{twocolentry}{Aug 2023 -- May 2025}
+    \textbf{The University of Texas at Arlington,} MS in Data Science
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    \item \textbf{GPA:} 3.8/4.0
+    \item \textbf{Relevant Coursework:} Distributed Systems, Cloud Computing, Software Engineering, Data Structures, Algorithms, Machine Learning
+\end{highlights}
+\end{onecolentry}
+
+\end{document}

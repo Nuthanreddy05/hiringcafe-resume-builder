@@ -1,0 +1,63 @@
+**Responsibilities:**
+* Conduct hands-on research to explore new technologies and develop innovative solutions for Research, Development, and Innovation initiatives
+* Create and refine prototypes and pilot programs to demonstrate and validate the potential of new technologies, rapidly iterating to enhance functionality and performance
+* Design and develop high-quality technology solutions tailored to the needs of incubator or innovation programs, leveraging expertise in distributed and cloud-native systems to build robust, scalable platforms
+* Document technical specifications, designs, and best practices, and communicate technical concepts clearly to both technical and non-technical audiences
+* Collaborate with peers, technology leaders, engineers, and architects, actively participating in major technical decisions and developing well-considered technical proposals
+* Apply proven innovation frameworks to guide technology development, evaluate emerging technologies, and recommend optimal solutions for future state architecture
+
+**Required Skills/Tools/Languages:**
+* Software engineering
+* Cloud computing technologies and platforms
+* Microservices
+* Containers
+* IaaS
+* Storage
+* Security
+* Identity
+* Rapid prototyping
+* Infrastructure as Code (IaC)
+* Terraform
+* CloudFormation
+* Azure Resource Manager
+* Python
+* Java
+* Golang
+* DevOps
+* CI/CD
+* Agentic Development
+* Container Orchestration
+* EKS
+* ECS
+* Serverless technologies
+* Databases
+* RDBMS
+* NoSQL
+* Cloud Monitoring tools
+* LLM (Large Language Models)
+* Agentic AI
+* A2A
+* MCP
+* Communication skills
+* Collaboration
+* Innovation
+* CAN-DO attitude
+* Commitment to driving positive change
+
+**Preferred Qualifications:**
+* Pulumi
+* OpenTofu
+* Other IaC platforms
+* AWS Certified Developer
+* TFE Associate Certification
+* AWS Certified Solutions Architect Associate
+* Google Developer Certification
+* Azure Developer Certification
+* Understanding of financial services industry trends
+* Understanding of open source in finance
+* Understanding of regulatory requirements
+* Understanding of the competitive landscape
+
+**Experience Requirements:**
+* 3+ years of applied software engineering experience
+* Formal training or certification in software engineering concepts

@@ -47,8 +47,8 @@
 
 % Ensure bold font works
 \usepackage[T1]{fontenc}
-\renewcommand{\bfdefault}{b}
-\usepackage[defaultsans]{lato}
+% Font configuration - Switch to Helvetica (Arial-like) for better Tectonic compatibility
+\usepackage{tgheros} 
 \renewcommand{\familydefault}{\sfdefault}
 
 % Settings:
@@ -128,11 +128,13 @@
     \textbf{ {{- role_albertsons -}} }, Albertsons -- Dallas, TX
 \end{twocolentry}
 \begin{onecolentry}
+{% if experience_albertsons %}
 \begin{highlights}
     {% for bullet in experience_albertsons %}
     \item {{ bullet }}
     {% endfor %}
 \end{highlights}
+{% endif %}
 \end{onecolentry}
 
 \vspace{0.2cm}
@@ -141,11 +143,13 @@
     \textbf{ {{- role_valuelabs -}} }, ValueLabs -- Hyderabad
 \end{twocolentry}
 \begin{onecolentry}
+{% if experience_valuelabs %}
 \begin{highlights}
     {% for bullet in experience_valuelabs %}
     \item {{ bullet }}
     {% endfor %}
 \end{highlights}
+{% endif %}
 \end{onecolentry}
 
 \vspace{0.2cm}
@@ -158,11 +162,13 @@
     \textbf{ {{- project.name -}} }
 \end{twocolentry}
 \begin{onecolentry}
+{% if project.bullets %}
 \begin{highlights}
     {% for bullet in project.bullets %}
     \item {{ bullet }}
     {% endfor %}
 \end{highlights}
+{% endif %}
 \end{onecolentry}
 
 \vspace{0.2cm}
@@ -170,11 +176,13 @@
 
 \section{Technical Skills}
 \begin{minipage}[t]{\linewidth}
+{% if skills %}
 \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=2pt]
 {% for category in skills %}
 \item {{ category.name }}: {{ category.keywords }}
 {% endfor %}
 \end{itemize}
+{% endif %}
 \end{minipage}
 
 \vspace{0.2cm}

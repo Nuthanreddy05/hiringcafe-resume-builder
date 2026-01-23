@@ -1,0 +1,16 @@
+# Credentials
+config/credentials.yaml
+
+# Sessions
+.sessions/
+*.json
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Output
+*_packages/
+logs/

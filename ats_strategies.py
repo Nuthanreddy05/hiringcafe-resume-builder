@@ -60,23 +60,59 @@ class TaleoStrategy(BaseApplicationStrategy):
     """Strategy for Taleo (Tier 2 - iframe/redirect)."""
     
     def navigate_to_apply(self, page, job):
+        logger.info("   🔍 Taleo: Waiting for button to render (Extended Wait)...")
+        # Taleo is SLOW. Wait 5 seconds (User Config).
+        time.sleep(5)
+        
+        # Scroll down (Taleo often hides button below fold)
+        try:
+            page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+            time.sleep(1)
+        except: pass
+
         self.smart_wait(page)
         
         # Taleo often uses iframes.
         frame_match = None
         if page.frames:
             for frame in page.frames:
-                if "taleo" in frame.url or "content" in frame.name:
-                    if frame.locator("a.masterlink:has-text('Apply')").count() > 0:
-                        frame_match = frame
-                        break
+                # Check frame URL or Name
+                if "taleo" in str(frame.url) or "content" in str(frame.name):
+                    try:
+                        # Try finding button in frame
+                        if frame.locator("a.masterlink:has-text('Apply')").count() > 0:
+                            frame_match = frame
+                            break
+                    except: continue
         
         if frame_match:
             logger.info("   ✅ Found Apply in Taleo iframe")
-            btn = frame_match.locator("a.masterlink:has-text('Apply')").first
-            btn.click()
-            time.sleep(3)
+            try:
+                btn = frame_match.locator("a.masterlink:has-text('Apply')").first
+                btn.click()
+                time.sleep(3)
+                return True
+            except Exception as e:
+                logger.warning(f"   ⚠️ Failed to click iframe button: {e}")
         
+        # Try finding button in main page (after scroll)
+        selectors = [
+             "#hqj-apply-button",
+             "a[id*='apply']",
+             "a.navbar-nav-link:has-text('Apply')",
+             "span:has-text('Apply Now')",
+             "button:has-text('Apply Now')",
+             ".taleo-apply-button",
+             "a:has-text('Apply')"
+        ]
+        
+        for sel in selectors:
+            if page.locator(sel).count() > 0:
+                logger.info(f"   ✅ Found Taleo button: {sel}")
+                self.human.move_and_click(page.locator(sel).first)
+                time.sleep(3)
+                break
+
         # Taleo puts you in a wizard.
         # Check for "Login" or "New User"
         if page.locator("input[id*='user'], input[id*='User']").count() > 0:
@@ -90,7 +126,39 @@ class TaleoStrategy(BaseApplicationStrategy):
         return True
 
     def fill_form_fields(self, page, job, ai_selector, profile):
-        # Taleo filling logic (often involves clicking 'Save and Continue')
+        pass
+
+class SmartRecruitersStrategy(BaseApplicationStrategy):
+    """Strategy for SmartRecruiters."""
+    
+    def navigate_to_apply(self, page, job):
+        self.smart_wait(page)
+        
+        # SmartRecruiters uses "I'm interested"
+        selectors = [
+            "button:has-text('I\\'m interested')",
+            "button[aria-label='Submit your application']",
+            "button:has-text('Apply Now')",
+            ".apply-button",
+            "button.button--primary"
+        ]
+        
+        for sel in selectors:
+            btn = page.locator(sel).first
+            if btn.count() > 0 and btn.is_visible():
+                logger.info(f"   ✅ Found SmartRecruiters button: {sel}")
+                self.human.move_and_click(btn)
+                time.sleep(2)
+                
+                # Check for modal
+                if page.locator("st-modal-content").count() > 0:
+                     logger.info("   ✅ Modal detected")
+                     
+                return True
+                
+        return False
+
+    def fill_form_fields(self, page, job, ai_selector, profile):
         pass
 
 class WorkdayStrategy(BaseApplicationStrategy):
@@ -128,14 +196,28 @@ class GenericStrategy(BaseApplicationStrategy):
     """Fallback for everything else."""
     
     def navigate_to_apply(self, page, job):
-        # Fuzzy match apply button
-        keywords = ["Match", "Apply", "Start Application"]
+        # 1. Check if form is ALREADY visible (e.g. deep link)
+        if page.locator("input[type='text'], input[type='email']").count() > 2:
+            logger.info("   ✅ Form inputs detected directly.")
+            return True
+
+        # 2. Fuzzy match apply button
+        keywords = ["Match", "Apply", "Start Application", "Submit"]
         for k in keywords:
             btn = page.locator(f"button:has-text('{k}'), a:has-text('{k}')").first
             if btn.count() > 0 and btn.is_visible():
+                logger.info(f"   ✅ Found Generic Apply button: {k}")
                 self.human.move_and_click(btn)
                 time.sleep(3)
+                
+                # Verify click worked (modal or new page)?
                 return True
+                
+        # 3. Final Fallback: Look for inputs again (maybe they appeared?)
+        if page.locator("input[type='text'], input[type='email']").count() > 1:
+            logger.info("   ✅ Form detected after check.")
+            return True
+
         return False
 
     def fill_form_fields(self, page, job, ai_selector, profile):
@@ -148,4 +230,7 @@ class StrategyFactory:
         if "greenhouse" in u: return GreenhouseStrategy(humanizer)
         if "taleo" in u: return TaleoStrategy(humanizer)
         if "workday" in u: return WorkdayStrategy(humanizer)
+        if "smartrecruiters" in u: return SmartRecruitersStrategy(humanizer)
+        if "ashby" in u: return GenericStrategy(humanizer) # Ashby often handled by generic or specialized later
+        if "lever" in u: return GenericStrategy(humanizer) # Lever usually easier
         return GenericStrategy(humanizer)

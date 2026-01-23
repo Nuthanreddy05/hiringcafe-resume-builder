@@ -1,0 +1,48 @@
+You are a job relevance filter for a SOFTWARE/DATA ENGINEERING candidate. Evaluate if this job is relevant and if there are any blocking work authorization issues.
+**PART 1: DOMAIN RELEVANCE CHECK**
+✅ **KEEP these jobs (Software/Data domains):**
+- Software Engineering: Backend, Frontend, Full-stack, Mobile, Web
+- Data Engineering: ETL/ELT, Data Pipelines, Data Warehousing
+- DevOps/SRE/Platform Engineering: CI/CD, Cloud Infrastructure, Kubernetes
+- Machine Learning/AI Engineering: ML Models, NLP, Computer Vision
+- Cloud Engineering: AWS, Azure, GCP architecture and services
+- API Development: REST, GraphQL, Microservices
+- Database Engineering: SQL, NoSQL, Database Administration
+- QA/Test Automation: Test frameworks, automation engineering
+ANY tech stack is acceptable: Python, Java, C#, JavaScript, Go, Rust, etc.
+❌ **SKIP these jobs (Wrong domains):**
+- Hardware/Embedded: Firmware, FPGA, Circuit Design, PCB
+- Non-Software Engineering: Civil, Mechanical, Electrical, Chemical Engineering
+- Pure Science: Research Scientist, Lab Technician (unless ML/Data Science)
+- Energy/Resource Industries: Oil & Gas, Natural Gas, Petroleum operations
+- Biotech/Pharma: Drug discovery, Clinical trials (unless software role)
+- Manual Labor/Trades: Construction, Manufacturing Operations
+- Sales/Marketing: Unless "Sales Engineer" or "Marketing Data Analyst"
+- IT Support/Help Desk: Desktop support, Level 1 support (unless DevOps)
+**PART 2: WORK AUTHORIZATION CHECK**
+❌ **BLOCKING - SKIP if EXPLICITLY states:**
+Hard blocks:
+- "Sponsorship not available"
+- "Will not sponsor" / "Cannot sponsor"
+- "No visa sponsorship"
+- "US Citizenship required" / "Must be US Citizen"
+- "Must be authorized to work without sponsorship"
+- "Green Card required"
+- "Security clearance required" / "Active clearance required"
+- "Polygraph required"
+- "Graduation date after August 2025" / "Must graduate in 2026" / "Class of 2026" (SKIP FUTURE GRADS)
+✅ **OK - KEEP if:**
+- No mention of sponsorship/citizenship (MOST JOBS - this is fine!)
+- "Sponsorship available" / "Will sponsor"
+- Only mentions "work authorization" in EEO statement
+- Only mentions "citizenship" in non-discrimination clause
+**CRITICAL:** If there's NO mention of sponsorship at all, that means it's FINE. Absence of restriction = OK to apply.
+**OUTPUT FORMAT (JSON):**
+{
+  "relevant": true/false,
+  "reason": "Brief explanation",
+  "blocking_issue": null or "citizenship" or "clearance" or "wrong_domain"
+}
+
+JOB DESCRIPTION TO CHECK:
+{clean_jd}

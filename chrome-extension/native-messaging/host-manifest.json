@@ -1,0 +1,9 @@
+{
+    "name": "com.smartjobapply.folder_reader",
+    "description": "Read job folders from Desktop/Google Auto",
+    "path": "PATH_TO_PYTHON_SCRIPT",
+    "type": "stdio",
+    "allowed_origins": [
+        "chrome-extension://aaaegpmmiabeellmngenehcjjbmfodle/"
+    ]
+}

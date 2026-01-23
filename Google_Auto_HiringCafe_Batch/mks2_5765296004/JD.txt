@@ -1,0 +1,45 @@
+**Responsibilities:**
+- Design, build, and enhance Microsoft Copilot (out-of-the-box and custom) features within Dynamics 365 for case management and business processes.
+- Create machine learning models, NLP solutions, and data-driven automation supporting Copilot and Dynamics workloads.
+- Architect and deploy custom AI models or algorithms tailored to unique business or VA requirements, ensuring seamless integration with Dynamics 365 and related systems.
+- Prepare, process, and analyze data from Dataverse, Power Platform, and external VA systems to enable AI capabilities.
+- Translate business requirements into proof-of-concept Copilot use cases; demo, refine, and iterate solutions.
+- Lead testing, performance monitoring, and real-world validation of AI solutions.
+- Produce documentation and support end-user training and solution handoff to operations teams.
+- Monitor solution performance, gather feedback, and recommend enhancements while staying current on Microsoft/Azure AI advancements.
+- Ensure all AI solutions adhere to VA, federal, and organizational standards for privacy, security, and ethical AI use.
+
+**Required Skills/Tools/Languages:**
+- AI/ML engineering
+- Microsoft Azure AI services (AI Builder, Azure Cognitive Services, Power Platform AI integrations)
+- Dynamics 365 APIs
+- Developing custom plugins/extensions
+- Python
+- C#
+- NLP (Natural Language Processing)
+- ML model deployment
+- Data engineering
+- Dataverse
+- Power Platform
+- Agile Scrum
+- Teamwork
+- Cross-functional collaboration
+- Communication skills
+- Analytical skills
+- Problem-solving
+- Documentation
+- Training
+- Compliance
+- Security
+- Privacy
+- Ethical AI
+
+**Preferred Qualifications:**
+- Microsoft certifications (Azure AI Engineer Associate, Power Platform certifications)
+- Experience supporting government or healthcare environments (VA preferred)
+- Prior experience deploying Copilot or similar Microsoft AI-driven automations
+- Understanding of Power BI and integrating AI outputs into dashboards
+
+**Experience Requirements:**
+- 3+ years of hands-on AI/ML engineering experience within enterprise or cloud environments
+- Bachelor’s or Master’s degree in Computer Science, Engineering, or related STEM field

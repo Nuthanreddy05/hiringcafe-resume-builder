@@ -1,0 +1,32 @@
+**Responsibilities:**
+*   Be a critical part of the technical infrastructure roadmap.
+*   Manage cloud environments across GCP and AWS.
+*   Scale infrastructure to millions of end users globally.
+*   Help drive the architectural decisions of a rapidly evolving product.
+*   Lead the creation and maintenance of CI/CD pipelines to enable rapid, reliable deployments.
+*   Collaborate with the engineering team to improve infrastructure performance.
+*   Build infrastructure to interact with millions of smart contracts across dozens of blockchains.
+*   Automate security controls and compliance processes to protect sensitive financial data.
+
+**Required Skills/Tools/Languages:**
+*   Infrastructure as Code (IaC)
+*   Terraform
+*   CI/CD pipelines
+*   Automation workflows
+*   Cloud production environments (GCP, AWS)
+*   Monitoring tools
+*   Logging tools
+*   Observability tools
+*   Collaboration
+*   Problem-Solving
+*   Adaptability (rapidly evolving product)
+
+**Preferred Qualifications:**
+*   Experience in fintech (neobank or card issuing experience is a plus).
+*   Experience with blockchain infrastructure.
+
+**Experience Requirements:**
+*   Strong experience with Infrastructure as Code, particularly Terraform, for managing cloud resources at scale.
+*   Proven track record designing and implementing CI/CD pipelines and automation workflows.
+*   Experience managing production environments in cloud providers.
+*   Experience with monitoring, logging, and observability tools.

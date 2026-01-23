@@ -1,0 +1,246 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=2 cm,
+    bottom=2 cm,
+    left=2 cm,
+    right=2 cm,
+    footskip=1.0 cm,
+]{geometry}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor} 
+\definecolor{primaryColor}{RGB}{0, 0, 0}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Nuthan Reddy's Resume},
+    pdfauthor={Nuthan Reddy},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage[pscoord]{eso-pic}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{lastpage}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{iftex}
+
+\ifPDFTeX
+    \input{glyphtounicode}
+    \pdfgentounicode=1
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{lmodern}
+\fi
+
+% Use a font with proper bold support
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+% Ensure bold font works
+\usepackage[T1]{fontenc}
+% Font configuration - Switch to Helvetica (Arial-like) for better Tectonic compatibility
+\usepackage{tgheros} 
+\renewcommand{\familydefault}{\sfdefault}
+
+% Settings:
+\raggedright
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+\pagenumbering{gobble}
+
+\titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing{\section}{-1pt}{0.3 cm}{0.2 cm}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0 cm + 10pt
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{adjustwidth}{0 cm + 0.00001 cm}{0 cm + 0.00001 cm}
+}{
+    \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \onecolentry
+    \def\secondColumn{#2}
+    \setcolumnwidth{\fill, 4.5 cm}
+    \begin{paracol}{2}
+}{
+    \switchcolumn \raggedleft \secondColumn
+    \end{paracol}
+    \endonecolentry
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\begin{document}
+
+\begin{header}
+    \fontsize{13 pt}{13 pt}\selectfont \textbf{NUTHAN REDDY VADDI REDDY}
+    
+    \vspace{0.5pt}
+    
+    \normalsize
+    nuthanreddy001@gmail.com\hspace{0.5pt}| \hspace{0.5pt}
+    +1682-406-56-46\hspace{0.5pt}| \hspace{0.5pt}
+    github.com/Nuthanreddy05\hspace{0.5pt}| \hspace{0.5pt}
+    www.linkedin.com/in/nuthan-reddy-vaddi-reddy
+\end{header}
+
+\section{Summary}
+\begin{onecolentry}
+    Machine Learning Engineer with extensive experience building and deploying ML models at scale for consumer applications. Specialized in Python, SQL, machine learning frameworks, and large language models for search, recommendations, and content understanding. Improved recommendation accuracy by \textbf{22\%} and reduced model deployment time by \textbf{3x} in high-traffic environments. Currently developing personalized navigation and recommendation systems for millions of users at a leading e-commerce platform.
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\section{Experience}
+
+\begin{twocolentry}{May 2024 -- Present}
+    \textbf{Machine Learning Engineer}, Albertsons -- Dallas, TX
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Built systems that help online shoppers discover relevant products and livestreams by understanding their interests and preferences
+    
+    \item Improved recommendation accuracy by \textbf{22\%} by implementing ensemble ML models (\textbf{XGBoost}, \textbf{LightGBM}) with real-time feature engineering, processing \textbf{15TB} of daily user behavior data
+    
+    \item Reduced model deployment time by \textbf{3x} by building CI/CD pipelines using \textbf{Docker}, \textbf{Kubernetes}, and \textbf{MLflow}, enabling daily A/B testing cycles for \textbf{10M+} users
+    
+    \item Enhanced search relevance by \textbf{18\%} by fine-tuning \textbf{BERT} models for product understanding and implementing semantic search with vector embeddings
+    
+    \item Developed content understanding pipelines using NLP techniques (\textbf{spaCy}, \textbf{Transformers}) to categorize \textbf{500K+} products with \textbf{95\%} accuracy
+    
+    \item Built real-time feature stores using \textbf{Redis} and \textbf{DynamoDB}, reducing inference latency from \textbf{200ms} to \textbf{50ms} for personalized recommendations
+    
+    \item Implemented large language models (\textbf{GPT-4}, \textbf{Claude}) for query understanding and product description generation, improving user engagement by \textbf{15\%}
+    
+    \item Collaborated with product and engineering teams to design ML experiments, resulting in \textbf{3} successful feature launches that increased conversion by \textbf{12\%}
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{May 2020 -- July 2023}
+    \textbf{Machine Learning Engineer}, ValueLabs -- Hyderabad
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Supported enterprise clients by building machine learning systems that analyzed customer data to improve business outcomes across multiple industries
+    
+    \item Built and deployed ML models using \textbf{Python} and \textbf{Scikit-learn}, processing \textbf{500GB} of daily transaction data with \textbf{99.5\%} reliability for \textbf{100K+} users
+    
+    \item Improved customer churn prediction accuracy by \textbf{12\%} by implementing \textbf{XGBoost} models with feature engineering and hyperparameter optimization
+    
+    \item Reduced manual data processing time by \textbf{60\%} by developing automated ETL pipelines using \textbf{Python} and \textbf{Pandas}, eliminating \textbf{20 hours/week} of manual effort
+    
+    \item Built interactive dashboards using \textbf{Tableau} and \textbf{PostgreSQL} to visualize model performance metrics and business impact for stakeholders
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+
+\section{Academic Project Experience}
+
+
+\begin{twocolentry}{Jan 2024 – May 2024}
+    \textbf{Real-Time Recommendation System (Academic Capstone)}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Processed \textbf{10TB} of simulated e-commerce transaction data using \textbf{Apache Spark} on \textbf{AWS EMR}, achieving \textbf{sub-5-minute} latency for real-time recommendations
+    
+    \item Implemented collaborative filtering and matrix factorization using \textbf{TensorFlow} and \textbf{PyTorch}, improving recommendation accuracy by \textbf{22\%} over baseline approaches
+    
+    \item Deployed containerized ML services using \textbf{Docker} and \textbf{Kubernetes}, enabling horizontal scaling to handle \textbf{10K requests/second} in load testing
+    
+    \item Built A/B testing framework using \textbf{Python} and \textbf{StatsModels} to evaluate model performance with statistical significance
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{Jan 2024 – Present}
+    \textbf{LLM-Powered Search Enhancement (Personal Project)}
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    
+    \item Implemented retrieval-augmented generation (RAG) pipeline using \textbf{GPT-4} and \textbf{LangChain}, improving search result relevance by \textbf{25\%} for complex queries
+    
+    \item Built vector search capabilities using \textbf{Pinecone} and sentence transformers, reducing semantic search latency from \textbf{500ms} to \textbf{100ms}
+    
+    \item Fine-tuned \textbf{BERT} models on domain-specific data for improved query understanding and product categorization
+    
+    \item Deployed search API using \textbf{FastAPI} and \textbf{Docker}, handling \textbf{1K requests/second} with \textbf{99.9\%} uptime
+    
+\end{highlights}
+\end{onecolentry}
+
+\vspace{0.2cm}
+
+
+\section{Technical Skills}
+\begin{minipage}[t]{\linewidth}
+\begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=2pt]
+
+\item Languages \& ML Frameworks: Python, SQL, TensorFlow, PyTorch, Scikit-learn, XGBoost, LightGBM, spaCy, Transformers, LangChain
+
+\item ML Domains: Search, Recommendations, Content Understanding, Natural Language Processing, Large Language Models, Computer Vision, Backend Implementation
+
+\item Cloud \& Infrastructure: AWS, Docker, Kubernetes, CI/CD, MLflow, Redis, DynamoDB, Apache Spark, Airflow
+
+\item Tools \& Practices: Git, A/B Testing, Feature Engineering, Model Deployment, MLOps, Vector Databases, REST APIs, Microservices
+
+\end{itemize}
+\end{minipage}
+
+\vspace{0.2cm}
+
+\section{Education}
+\begin{twocolentry}{Aug 2023 -- May 2025}
+    \textbf{The University of Texas at Arlington,} MS in Data Science
+\end{twocolentry}
+\begin{onecolentry}
+\begin{highlights}
+    \item \textbf{GPA:} 3.8/4.0
+    \item \textbf{Relevant Coursework:} Distributed Systems, Cloud Computing, Software Engineering, Data Structures, Algorithms, Machine Learning, Natural Language Processing, Deep Learning
+\end{highlights}
+\end{onecolentry}
+
+\end{document}

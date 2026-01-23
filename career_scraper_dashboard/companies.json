@@ -1,0 +1,765 @@
+[
+    {
+        "name": "Anthropic",
+        "url": "https://boards.greenhouse.io/anthropic",
+        "ats": "greenhouse",
+        "category": "AI Startup",
+        "funding": "Series D ($7B+)"
+    },
+    {
+        "name": "OpenAI",
+        "url": "https://openai.com/careers/search",
+        "ats": "custom",
+        "category": "AI Startup",
+        "funding": "$80B+ Valuation"
+    },
+    {
+        "name": "Databricks",
+        "url": "https://careers.databricks.com/jobs",
+        "ats": "custom",
+        "category": "Data Giant",
+        "funding": "Series I ($43B Valuation)"
+    },
+    {
+        "name": "Scale AI",
+        "url": "https://boards.greenhouse.io/scaleai",
+        "ats": "greenhouse",
+        "category": "AI Startup",
+        "funding": "Series F ($14B Valuation)"
+    },
+    {
+        "name": "Anduril",
+        "url": "https://boards.greenhouse.io/andurilindustries",
+        "ats": "greenhouse",
+        "category": "Defense Tech",
+        "funding": "Series F ($12B Valuation)"
+    },
+    {
+        "name": "Google (Alphabet)",
+        "url": "https://careers.google.com/jobs/results/",
+        "ats": "custom",
+        "category": "H1B Giant",
+        "funding": "Public (GOOGL)"
+    },
+    {
+        "name": "Microsoft",
+        "url": "https://careers.microsoft.com/us/en/search-results",
+        "ats": "custom",
+        "category": "H1B Giant",
+        "funding": "Public (MSFT)"
+    },
+    {
+        "name": "Amazon",
+        "url": "https://www.amazon.jobs/en/",
+        "ats": "custom",
+        "category": "H1B Giant",
+        "funding": "Public (AMZN)"
+    },
+    {
+        "name": "Meta",
+        "url": "https://www.metacareers.com/jobs",
+        "ats": "custom",
+        "category": "H1B Giant",
+        "funding": "Public (META)"
+    },
+    {
+        "name": "Nvidia",
+        "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
+        "ats": "workday",
+        "category": "GenAI Chip Giant",
+        "funding": "Public (NVDA)"
+    },
+    {
+        "name": "Palantir",
+        "url": "https://www.palantir.com/careers/",
+        "ats": "custom",
+        "category": "Big Tech",
+        "funding": "Public (PLTR)"
+    },
+    {
+        "name": "Stripe",
+        "url": "https://stripe.com/jobs/search",
+        "ats": "custom",
+        "category": "Fintech Giant",
+        "funding": "Private ($65B Valuation)"
+    },
+    {
+        "name": "Rippling",
+        "url": "https://www.rippling.com/careers/open-roles",
+        "ats": "ashby",
+        "category": "B2B SaaS",
+        "funding": "Series F ($13B Valuation)"
+    },
+    {
+        "name": "Coinbase",
+        "url": "https://www.coinbase.com/careers/positions",
+        "ats": "workday",
+        "category": "Crypto Giant",
+        "funding": "Public (COIN)"
+    },
+    {
+        "name": "Snowflake",
+        "url": "https://careers.snowflake.com/us/en/search-results",
+        "ats": "workday",
+        "category": "Data Cloud",
+        "funding": "Public (SNOW)"
+    },
+    {
+        "name": "Airbnb",
+        "url": "https://careers.airbnb.com/positions/",
+        "ats": "greenhouse",
+        "category": "Big Tech",
+        "funding": "Public (ABNB)"
+    },
+    {
+        "name": "DoorDash",
+        "url": "https://careers.doordash.com/",
+        "ats": "greenhouse",
+        "category": "Big Tech",
+        "funding": "Public (DASH)"
+    },
+    {
+        "name": "Uber",
+        "url": "https://www.uber.com/us/en/careers/list/",
+        "ats": "custom",
+        "category": "Big Tech",
+        "funding": "Public (UBER)"
+    },
+    {
+        "name": "Pinterest",
+        "url": "https://www.pinterestcareers.com/en/jobs/",
+        "ats": "custom",
+        "category": "Big Tech",
+        "funding": "Public (PINS)"
+    },
+    {
+        "name": "Waymo",
+        "url": "https://waymo.com/careers/",
+        "ats": "greenhouse",
+        "category": "Autonomous Tech",
+        "funding": "Alphabet Subsidiary"
+    },
+    {
+        "name": "Cruise",
+        "url": "https://getcruise.com/careers/jobs/",
+        "ats": "greenhouse",
+        "category": "Autonomous Tech",
+        "funding": "GM Subsidiary"
+    },
+    {
+        "name": "Zoox",
+        "url": "https://zoox.com/careers/",
+        "ats": "custom",
+        "category": "Autonomous Tech",
+        "funding": "Amazon Subsidiary"
+    },
+    {
+        "name": "Tiktok / ByteDance",
+        "url": "https://careers.tiktok.com/",
+        "ats": "custom",
+        "category": "Social Giant",
+        "funding": "Private (ByteDance)"
+    },
+    {
+        "name": "Roblox",
+        "url": "https://careers.roblox.com/jobs",
+        "ats": "greenhouse",
+        "category": "Gaming/Metaverse",
+        "funding": "Public (RBLX)"
+    },
+    {
+        "name": "Notion",
+        "url": "https://www.notion.so/careers",
+        "ats": "greenhouse",
+        "category": "Productivity SaaS",
+        "funding": "Series C ($10B Valuation)"
+    },
+    {
+        "name": "Figma",
+        "url": "https://www.figma.com/careers/",
+        "ats": "greenhouse",
+        "category": "Design SaaS",
+        "funding": "Series E ($12B Valuation)"
+    },
+    {
+        "name": "Canva",
+        "url": "https://www.canva.com/careers/jobs/",
+        "ats": "custom",
+        "category": "Design SaaS",
+        "funding": "Private ($26B Valuation)"
+    },
+    {
+        "name": "Miro",
+        "url": "https://miro.com/careers/open-positions/",
+        "ats": "greenhouse",
+        "category": "Collab SaaS",
+        "funding": "Series C ($17B Valuation)"
+    },
+    {
+        "name": "Airtable",
+        "url": "https://airtable.com/careers",
+        "ats": "greenhouse",
+        "category": "No-Code SaaS",
+        "funding": "Series F ($11B Valuation)"
+    },
+    {
+        "name": "Brex",
+        "url": "https://careers.brex.com/",
+        "ats": "greenhouse",
+        "category": "Fintech Startup",
+        "funding": "Series D ($12B Valuation)"
+    },
+    {
+        "name": "Ramp",
+        "url": "https://ramp.com/careers",
+        "ats": "ashby",
+        "category": "Fintech Startup",
+        "funding": "Series D ($7B+ Valuation)"
+    },
+    {
+        "name": "Plaid",
+        "url": "https://plaid.com/careers/",
+        "ats": "greenhouse",
+        "category": "Fintech Startup",
+        "funding": "Series D ($13B Valuation)"
+    },
+    {
+        "name": "Discord",
+        "url": "https://discord.com/careers",
+        "ats": "greenhouse",
+        "category": "Social Startup",
+        "funding": "Series H ($15B Valuation)"
+    },
+    {
+        "name": "Samsara",
+        "url": "https://www.samsara.com/company/careers/",
+        "ats": "greenhouse",
+        "category": "IoT Cloud",
+        "funding": "Public (IOT)"
+    },
+    {
+        "name": "Verkada",
+        "url": "https://www.verkada.com/careers/",
+        "ats": "greenhouse",
+        "category": "IoT Security",
+        "funding": "Series D ($3B Valuation)"
+    },
+    {
+        "name": "Cloudflare",
+        "url": "https://www.cloudflare.com/careers/jobs/",
+        "ats": "greenhouse",
+        "category": "Cloud Infra",
+        "funding": "Public (NET)"
+    },
+    {
+        "name": "HashiCorp",
+        "url": "https://www.hashicorp.com/jobs",
+        "ats": "greenhouse",
+        "category": "DevOps Infra",
+        "funding": "Public (HCP)"
+    },
+    {
+        "name": "Splunk",
+        "url": "https://www.splunk.com/en_us/careers.html",
+        "ats": "workday",
+        "category": "Data Security",
+        "funding": "Cisco Subsidiary"
+    },
+    {
+        "name": "CrowdStrike",
+        "url": "https://www.crowdstrike.com/careers/",
+        "ats": "workday",
+        "category": "Cybersecurity",
+        "funding": "Public (CRWD)"
+    },
+    {
+        "name": "Palo Alto Networks",
+        "url": "https://jobs.paloaltonetworks.com/",
+        "ats": "smartrecruiters",
+        "category": "Cybersecurity",
+        "funding": "Public (PANW)"
+    },
+    {
+        "name": "Zscaler",
+        "url": "https://careers.zscaler.com/",
+        "ats": "pure-play",
+        "category": "Cybersecurity",
+        "funding": "Public (ZS)"
+    },
+    {
+        "name": "Okta",
+        "url": "https://www.okta.com/careers/",
+        "ats": "greenhouse",
+        "category": "Identity Security",
+        "funding": "Public (OKTA)"
+    },
+    {
+        "name": "Glean",
+        "url": "https://www.glean.com/careers",
+        "ats": "ashby",
+        "category": "AI Search",
+        "funding": "Series D ($2B+ Valuation)"
+    },
+    {
+        "name": "Cohere",
+        "url": "https://cohere.com/careers",
+        "ats": "ashby",
+        "category": "AI Startup",
+        "funding": "Series C ($5B+ Valuation)"
+    },
+    {
+        "name": "Hugging Face",
+        "url": "https://huggingface.co/jobs",
+        "ats": "custom",
+        "category": "AI Open Source",
+        "funding": "Series D ($4.5B Valuation)"
+    },
+    {
+        "name": "Character.ai",
+        "url": "https://careers.character.ai/",
+        "ats": "ashby",
+        "category": "Consumer AI",
+        "funding": "Series A ($1B Valuation)"
+    },
+    {
+        "name": "Perplexity",
+        "url": "https://www.perplexity.ai/careers",
+        "ats": "ashby",
+        "category": "AI Search",
+        "funding": "Series B ($1B+ Valuation)"
+    },
+    {
+        "name": "Groq",
+        "url": "https://groq.com/careers/",
+        "ats": "greenhouse",
+        "category": "AI Hardware",
+        "funding": "Series C ($2.8B Valuation)"
+    },
+    {
+        "name": "Harvey",
+        "url": "https://www.harvey.ai/careers",
+        "ats": "ashby",
+        "category": "Legal AI",
+        "funding": "Series B ($715M Valuation)"
+    },
+    {
+        "name": "Cognition AI",
+        "url": "https://www.cognition-labs.com/careers",
+        "ats": "ashby",
+        "category": "AI Coding Agent",
+        "funding": "Series A ($350M+ Valuation)"
+    },
+    {
+        "name": "EY",
+        "url": "https://ey.jobs",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #1"
+    },
+    {
+        "name": "Deloitte",
+        "url": "https://www2.deloitte.com/us/en/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #3"
+    },
+    {
+        "name": "PriceWaterhouseCoopers",
+        "url": "https://www.pwc.com/us/en/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #4"
+    },
+    {
+        "name": "Goldman Sachs Group",
+        "url": "https://www.goldmansachs.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #5"
+    },
+    {
+        "name": "Microsoft Corporation",
+        "url": "https://careers.microsoft.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #6"
+    },
+    {
+        "name": "Google",
+        "url": "https://careers.google.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #7"
+    },
+    {
+        "name": "Tata Consultancy Services",
+        "url": "https://www.tcs.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #11"
+    },
+    {
+        "name": "J.P. Morgan Chase",
+        "url": "https://careers.jpmorganchase.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #12"
+    },
+    {
+        "name": "Citigroup Inc.",
+        "url": "https://careers.citigroup.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #13"
+    },
+    {
+        "name": "KPMG",
+        "url": "https://www.kpmg.us/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #15"
+    },
+    {
+        "name": "Morgan Stanley",
+        "url": "https://www.morganstanley.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #16"
+    },
+    {
+        "name": "Wipro Limited",
+        "url": "https://careers.wipro.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #17"
+    },
+    {
+        "name": "BlackRock",
+        "url": "https://careers.blackrock.com",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #18"
+    },
+    {
+        "name": "Cognizant Technology Solutions",
+        "url": "https://careers.cognizant.com/global/en",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #19"
+    },
+    {
+        "name": "Infosys",
+        "url": "https://www.infosys.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #20"
+    },
+    {
+        "name": "PJT Partners",
+        "url": "https://www.pjtpartners.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #22"
+    },
+    {
+        "name": "Bank of America",
+        "url": "https://careers.bankofamerica.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #23"
+    },
+    {
+        "name": "Tesla",
+        "url": "https://www.tesla.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #24"
+    },
+    {
+        "name": "Apple Inc.",
+        "url": "https://www.apple.com/careers/us/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #25"
+    },
+    {
+        "name": "Accenture",
+        "url": "https://www.accenture.com/us-en/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #27"
+    },
+    {
+        "name": "Cisco Systems, Inc.",
+        "url": "https://www.cisco.com/c/en/us/about/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #29"
+    },
+    {
+        "name": "ByteDance",
+        "url": "https://www.bytedance.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #30"
+    },
+    {
+        "name": "BDO",
+        "url": "https://www.bdo.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #31"
+    },
+    {
+        "name": "EXL Service",
+        "url": "https://www.exlservice.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #32"
+    },
+    {
+        "name": "Grant Thornton",
+        "url": "https://www.grantthornton.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #34"
+    },
+    {
+        "name": "Adobe Systems Incorporated",
+        "url": "https://www.adobe.com/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #35"
+    },
+    {
+        "name": "LTI Mindtree",
+        "url": "https://careers.ltimindtree.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #36"
+    },
+    {
+        "name": "Tech Mahindra Ltd",
+        "url": "https://www.techmahindraltd.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #37"
+    },
+    {
+        "name": "Walmart",
+        "url": "https://careers.walmart.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #38"
+    },
+    {
+        "name": "Open Avenues Foundation",
+        "url": "https://www.openavenuesfoundation.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #40"
+    },
+    {
+        "name": "Mphasis",
+        "url": "https://careers.mphasis.com/home.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #41"
+    },
+    {
+        "name": "Capgemini",
+        "url": "https://www.capgemini.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #42"
+    },
+    {
+        "name": "Amgen",
+        "url": "https://careers.amgen.com/en",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #43"
+    },
+    {
+        "name": "eBay",
+        "url": "https://jobs.ebayinc.com/us/en",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #44"
+    },
+    {
+        "name": "UBS",
+        "url": "https://www.ubs.com/global/en/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #46"
+    },
+    {
+        "name": "Societe Generale",
+        "url": "https://careers.societegenerale.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #47"
+    },
+    {
+        "name": "Dell Technologies",
+        "url": "https://jobs.dell.com/en",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #48"
+    },
+    {
+        "name": "Barclays",
+        "url": "https://home.barclays/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #51"
+    },
+    {
+        "name": "Jefferies Group",
+        "url": "https://www.jefferies.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #55"
+    },
+    {
+        "name": "Visa Inc.",
+        "url": "https://corporate.visa.com/en/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #56"
+    },
+    {
+        "name": "Cumming Group",
+        "url": "https://www.cumming.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #57"
+    },
+    {
+        "name": "Qualcomm",
+        "url": "https://www.qualcomm.com/company/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #59"
+    },
+    {
+        "name": "Prime Healthcare",
+        "url": "https://www.primehealthcare.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #64"
+    },
+    {
+        "name": "ASML",
+        "url": "https://www.asml.com/en/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #65"
+    },
+    {
+        "name": "Turner Construction Company",
+        "url": "https://www.turnerconstructioncompany.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #67"
+    },
+    {
+        "name": "Salesforce",
+        "url": "https://www.salesforce.com/company/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #69"
+    },
+    {
+        "name": "TikTok",
+        "url": "https://lifeattiktok.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #70"
+    },
+    {
+        "name": "Medtronic",
+        "url": "https://www.medtronic.com/en-us/our-company/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #74"
+    },
+    {
+        "name": "ValueMomentum",
+        "url": "https://www.valuemomentum.com/careers/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #75"
+    },
+    {
+        "name": "Nomura Holdings",
+        "url": "https://www.nomuraholdings.com/en/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #76"
+    },
+    {
+        "name": "Intercontinental Exchange",
+        "url": "https://www.ice.com/index",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #81"
+    },
+    {
+        "name": "LinkedIn",
+        "url": "https://careers.linkedin.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #82"
+    },
+    {
+        "name": "Wayfair",
+        "url": "https://www.aboutwayfair.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #83"
+    },
+    {
+        "name": "Baker Tilly",
+        "url": "https://www.bakertilly.com/careers",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #85"
+    },
+    {
+        "name": "Thermo Fisher",
+        "url": "https://jobs.thermofisher.com/global/en",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #88"
+    },
+    {
+        "name": "AdventHealth",
+        "url": "https://jobs.adventhealth.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #91"
+    },
+    {
+        "name": "Wells Fargo",
+        "url": "https://www.wellsfargojobs.com/",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #92"
+    },
+    {
+        "name": "Applied Materials",
+        "url": "https://www.appliedmaterials.com/us/en/careers.html",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #94"
+    },
+    {
+        "name": "Honeywell",
+        "url": "https://careers.honeywell.com/en/sites/Honeywell",
+        "ats": "custom",
+        "category": "H1B Sponsor Top 100",
+        "funding": "H1B Rank #98"
+    }
+]
