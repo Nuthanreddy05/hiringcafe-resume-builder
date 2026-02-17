@@ -1,0 +1,594 @@
+/create
+
+Build a complete H1B Job Scraper with emotional graduation-themed UI.
+
+══════════════════════════════════════════════════════════════════════════
+PART 1: PROJECT OVERVIEW
+══════════════════════════════════════════════════════════════════════════
+
+PURPOSE: Scrape job postings from 150+ H1B-sponsoring companies daily
+TARGET USER: International graduates seeking H1B visa sponsorship
+EMOTION: Hope, celebration, new beginnings - like graduation day
+
+TECH STACK:
+- Backend: Python 3.11+, FastAPI, Playwright (async), SQLite
+- Frontend: Next.js 14, Tailwind CSS, Framer Motion
+- Scraping: Stealth browser with anti-detection
+
+══════════════════════════════════════════════════════════════════════════
+PART 2: UI DESIGN - EMOTIONAL & HOPEFUL
+══════════════════════════════════════════════════════════════════════════
+
+THEME: Graduation Day - "Your American Dream Starts Here"
+
+COLORS:
+- Background: Warm cream (#F5E6D3, #E8D5C4) - like diploma parchment
+- Text: Deep brown (#5D4037) and black (#1A1A1A)
+- Accent: Gold (#D4AF37) - for success, celebration
+- Buttons: Navy blue (#1E3A5A) - professional, trustworthy
+
+TYPOGRAPHY:
+- Headlines: Playfair Display (elegant, academic)
+- Body: Inter (clean, modern)
+
+ANIMATIONS:
+- Page load: Graduation caps floating upward
+- New job found: Confetti burst celebration
+- Successful scrape: Cap throw micro-animation
+- Card hover: Gentle lift with shadow
+
+HERO SECTION:
+- Background: College campus with graduates throwing caps
+- Overlay: Warm cream gradient
+- Headline: "Your American Dream Starts Here"
+- Subtext: "Find H1B-sponsoring companies that believe in your potential"
+
+PAGES:
+1. Dashboard - Hero + stats + recent jobs
+2. Jobs - Searchable job feed with filters
+3. Companies - Grid of H1B sponsors with logos
+4. Scraper Status - Live progress with animations
+5. Settings - Configure preferences
+
+══════════════════════════════════════════════════════════════════════════
+PART 3: FOLDER STRUCTURE
+══════════════════════════════════════════════════════════════════════════
+
+Create this exact structure:
+
+h1b_job_scraper/
+├── backend/
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   └── companies.json
+│   ├── stealth/
+│   │   ├── __init__.py
+│   │   └── browser.py
+│   ├── storage/
+│   │   ├── __init__.py
+│   │   └── database.py
+│   ├── extractors/
+│   │   ├── __init__.py
+│   │   ├── date_finder.py
+│   │   ├── h1b_detector.py
+│   │   └── deduplicator.py
+│   ├── scrapers/
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── greenhouse.py
+│   │   ├── lever.py
+│   │   ├── workday.py
+│   │   └── generic.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── main.py
+│   ├── run.py
+│   └── requirements.txt
+├── frontend/
+│   ├── app/
+│   │   ├── page.tsx
+│   │   ├── jobs/page.tsx
+│   │   ├── companies/page.tsx
+│   │   └── layout.tsx
+│   ├── components/
+│   │   ├── GraduationHero.tsx
+│   │   ├── JobCard.tsx
+│   │   ├── CompanyCard.tsx
+│   │   ├── StatsCard.tsx
+│   │   ├── ConfettiAnimation.tsx
+│   │   └── ScraperProgress.tsx
+│   ├── lib/
+│   │   └── api.ts
+│   ├── styles/
+│   │   └── globals.css
+│   ├── public/
+│   │   └── images/
+│   ├── tailwind.config.js
+│   ├── package.json
+│   └── next.config.js
+└── README.md
+
+══════════════════════════════════════════════════════════════════════════
+PART 4: BACKEND - CONFIG/SETTINGS.PY
+══════════════════════════════════════════════════════════════════════════
+
+Create config/settings.py with:
+
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.parent
+DATA_DIR = BASE_DIR / "data"
+LOGS_DIR = BASE_DIR / "logs"
+DATA_DIR.mkdir(exist_ok=True)
+LOGS_DIR.mkdir(exist_ok=True)
+
+DATABASE_PATH = DATA_DIR / "jobs.db"
+
+SCRAPING = {
+    "min_delay": 2,
+    "max_delay": 5,
+    "page_timeout": 60,
+    "max_concurrent": 3,
+    "max_retries": 3,
+    "headless": True,
+}
+
+H1B_NO_SPONSOR = [
+    "must be authorized to work",
+    "without sponsorship",
+    "will not sponsor",
+    "does not sponsor",
+    "cannot sponsor",
+    "u.s. citizen",
+    "permanent resident only",
+    "green card required",
+    "security clearance required",
+]
+
+H1B_SPONSOR = [
+    "visa sponsorship available",
+    "will sponsor",
+    "h1b",
+    "h-1b",
+    "immigration support",
+]
+
+TECH_KEYWORDS = [
+    "software", "engineer", "developer", "backend", "frontend", "full stack",
+    "devops", "sre", "data scientist", "data engineer", "machine learning",
+    "ml engineer", "ai engineer", "cloud engineer", "python", "java", "golang",
+]
+
+EXCLUDE_KEYWORDS = [
+    "recruiter", "sales", "marketing", "hr", "legal", "finance", "accountant",
+]
+
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/121.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/121.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+]
+
+ATS_PATTERNS = {
+    "greenhouse": ["boards.greenhouse.io", "greenhouse.io"],
+    "lever": ["jobs.lever.co", "lever.co"],
+    "workday": ["myworkdayjobs.com"],
+    "ashby": ["jobs.ashbyhq.com"],
+}
+
+══════════════════════════════════════════════════════════════════════════
+PART 5: BACKEND - STEALTH/BROWSER.PY
+══════════════════════════════════════════════════════════════════════════
+
+Create stealth/browser.py - Playwright browser with anti-detection:
+
+Features required:
+1. Mask navigator.webdriver = undefined
+2. Mock window.chrome = {runtime: {}}
+3. Fake navigator.plugins with 3 plugins
+4. Canvas fingerprint noise (add 0.01 random offset)
+5. WebGL vendor masking ("Intel Inc.", "Intel Iris OpenGL Engine")
+6. Random user agent rotation
+7. Random viewport (1920±100 x 1080±50)
+8. Human-like delays (2-5 seconds between requests)
+9. Scroll simulation
+10. Async context manager support
+
+Methods:
+- async start() - launch browser
+- async new_page() - create stealth page
+- async goto(page, url) - navigate with delays
+- async human_delay(min, max) - random sleep
+- async scroll_to_bottom(page) - infinite scroll
+- async close() - cleanup
+
+══════════════════════════════════════════════════════════════════════════
+PART 6: BACKEND - STORAGE/DATABASE.PY
+══════════════════════════════════════════════════════════════════════════
+
+Create SQLite database with tables:
+
+TABLE companies:
+- id INTEGER PRIMARY KEY
+- name TEXT UNIQUE NOT NULL
+- careers_url TEXT NOT NULL
+- ats_type TEXT DEFAULT 'generic'
+- priority INTEGER DEFAULT 5
+- h1b_sponsor BOOLEAN DEFAULT 1
+- logo_url TEXT
+- last_scraped TIMESTAMP
+- jobs_count INTEGER DEFAULT 0
+- active BOOLEAN DEFAULT 1
+
+TABLE jobs:
+- id INTEGER PRIMARY KEY
+- company_id INTEGER REFERENCES companies(id)
+- title TEXT NOT NULL
+- location TEXT
+- location_city TEXT
+- location_state TEXT
+- description TEXT
+- requirements TEXT
+- job_url TEXT UNIQUE
+- job_id TEXT
+- posted_date DATE
+- scraped_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+- department TEXT
+- employment_type TEXT
+- salary_min INTEGER
+- salary_max INTEGER
+- remote_type TEXT
+- h1b_status TEXT DEFAULT 'unknown'
+- h1b_confidence REAL DEFAULT 0.5
+- h1b_snippet TEXT
+- content_hash TEXT
+- is_active BOOLEAN DEFAULT 1
+- is_relevant BOOLEAN DEFAULT 1
+
+TABLE scrape_logs:
+- id INTEGER PRIMARY KEY
+- company_id INTEGER
+- scrape_date TIMESTAMP
+- jobs_found INTEGER
+- jobs_new INTEGER
+- errors TEXT
+- duration_seconds REAL
+
+Methods:
+- save_company(data) -> id
+- get_companies_to_scrape() -> list
+- save_job(data) -> id (upsert)
+- get_job_by_hash(hash) -> job or None
+- get_recent_jobs(limit, h1b_only) -> list
+- log_scrape(company_id, stats)
+- get_stats() -> dict
+
+══════════════════════════════════════════════════════════════════════════
+PART 7: BACKEND - EXTRACTORS
+══════════════════════════════════════════════════════════════════════════
+
+Create 3 extractor files:
+
+1. extractors/date_finder.py
+   - find_posting_date(html, url) -> datetime or None
+   - 5-layer fallback:
+     a) JSON-LD: <script type="application/ld+json"> → datePosted
+     b) Meta tags: article:published_time, name="date"
+     c) Data attributes: data-posted-date
+     d) Microdata: itemprop="datePosted"
+     e) Text regex: "Posted X days ago", "Posted: MM/DD/YYYY"
+
+2. extractors/h1b_detector.py
+   - detect_h1b_status(description, company_known_sponsor) -> dict
+   - Returns: {status, confidence, snippet, reason}
+   - Check H1B_NO_SPONSOR keywords first (high confidence negative)
+   - Check H1B_SPONSOR keywords (high confidence positive)
+   - Default to "unknown" with confidence based on company history
+
+3. extractors/deduplicator.py
+   - generate_content_hash(job) -> str (SHA-256)
+   - Hash: lowercase(title + company + location + description[:200])
+   - calculate_similarity(text1, text2) -> float (Jaccard)
+   - is_likely_repost(new_job, existing_job) -> bool
+
+══════════════════════════════════════════════════════════════════════════
+PART 8: BACKEND - SCRAPERS
+══════════════════════════════════════════════════════════════════════════
+
+Create scraper files:
+
+1. scrapers/base.py - Abstract base class
+   - __init__(browser, company, db)
+   - abstract discover_job_urls() -> List[str]
+   - abstract scrape_job_page(url) -> Dict
+   - scrape_all() -> List[Dict] (main entry)
+   - is_relevant_job(title) -> bool
+
+2. scrapers/greenhouse.py - Greenhouse ATS
+   - Use API first: boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true
+   - Fallback to HTML: div[data-job-id], .opening, a[href*="/jobs/"]
+   - Extract: title, location, description, job_id, department, posted_date
+
+3. scrapers/lever.py - Lever ATS
+   - Selectors: .posting, .posting-title, .posting-categories
+   - Location: .location, .workplaceTypes
+   - Link: .posting-btn-apply
+
+4. scrapers/workday.py - Workday ATS (complex SPA)
+   - Wait for: [data-automation-id="jobResults"]
+   - Click "Load More" until exhausted
+   - Extract from dynamic elements
+
+5. scrapers/generic.py - Universal fallback
+   - Try multiple selectors until one works:
+     [class*="job"], [class*="career"], [class*="position"]
+   - Title: h1, h2, .job-title, [class*="title"]
+   - Location: .location, [class*="location"]
+
+══════════════════════════════════════════════════════════════════════════
+PART 9: BACKEND - API/MAIN.PY (FastAPI)
+══════════════════════════════════════════════════════════════════════════
+
+Create FastAPI app with endpoints:
+
+GET /api/jobs - Get recent jobs (params: limit, h1b_only)
+GET /api/jobs/{id} - Get single job
+GET /api/companies - Get all companies
+GET /api/companies/{id} - Get single company with jobs
+GET /api/stats - Dashboard statistics
+POST /api/scrape/start - Start scraping (background task)
+GET /api/scrape/status - Get scraping status
+WebSocket /ws - Real-time updates
+
+CORS: Allow localhost:3000
+
+══════════════════════════════════════════════════════════════════════════
+PART 10: BACKEND - RUN.PY (CLI)
+══════════════════════════════════════════════════════════════════════════
+
+Create CLI entry point:
+
+python run.py --mode=all              # Scrape all companies
+python run.py --mode=company --name="Stripe"  # Single company
+python run.py --mode=test --limit=3   # Test with 3 companies
+python run.py --mode=api              # Start FastAPI server
+
+Flow:
+1. Load companies from database
+2. For each company:
+   - Detect ATS type
+   - Get appropriate scraper
+   - Scrape all jobs
+   - For each job: check relevance, detect H1B, deduplicate, save
+   - Log scrape results
+3. Generate summary
+
+══════════════════════════════════════════════════════════════════════════
+PART 11: BACKEND - REQUIREMENTS.TXT
+══════════════════════════════════════════════════════════════════════════
+
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+aiohttp>=3.9.0
+python-dateutil>=2.8.0
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.5.0
+
+══════════════════════════════════════════════════════════════════════════
+PART 12: FRONTEND - TAILWIND CONFIG
+══════════════════════════════════════════════════════════════════════════
+
+Create tailwind.config.js with custom theme:
+
+colors: {
+  cream: {
+    50: '#FFFDF8',
+    100: '#FDF8EF',
+    200: '#F5E6D3',
+    300: '#E8D5C4',
+  },
+  gold: {
+    400: '#E5C158',
+    500: '#D4AF37',
+  },
+  navy: {
+    500: '#2E4A62',
+    600: '#1E3A5A',
+  },
+  brown: {
+    400: '#8B7355',
+    500: '#5D4037',
+    600: '#4E342E',
+  }
+}
+
+fontFamily: {
+  display: ['Playfair Display', 'serif'],
+  body: ['Inter', 'sans-serif'],
+}
+
+animation: {
+  'float-up': 'floatUp 3s ease-out infinite',
+  'confetti': 'confetti 1s ease-out forwards',
+}
+
+══════════════════════════════════════════════════════════════════════════
+PART 13: FRONTEND - COMPONENTS
+══════════════════════════════════════════════════════════════════════════
+
+Create these React components with Framer Motion:
+
+1. GraduationHero.tsx
+   - Full viewport height hero section
+   - Background: graduation/campus image with cream overlay
+   - Floating graduation caps animation (15 caps, staggered)
+   - Headline: "Your American Dream Starts Here"
+   - CTA button: "Explore Opportunities"
+
+2. JobCard.tsx
+   - Cream background, rounded corners (16px), soft shadow
+   - Title (Playfair Display), company name, location
+   - H1B badge: green="sponsors", red="does_not_sponsor", yellow="unknown"
+   - Remote type badge if applicable
+   - Posted date
+   - "Apply Now" button in gold
+   - Hover: lift up with enhanced shadow
+
+3. StatsCard.tsx
+   - Icon, label, value
+   - Animate number counting up on mount
+   - Colors: gold for jobs, navy for H1B, brown for new
+
+4. ConfettiAnimation.tsx
+   - Trigger on new job found
+   - 50 particles in gold/navy/brown colors
+   - Fall from top with rotation
+
+5. ScraperProgress.tsx
+   - Current company being scraped
+   - Progress bar
+   - Jobs found counter (animate on increment)
+   - Cap throw animation on each company complete
+
+══════════════════════════════════════════════════════════════════════════
+PART 14: FRONTEND - PAGES
+══════════════════════════════════════════════════════════════════════════
+
+1. app/page.tsx (Dashboard)
+   - GraduationHero at top
+   - Stats cards row (total jobs, H1B friendly, new today)
+   - Recent jobs grid (6 cards)
+   - "View All Jobs" button
+
+2. app/jobs/page.tsx
+   - Search bar
+   - Filters: H1B status, remote type, location
+   - Job cards grid with infinite scroll
+   - Sort by: date, relevance
+
+3. app/companies/page.tsx
+   - Company cards grid with logos
+   - Jobs count per company
+   - Last scraped date
+   - "View Jobs" button
+
+══════════════════════════════════════════════════════════════════════════
+PART 15: SAMPLE COMPANIES (50 H1B SPONSORS)
+══════════════════════════════════════════════════════════════════════════
+
+Include in config/companies.json:
+
+PRIORITY 10 (Top Tech & AI):
+- Google - careers.google.com
+- Meta - metacareers.com
+- Amazon - amazon.jobs
+- Apple - jobs.apple.com
+- Microsoft - careers.microsoft.com
+- OpenAI - openai.com/careers
+- Anthropic - anthropic.com/careers
+- Scale AI - scale.com/careers
+- Databricks - databricks.com/company/careers
+
+PRIORITY 9 (High-Growth):
+- Stripe - stripe.com/jobs
+- Airbnb - careers.airbnb.com
+- Figma - figma.com/careers
+- Discord - discord.com/careers
+- Notion - notion.so/careers
+- Vercel - vercel.com/careers
+- Ramp - ramp.com/careers
+- Rippling - rippling.com/careers
+- Plaid - plaid.com/careers
+
+PRIORITY 8 (Established):
+- Uber - uber.com/careers
+- Lyft - lyft.com/careers
+- DoorDash - careers.doordash.com
+- Instacart - instacart.careers
+- Robinhood - robinhood.com/careers
+- Coinbase - coinbase.com/careers
+- Snowflake - careers.snowflake.com
+- MongoDB - mongodb.com/careers
+- Twilio - twilio.com/company/jobs
+
+PRIORITY 7 (Enterprise):
+- Salesforce - salesforce.com/careers
+- Adobe - adobe.com/careers
+- Oracle - oracle.com/careers
+- VMware - vmware.com/careers
+- ServiceNow - servicenow.com/careers
+
+══════════════════════════════════════════════════════════════════════════
+PART 16: BUILD ORDER
+══════════════════════════════════════════════════════════════════════════
+
+Build in this exact order:
+
+BACKEND FIRST:
+1. config/settings.py + config/companies.json
+2. storage/database.py (create tables)
+3. stealth/browser.py (with all anti-detection)
+4. extractors/date_finder.py
+5. extractors/h1b_detector.py
+6. extractors/deduplicator.py
+7. scrapers/base.py
+8. scrapers/greenhouse.py
+9. scrapers/lever.py
+10. scrapers/generic.py
+11. api/main.py
+12. run.py
+13. requirements.txt
+
+FRONTEND SECOND:
+14. package.json + tailwind.config.js
+15. app/layout.tsx + globals.css
+16. components/GraduationHero.tsx
+17. components/JobCard.tsx
+18. components/StatsCard.tsx
+19. components/ConfettiAnimation.tsx
+20. app/page.tsx
+21. app/jobs/page.tsx
+22. app/companies/page.tsx
+23. lib/api.ts
+
+FINALLY:
+24. README.md with setup instructions
+
+══════════════════════════════════════════════════════════════════════════
+PART 17: TESTING
+══════════════════════════════════════════════════════════════════════════
+
+After building, test with:
+
+# Backend test
+cd backend
+pip install -r requirements.txt
+playwright install chromium
+python run.py --mode=test --limit=1
+
+# Frontend test
+cd frontend
+npm install
+npm run dev
+
+# Full test
+python run.py --mode=company --name="Anthropic"
+
+══════════════════════════════════════════════════════════════════════════
+FINAL NOTES
+══════════════════════════════════════════════════════════════════════════
+
+The emotional design is CRITICAL. The user is an international graduate
+who is scared about their visa situation. This app should:
+
+- Make them feel HOPEFUL (graduation caps, celebration)
+- Make them feel SUPPORTED (warm colors, friendly UI)
+- Make them feel EMPOWERED (clear job listings, easy apply)
+
+Every animation, every color, every word should say:
+"Your American dream is possible. We're here to help."
+
+Build it beautiful. Build it functional. Build it with heart.

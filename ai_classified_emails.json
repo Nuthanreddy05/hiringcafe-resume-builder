@@ -1,0 +1,1492 @@
+{
+  "confirmations": [
+    {
+      "company": "Myworkday",
+      "subject": "Confirmation of application received for 26WD94727 Software\r\n Engineer (Evergreen) (Open)",
+      "sender": "AutoNotification workday <autodesk@myworkday.com>",
+      "date": "2026-01-13T02:23:45",
+      "category": "CONFIRMATION",
+      "reason": "Email confirms receipt of application for a specific job."
+    },
+    {
+      "company": "Atlassian",
+      "subject": "Atlassian: Thanks for Completing Your Application",
+      "sender": "\"Atlassian @ icims\" <atlassian+autoreply@talent.icims.com>",
+      "date": "2026-01-12T21:46:28",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges application submission and indicates review is in progress."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "Thank you for your application",
+      "sender": "GLC Careers <system@successfactors.com>",
+      "date": "2026-01-13T03:10:14",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates the review process is ongoing."
+    },
+    {
+      "company": "Expandenergy",
+      "subject": "Your Application For the Position of Data Engineer - Trading",
+      "sender": "Expand Energy <noreply@expandenergy.com>",
+      "date": "2026-01-14T00:03:00",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and directs to profile for updates."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you for your application!",
+      "sender": "Noetica Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-14T03:33:49",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps in the review process."
+    },
+    {
+      "company": "Orcl",
+      "subject": "Your recent job application for Software Engineer II - 26256",
+      "sender": "Fanatics Careers <noreply@orcl.fanatics.com>",
+      "date": "2026-01-14T03:39:19",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates potential future contact."
+    },
+    {
+      "company": "New American Funding",
+      "subject": "Thank you for your application",
+      "sender": "\"New American Funding @ icims\" <nafinc+autoreply@talent.icims.com>",
+      "date": "2026-01-13T22:51:24",
+      "category": "CONFIRMATION",
+      "reason": "Automated acknowledgment of application receipt."
+    },
+    {
+      "company": "Oracle",
+      "subject": "We received your application",
+      "sender": "Oracle Talent Acquisition <noreply@oracle.com>",
+      "date": "2026-01-14T08:28:37",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and provides a link to track status."
+    },
+    {
+      "company": "Candidatecare",
+      "subject": "Bastian Solutions - Thanks For Your Application!",
+      "sender": "Bastian Talent Acquisition <do-not-reply@candidatecare.com>",
+      "date": "2026-01-14T04:53:46",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and thanks the candidate."
+    },
+    {
+      "company": "Oracle",
+      "subject": "Thank you for your application to Oracle",
+      "sender": "Oracle Talent Acquisition <noreply@oracle.com>",
+      "date": "2026-01-16T00:07:20",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and thanks candidate."
+    },
+    {
+      "company": "Bostonscientific",
+      "subject": "Your Application with Boston Scientific - Software Engineer II -\r\n Electrophysiology (622296)",
+      "sender": "Boston Scientific Talent Acquisition Team\r\n <noreply@bostonscientific.com>",
+      "date": "2026-01-19T09:06:41",
+      "category": "CONFIRMATION",
+      "reason": "Email acknowledges receipt of application and provides a job reference number."
+    },
+    {
+      "company": "Capgemini",
+      "subject": "Capgemini Group \u2013 New Job Application Received",
+      "sender": "HR System <HRsystem@capgemini.com>",
+      "date": "2026-01-20T00:39:57",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Notifications",
+      "subject": "Medical Mutual Application Acknowledgement",
+      "sender": "Medical Mutual Recruitment <MedicalMutual_Recruitment@notifications.ukg.net>",
+      "date": "2026-01-20T05:33:01",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Adp",
+      "subject": "Application Received",
+      "sender": "<ArgenCorporation.hr@adp.com>",
+      "date": "2026-01-20T23:30:59",
+      "category": "CONFIRMATION",
+      "reason": "Email is a standard automated acknowledgment of application receipt."
+    },
+    {
+      "company": "Capgemini",
+      "subject": "Capgemini Group \u2013 New Job Application Received",
+      "sender": "HR System <HRsystem@capgemini.com>",
+      "date": "2026-01-20T23:42:09",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Oracle",
+      "subject": "Your recent job application for AI Data Scientist",
+      "sender": "no-reply@oracle.com",
+      "date": "2026-01-20T23:57:32",
+      "category": "CONFIRMATION",
+      "reason": "Automated acknowledgment of application receipt from company domain."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "We received your application for Software Engineer II (Full-Stack,\r\n Backend-leaning)!",
+      "sender": "Jerry Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-21T00:00:14",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps if selected."
+    },
+    {
+      "company": "Spencer's & Spirit Halloween",
+      "subject": "Spencer's and Spirit Halloween - We received your application. Let\r\n the fun begin!",
+      "sender": "\r\n\tSpencer's & Spirit Halloween <spencersandspirit+autoreply@talent.icims.com>",
+      "date": "2026-01-20T19:09:56",
+      "category": "CONFIRMATION",
+      "reason": "Automated acknowledgment of application receipt."
+    },
+    {
+      "company": "Adp",
+      "subject": "Thank you for your application",
+      "sender": "<GreatLakesMgmtCo.hr@adp.com>",
+      "date": "2026-01-21T00:29:18",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "McDonald's Talent Attraction: Application Confirmation",
+      "sender": "McDonald's Me <System@successfactors.com>",
+      "date": "2026-01-21T10:51:43",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Syntax",
+      "subject": "Thank you for your application!",
+      "sender": "Syntax <no-reply@hire.lever.co>",
+      "date": "2026-01-21T11:08:55",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Pinpoint",
+      "subject": "BigHat Biosciences: Application Received",
+      "sender": "BigHat Biosciences <3ab90cfa-6093-44bc-abd8-ff624c1a80ab@pinpoint.email>",
+      "date": "2026-01-21T11:23:10",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Broadcast",
+      "subject": "Welcome to Wipro - Thank You for Creating Your Application Form!",
+      "sender": "Wipro Notifications <notifications@broadcast.wipro.com>",
+      "date": "2026-01-21T11:25:10",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges application submission and indicates next steps."
+    },
+    {
+      "company": "Capgemini",
+      "subject": "Capgemini Group \u2013 New Job Application Received",
+      "sender": "HR System <HRsystem@capgemini.com>",
+      "date": "2026-01-21T11:33:18",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and states it will be reviewed."
+    },
+    {
+      "company": "Cloudflare",
+      "subject": "Cloudflare Recruiting | Application Received - Systems Reliability (SRE) /\r\n Platform Engineer - Edge",
+      "sender": "no-reply@cloudflare.com",
+      "date": "2026-01-21T11:54:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Capgemini",
+      "subject": "Capgemini Group \u2013 New Job Application Received",
+      "sender": "HR System <HRsystem@capgemini.com>",
+      "date": "2026-01-24T07:15:09",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Makenotion",
+      "subject": "Thank you for your application to Notion, Nuthan!",
+      "sender": "Notion's Recruiting Team <recruiting-no-reply@makenotion.com>",
+      "date": "2026-01-24T07:16:55",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates potential future contact."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "We received your application for Associate Software Engineer!",
+      "sender": "Jerry Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-24T07:25:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates potential future contact."
+    },
+    {
+      "company": "InductiveHealth",
+      "subject": "Thank you for your application to InductiveHealth",
+      "sender": "InductiveHealth <no-reply@hire.lever.co>",
+      "date": "2026-01-24T07:27:22",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Application received- Thank you for your interest in CodaMetrix!",
+      "sender": "CodaMetrix Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-24T07:28:13",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates potential future contact if qualified."
+    },
+    {
+      "company": "Zoox",
+      "subject": "Nuthan, Thank you for your application to Zoox",
+      "sender": "Zoox <no-reply@hire.lever.co>",
+      "date": "2026-01-24T07:32:34",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates future contact only if there is a fit."
+    },
+    {
+      "company": "Tgw Logistics Group",
+      "subject": "Re: Thank-you for Your Application - TGW Opportunity",
+      "sender": "TGW Logistics <no-reply@tgw-logistics-group.breezy-mail.com>",
+      "date": "2026-01-24T07:52:33",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is in progress."
+    },
+    {
+      "company": "Candidatecare",
+      "subject": "MOHELA Application Received - Data Engineer",
+      "sender": "MOHELA Recruiting <do-not-reply@candidatecare.com>",
+      "date": "2026-01-24T03:02:04",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Pinpoint",
+      "subject": "Application Received",
+      "sender": "Five and Fly <85a53c45-c597-4a2c-87c0-49354b005805@pinpoint.email>",
+      "date": "2026-01-24T08:07:13",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Holidayinnclub",
+      "subject": "Thank You for Your Data Scientist- Customer Modeling Application",
+      "sender": "recruiting@holidayinnclub.com",
+      "date": "2026-01-24T08:14:53",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Cityjobsupport",
+      "subject": "City of New York Thank you! We Have received Your Application",
+      "sender": "City of New York <notification@cityjobsupport.nyc.gov>",
+      "date": "2026-01-24T08:35:00",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Oracle",
+      "subject": "We received your application",
+      "sender": "Oracle Talent Acquisition <noreply@oracle.com>",
+      "date": "2026-01-24T08:39:19",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and provides a link to track status."
+    },
+    {
+      "company": "Visa",
+      "subject": "Visa has received your application",
+      "sender": "Visa <notification@smartrecruiters.com>",
+      "date": "2026-01-24T09:20:01",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Metronetinc",
+      "subject": "Thank You for Your Application - Software Engineer at Metronet",
+      "sender": "recruiting@metronetinc.com",
+      "date": "2026-01-24T09:30:32",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is in progress."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Application Received \u2013 Frontend Engineer, Marketing at Cartesia",
+      "sender": "Cartesia Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-24T09:36:33",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is in progress."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you for your application to Unlearn!",
+      "sender": "Unlearn Talent Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-24T09:38:41",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and requests additional information via a form."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "Job Application Submitted",
+      "sender": "Loves Recruitment <system@successfactors.com>",
+      "date": "2026-01-24T10:06:25",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be kept on file for potential future contact."
+    },
+    {
+      "company": "InductiveHealth",
+      "subject": "Thank you for your application to InductiveHealth",
+      "sender": "InductiveHealth <no-reply@hire.lever.co>",
+      "date": "2026-01-26T21:13:39",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "InductiveHealth",
+      "subject": "Thank you for your application to InductiveHealth",
+      "sender": "InductiveHealth <no-reply@hire.lever.co>",
+      "date": "2026-01-26T21:14:51",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Oracle",
+      "subject": "Thank you for your application to Oracle",
+      "sender": "Oracle Talent Acquisition <noreply@oracle.com>",
+      "date": "2026-01-28T20:16:13",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and thanks candidate."
+    },
+    {
+      "company": "Cayuse Holdings",
+      "subject": "Thank You For Your Application",
+      "sender": "\"Cayuse Holdings @ icims\" <cayuseholdings+autoreply@talent.icims.com>",
+      "date": "2026-01-30T05:27:25",
+      "category": "CONFIRMATION",
+      "reason": "Automated acknowledgment of application receipt."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you for your application to UiPath: Software Engineer II",
+      "sender": "UiPath Talent Acquisition Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-30T10:49:30",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Honeywell",
+      "subject": "Your recent job application for Software Engineer II - Automation &\r\n Validation - 135729",
+      "sender": "Human Resources <noreply@honeywell.com>",
+      "date": "2026-01-30T10:54:47",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates potential future contact."
+    },
+    {
+      "company": "Hiya",
+      "subject": "Application Received for AI Engineer Role at Hiya",
+      "sender": "Hiya Hiring Team <no-reply@hiya.com>",
+      "date": "2026-01-30T05:09:22",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and provides general next steps, but does not indicate a decision or interview scheduling."
+    },
+    {
+      "company": "Match Group",
+      "subject": "Thank you for your application to Match Group",
+      "sender": "Match Group <no-reply@hire.lever.co>",
+      "date": "2026-01-30T11:11:13",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Match Group",
+      "subject": "Thanks for applying to Data Scientist I, Integrity , here is a link to manage\r\n your application data",
+      "sender": "Match Group <no-reply@hire.lever.co>",
+      "date": "2026-01-30T11:11:14",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and provides a link to manage candidate data."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "NinjaTech AI received your job application!",
+      "sender": "NinjaTech AI Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-30T11:13:43",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Eu",
+      "subject": "Thank you for applying for Data Analyst position through Growe Talents",
+      "sender": "no-reply@eu.greenhouse-mail.io",
+      "date": "2026-01-20T04:17:02",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Eu",
+      "subject": "Thank you for applying for Data Analyst position through Growe Talents",
+      "sender": "no-reply@eu.greenhouse-mail.io",
+      "date": "2026-01-20T04:18:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "RealPage, Inc.",
+      "subject": "Thank you for applying to RealPage's AI Engineer I position",
+      "sender": "\"RealPage, Inc. @ icims\" <realpagepms+autoreply@talent.icims.com>",
+      "date": "2026-01-20T00:16:22",
+      "category": "CONFIRMATION",
+      "reason": "Automated acknowledgment of application receipt."
+    },
+    {
+      "company": "Notifications",
+      "subject": "Thank you for applying for the Client Data Analyst position",
+      "sender": "mPulse Mobile <no-reply@notifications.ukg.net>",
+      "date": "2026-01-20T21:19:55",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Eu",
+      "subject": "Thank you for applying for Data Analyst position through Growe Talents",
+      "sender": "no-reply@eu.greenhouse-mail.io",
+      "date": "2026-01-21T00:20:06",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Eu",
+      "subject": "Thank you for applying for Data Analyst position through Growe Talents",
+      "sender": "no-reply@eu.greenhouse-mail.io",
+      "date": "2026-01-21T00:21:06",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Workflow",
+      "subject": "Confirm your identity for the position of Data Engineer/Analyst - 16760",
+      "sender": "Southern Company Talent Acquisition\r\n <emje.fa.sender@workflow.mail.us6.oraclecloud.com>",
+      "date": "2026-01-24T08:58:47",
+      "category": "CONFIRMATION",
+      "reason": "Email requests identity confirmation for a specific job application."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Callibrity",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-10T09:06:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Helloalma",
+      "subject": "Thank you for applying to Alma",
+      "sender": "no-reply@helloalma.com",
+      "date": "2026-01-10T21:58:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and sets expectations for next steps."
+    },
+    {
+      "company": "Helloalma",
+      "subject": "Thank you for applying to Alma",
+      "sender": "no-reply@helloalma.com",
+      "date": "2026-01-10T22:07:07",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and sets expectations for next steps."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you for applying to Poshmark!",
+      "sender": "Poshmark Talent Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-12T22:38:12",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges application receipt and indicates review is in progress."
+    },
+    {
+      "company": "Phiture",
+      "subject": "Thank you for applying to Phiture",
+      "sender": "no-reply@phiture.com",
+      "date": "2026-01-13T19:46:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Enumerate",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-13T20:03:12",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Ttiinc",
+      "subject": "Thank you for applying for Data Engineer | Fort Worth, Texas with\r\n TTI, Inc.",
+      "sender": "no-reply@ttiinc.com",
+      "date": "2026-01-14T03:22:32",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to MetroStar",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T03:25:12",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is in process."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Wavelo",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T03:27:14",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps in the hiring process."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Opto Investments!",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T03:35:09",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Basf",
+      "subject": "Thank you for applying at BASF - Data Scientist (125513)",
+      "sender": "BASF Talent Acquisition <no-reply_talentacquisition@basf.com>",
+      "date": "2026-01-14T03:45:21",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will begin."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to NewLimit",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T03:47:07",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Forter!",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T03:53:08",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Us",
+      "subject": "Nuthan Reddy, thank you for applying to SoFi!",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T04:00:10",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Candidly!",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-14T04:02:11",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Cottingham & Butler",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-20T21:11:16",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to C3 AI",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-20T21:13:12",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Vestwell",
+      "subject": "Thank you for applying to Vestwell!",
+      "sender": "no-reply@vestwell.com",
+      "date": "2026-01-20T23:45:15",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps in the hiring process."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "Thank you for applying to Ametek, Inc.",
+      "sender": "AMETEK Talent Acquisition Team <AMETEK.Recruiting@successfactors.com>",
+      "date": "2026-01-21T00:15:19",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you for applying to Ramp!",
+      "sender": "Ramp Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-21T10:53:07",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "Thank You for Your Interest in BOK Financial",
+      "sender": "BOK Financial Recruiting Team <system@successfactors.com>",
+      "date": "2026-01-21T10:56:51",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates profile will be retained for future opportunities."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "Thank You for Applying to BOK Financial",
+      "sender": "BOK Financial Recruiting Team <system@successfactors.com>",
+      "date": "2026-01-21T11:02:08",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates potential future contact if qualified."
+    },
+    {
+      "company": "Sony",
+      "subject": "Thank you for applying to PlayStation Global",
+      "sender": "no-reply@sony.com",
+      "date": "2026-01-21T11:15:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Continuum Media Network Inc",
+      "subject": "Thank you for applying!",
+      "sender": "Continuum Media Network Inc <do-not-reply@mail.paylocity.com>",
+      "date": "2026-01-21T11:18:57",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application."
+    },
+    {
+      "company": "Hq",
+      "subject": "Thank You for Applying to Join BILL!",
+      "sender": "no-reply@hq.bill.com",
+      "date": "2026-01-21T11:21:06",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps for potential future contact."
+    },
+    {
+      "company": "Jobalerts",
+      "subject": "Thank you for your interest with AmeriHealth Caritas.  Join our\r\n Talent Community",
+      "sender": "AmeriHealth Caritas <recruiting@jobalerts.amerihealthcaritas.com>",
+      "date": "2026-01-21T11:41:19",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges interest and invites to join talent community for future opportunities."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Databricks!",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-21T12:12:06",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Better Collision Centers Inc",
+      "subject": "Thank you for applying!",
+      "sender": "Better Collision Centers Inc <do-not-reply@mail.paylocity.com>",
+      "date": "2026-01-24T07:09:06",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges application receipt and thanks candidate."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to a Re:Build Manufacturing company",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-24T07:19:09",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you from Tennr!",
+      "sender": "Tennr Recruiting <no-reply@ashbyhq.com>",
+      "date": "2026-01-24T07:30:25",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Thetradedesk",
+      "subject": "Thank you for applying to The Trade Desk",
+      "sender": "no-reply-recruiting@thetradedesk.com",
+      "date": "2026-01-24T07:37:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Esri",
+      "subject": "Thank you for applying to Esri!",
+      "sender": "no-reply@esri.com",
+      "date": "2026-01-24T07:43:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Navvis & Company LLC",
+      "subject": "Thank you for applying!",
+      "sender": "Navvis & Company LLC <do-not-reply@mail.paylocity.com>",
+      "date": "2026-01-24T07:46:04",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges application receipt and thanks candidate for interest."
+    },
+    {
+      "company": "Syncreon Consulting",
+      "subject": "Thank you for applying to Syncreon Consulting",
+      "sender": "Syncreon Consulting <notification@smartrecruiters.com>",
+      "date": "2026-01-24T08:02:58",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it is queued for review."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Trovo Health",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-24T08:10:02",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Sprocket Security",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-24T08:25:02",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and sets timeline for response."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Temporal Technologies",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-24T08:56:04",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Axon",
+      "subject": "Thank you for applying to Axon!",
+      "sender": "no-reply-talent@axon.com",
+      "date": "2026-01-24T09:02:06",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Jamf",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-24T09:17:08",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "ServiceNow",
+      "subject": "Thank You for Applying to ServiceNow!",
+      "sender": "ServiceNow <notification@smartrecruiters.com>",
+      "date": "2026-01-24T09:24:01",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Us",
+      "subject": "Nuthan Reddy, thank you for applying to SoFi!",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-24T09:27:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Valence",
+      "subject": "Thank you for your interest in Valence",
+      "sender": "Valence <no-reply@hire.lever.co>",
+      "date": "2026-01-24T09:32:29",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and promises future updates."
+    },
+    {
+      "company": "MedBridge Inc.",
+      "subject": "Thank you for applying!",
+      "sender": "\"MedBridge Inc.\" <do-not-reply@mail.paylocity.com>",
+      "date": "2026-01-24T09:35:42",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application."
+    },
+    {
+      "company": "DOOTA INDUSTRIAL AMERICA LLC",
+      "subject": "Thank you for applying!",
+      "sender": "DOOTA INDUSTRIAL AMERICA LLC <do-not-reply@mail.paylocity.com>",
+      "date": "2026-01-24T09:42:50",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application."
+    },
+    {
+      "company": "Kiewit",
+      "subject": "Thank You for Applying: Palantir Software Developer (178411)",
+      "sender": "Kiewit <NoReply@Kiewit.com>",
+      "date": "2026-01-24T10:01:23",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Sapsf",
+      "subject": "Thank You for Creating an Account with Supermicro Careers",
+      "sender": "Supermicro HR <noreply@sapsf.com>",
+      "date": "2026-01-24T10:07:42",
+      "category": "CONFIRMATION",
+      "reason": "Email confirms account creation on the company's careers portal."
+    },
+    {
+      "company": "Sony",
+      "subject": "Thank you for applying to PlayStation Global",
+      "sender": "no-reply@sony.com",
+      "date": "2026-01-24T10:13:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Sapsf",
+      "subject": "Thank you for applying for Software Engineer - Production (28256)",
+      "sender": "Supermicro HR <noreply@sapsf.com>",
+      "date": "2026-01-24T10:17:45",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Amerihealthcaritas",
+      "subject": "Thank you for your interest in a career opportunity with\r\n AmeriHealth Caritas",
+      "sender": "AmeriHealth Caritas Talent Acquisition\r\n <donotreplytaleo@amerihealthcaritas.com>",
+      "date": "2026-01-24T11:07:10",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and thanks candidate for interest."
+    },
+    {
+      "company": "Experian",
+      "subject": "Thank you for your interest in Experian",
+      "sender": "Experian <notification@recruiting.experian.com>",
+      "date": "2026-01-30T10:37:07",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Ats",
+      "subject": "Thank you for applying to Terray Therapeutics, Inc.",
+      "sender": "\"Terray Therapeutics, Inc.\" <no-reply@ats.rippling.com>",
+      "date": "2026-01-30T10:40:14",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Nymbus, Inc.",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-30T10:41:08",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Stackadapt",
+      "subject": "Thank you for your interest in StackAdapt!",
+      "sender": "no-reply@stackadapt.com",
+      "date": "2026-01-30T10:44:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Coinbase",
+      "subject": "Thank you for applying to Coinbase",
+      "sender": "no-reply@coinbase.com",
+      "date": "2026-01-30T10:48:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review will follow."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Anthropic",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-30T10:57:04",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and sets expectations for the review timeline."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Point72",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-30T11:06:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Adyen",
+      "subject": "Thank you for applying to Adyen!",
+      "sender": "jobs@adyen.com",
+      "date": "2026-01-30T11:08:04",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and provides a timeline for response."
+    },
+    {
+      "company": "Box",
+      "subject": "Thank you for applying to Box!",
+      "sender": "no-reply@box.com",
+      "date": "2026-01-30T11:17:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Thank you for applying to Meter!",
+      "sender": "Meter Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-30T11:18:09",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates future contact only if there is a match."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Beacon Biosignals",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-30T11:24:03",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates it will be reviewed."
+    },
+    {
+      "company": "Propio",
+      "subject": "Thank you for applying!",
+      "sender": "Propio <do-not-reply@mail.paylocity.com>",
+      "date": "2026-01-30T11:29:35",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application."
+    },
+    {
+      "company": "Oracle",
+      "subject": "Thank you for your interest in Princess",
+      "sender": "no-reply@oracle.com",
+      "date": "2026-02-02T19:55:02",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and thanks candidate for interest."
+    },
+    {
+      "company": "Fundraiseup",
+      "subject": "Thank you for applying to Fundraise Up! What's Next?",
+      "sender": "no-reply@fundraiseup.com",
+      "date": "2026-02-03T02:04:05",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank you for applying to Nex",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-02-03T02:22:08",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and indicates review is pending."
+    },
+    {
+      "company": "Fundraiseup",
+      "subject": "Thank you for applying to Fundraise Up! What's Next?",
+      "sender": "no-reply@fundraiseup.com",
+      "date": "2026-02-03T03:01:07",
+      "category": "CONFIRMATION",
+      "reason": "Acknowledges receipt of application and outlines next steps."
+    }
+  ],
+  "rejections": [
+    {
+      "company": "Brassring",
+      "subject": "FCPS Employment Application",
+      "sender": "<FairfaxCountyPublicSchools@brassring.com>",
+      "date": "2026-01-08T11:10:32",
+      "category": "REJECTION",
+      "reason": "Informs applicant that another candidate was selected."
+    },
+    {
+      "company": "Us",
+      "subject": "Your application to Callibrity",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-11T11:00:02",
+      "category": "REJECTION",
+      "reason": "Informs candidate they are not selected and may be considered for future roles."
+    },
+    {
+      "company": "Talent Acquisition (Do Not Reply)",
+      "subject": "Software Engineer - Java, Application Support 2330029 at",
+      "sender": "\"Talent Acquisition (Do Not Reply)\" <careers@recruiting.uhg.com>",
+      "date": "2026-01-12T22:16:02",
+      "category": "REJECTION",
+      "reason": "Generic template from a recruiting system, no interview invitation or positive update."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Update on your application for Machine Learning Engineer",
+      "sender": "Noetica Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-14T18:30:39",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Basf",
+      "subject": "Your application with BASF - Data Scientist (125513)",
+      "sender": "BASF Talent Acquisition <no-reply_talentacquisition@basf.com>",
+      "date": "2026-01-14T18:43:20",
+      "category": "REJECTION",
+      "reason": "Declines application and encourages future applications."
+    },
+    {
+      "company": "Helloalma",
+      "subject": "Update on your Alma Application",
+      "sender": "no-reply@helloalma.com",
+      "date": "2026-01-14T19:08:14",
+      "category": "REJECTION",
+      "reason": "Informs applicant they will not proceed with the application for the current opening."
+    },
+    {
+      "company": "Goenumerate",
+      "subject": "Important information about your application to Enumerate",
+      "sender": "Amy Riley <amy.riley@goenumerate.com>",
+      "date": "2026-01-14T19:17:09",
+      "category": "REJECTION",
+      "reason": "Informs applicant they are not proceeding with the candidacy."
+    },
+    {
+      "company": "GitHub, Inc.",
+      "subject": "GitHub Application Follow Up for NuthanReddy Vaddi Reddy",
+      "sender": "\"GitHub, Inc. @ icims\" <githubinc+autoreply@talent.icims.com>",
+      "date": "2026-01-15T13:48:23",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Cloudflare",
+      "subject": "Cloudflare Application Update | Systems Reliability (SRE) / Platform Engineer\r\n - Edge",
+      "sender": "no-reply@cloudflare.com",
+      "date": "2026-01-21T18:54:13",
+      "category": "REJECTION",
+      "reason": "Declines to move forward with interview process for the applied position."
+    },
+    {
+      "company": "Phiture",
+      "subject": "Your application for the Data Analyst - Remote in the US role at Phiture",
+      "sender": "no-reply@phiture.com",
+      "date": "2026-01-22T08:49:53",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Eu",
+      "subject": "Thank you for your application through Growe Talents",
+      "sender": "no-reply@eu.greenhouse-mail.io",
+      "date": "2026-01-22T09:57:47",
+      "category": "REJECTION",
+      "reason": "Informs applicant they are not selected for the role but may be considered for future opportunities."
+    },
+    {
+      "company": "Cottinghambutler",
+      "subject": "Update regarding your application to Cottingham & Butler",
+      "sender": "no-reply@cottinghambutler.com",
+      "date": "2026-01-22T12:02:02",
+      "category": "REJECTION",
+      "reason": "Applicant not selected for further consideration."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Update on your application to Ramp",
+      "sender": "Ramp Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-23T15:10:09",
+      "category": "REJECTION",
+      "reason": "Declines candidacy and will not move forward."
+    },
+    {
+      "company": "Us",
+      "subject": "Regarding your application to NewLimit",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-23T21:30:44",
+      "category": "REJECTION",
+      "reason": "Declines candidacy for the current opening."
+    },
+    {
+      "company": "Optoinvest",
+      "subject": "Your Application to Opto Investments",
+      "sender": "talent@optoinvest.com",
+      "date": "2026-01-23T21:47:13",
+      "category": "REJECTION",
+      "reason": "Declines candidacy and does not move forward with application."
+    },
+    {
+      "company": "Doosan",
+      "subject": "Doosan Bobcat Job Application Update",
+      "sender": "Doosan Recruiting <DoosanRecruiting@doosan.com>",
+      "date": "2026-01-24T07:40:57",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Us",
+      "subject": "Important information about your application to Re:Build Manufacturing",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-25T12:00:10",
+      "category": "REJECTION",
+      "reason": "Declines candidacy and will keep application on file for future opportunities."
+    },
+    {
+      "company": "Pinpoint",
+      "subject": "Your application to Five and Fly",
+      "sender": "Five and Fly <85a53c45-c597-4a2c-87c0-49354b005805@pinpoint.email>",
+      "date": "2026-01-26T15:00:25",
+      "category": "REJECTION",
+      "reason": "Informs applicant they are not moving forward with the opportunity."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Neurophos Application Update",
+      "sender": "Neurophos Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-26T18:32:27",
+      "category": "REJECTION",
+      "reason": "Declines candidacy due to lack of ideal fit."
+    },
+    {
+      "company": "Makenotion",
+      "subject": "Update on your application to Notion, Nuthan",
+      "sender": "Notion Recruiting <recruiting-no-reply@makenotion.com>",
+      "date": "2026-01-27T14:46:00",
+      "category": "REJECTION",
+      "reason": "Informs candidate they are not moving forward with the application."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Update regarding your application for Frontend Engineer, Marketing\r\n at Cartesia",
+      "sender": "Cartesia Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-27T17:40:08",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Us",
+      "subject": "Important information about your application to Trovo Health",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-29T04:19:36",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Doosan",
+      "subject": "Doosan Bobcat Job Application Update",
+      "sender": "Doosan Recruiting <DoosanRecruiting@doosan.com>",
+      "date": "2026-01-29T18:03:36",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Us",
+      "subject": "Your application for Data Scientist, AI Engineering with Candidly",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-29T23:46:25",
+      "category": "REJECTION",
+      "reason": "Informs applicant that the current applicant pool is being closed and encourages reapplying."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Comfy Application Update",
+      "sender": "Comfy Org Hiring Team <no-reply@ashbyhq.com>",
+      "date": "2026-01-30T01:35:43",
+      "category": "REJECTION",
+      "reason": "Declines candidacy due to lack of ideal fit."
+    },
+    {
+      "company": "Sony",
+      "subject": "Important information about your application to PlayStation Global",
+      "sender": "no-reply@sony.com",
+      "date": "2026-01-31T00:52:29",
+      "category": "REJECTION",
+      "reason": "Informs applicant they are not moving forward and encourages applying for other roles."
+    },
+    {
+      "company": "Kiewit",
+      "subject": "Application Update: AI Engineer (179547)",
+      "sender": "Kiewit <NoReply@Kiewit.com>",
+      "date": "2026-01-31T22:30:07",
+      "category": "REJECTION",
+      "reason": "States decision to pursue other candidates for the position."
+    },
+    {
+      "company": "Ashbyhq",
+      "subject": "Your Application to Tennr: Backend Software Engineer",
+      "sender": "Tennr Recruiting <no-reply@ashbyhq.com>",
+      "date": "2026-02-02T20:35:04",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Metronetinc",
+      "subject": "Update on Your Application - Software Engineer at Metronet",
+      "sender": "recruiting@metronetinc.com",
+      "date": "2026-02-03T21:06:51",
+      "category": "REJECTION",
+      "reason": "Informs candidate they are not moving forward and encourages future applications."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "BOK Financial Transfund Data Analyst Position",
+      "sender": "BOK Financial Recruiting Team <system@successfactors.com>",
+      "date": "2026-01-21T15:50:25",
+      "category": "REJECTION",
+      "reason": "States narrowing down to a core group and not moving forward with the applicant."
+    },
+    {
+      "company": "Successfactors",
+      "subject": "Great Lakes Cheese -  Thank you for your interest",
+      "sender": "GLC Careers <system@successfactors.com>",
+      "date": "2026-01-16T14:30:20",
+      "category": "REJECTION",
+      "reason": "States moving forward with another candidate."
+    },
+    {
+      "company": "Workflow",
+      "subject": "Nuthan, Thank you for your interest in DTCC",
+      "sender": "DTCC Talent Acquisition Team\r\n <ebxr.fa.sender@workflow.mail.us2.cloud.oracle.com>",
+      "date": "2026-01-16T17:36:51",
+      "category": "REJECTION",
+      "reason": "Thanks for interest but not moving forward at this time."
+    },
+    {
+      "company": "NAF Recruiters",
+      "subject": "New American Funding, Thank you for applying!",
+      "sender": "NAF Recruiters <nafinc+email+6c3k-bee2c88960@talent.icims.com>",
+      "date": "2026-01-19T13:14:18",
+      "category": "REJECTION",
+      "reason": "Declines candidacy and states selection of another candidate."
+    },
+    {
+      "company": "Amerihealthcaritas",
+      "subject": "Thank you from the AmeriHealth Caritas Family of Companies",
+      "sender": "AmeriHealth Caritas Talent Acquisition\r\n <donotreplytaleo@amerihealthcaritas.com>",
+      "date": "2026-01-21T11:07:16",
+      "category": "REJECTION",
+      "reason": "Generic thank you email after application, likely an automated response indicating no further action."
+    },
+    {
+      "company": "Amerihealthcaritas",
+      "subject": "Thank you from the AmeriHealth Caritas Family of Companies",
+      "sender": "AmeriHealth Caritas Talent Acquisition\r\n <donotreplytaleo@amerihealthcaritas.com>",
+      "date": "2026-01-21T11:09:07",
+      "category": "REJECTION",
+      "reason": "Generic thank you email after application, likely an automated response indicating no further action."
+    },
+    {
+      "company": "Workflow",
+      "subject": "Nuthan, Thank you for your interest in DTCC",
+      "sender": "DTCC Talent Acquisition Team\r\n <ebxr.fa.sender@workflow.mail.us2.cloud.oracle.com>",
+      "date": "2026-01-21T17:33:26",
+      "category": "REJECTION",
+      "reason": "Thanks for interest but not moving forward at this time."
+    },
+    {
+      "company": "Us",
+      "subject": "Thank You For Your Interest in Temporal Technologies",
+      "sender": "no-reply@us.greenhouse-mail.io",
+      "date": "2026-01-28T16:00:18",
+      "category": "REJECTION",
+      "reason": "Declines application and will not proceed further"
+    },
+    {
+      "company": "Holidayinnclub",
+      "subject": "Thank You for Your Interest",
+      "sender": "recruiting@holidayinnclub.com",
+      "date": "2026-01-28T18:35:20",
+      "category": "REJECTION",
+      "reason": "States moving forward with other candidates"
+    },
+    {
+      "company": "Unknown",
+      "subject": "Thank You",
+      "sender": "Do Not Reply <cayuseholdings+email+147p-0d471053a7@talent.icims.com>",
+      "date": "2026-02-02T13:48:04",
+      "category": "REJECTION",
+      "reason": "Declines application and states focus on other candidates"
+    },
+    {
+      "company": "Propio",
+      "subject": "Thank you for your interest in Propio",
+      "sender": "Propio <do-not-reply@mail.paylocity.com>",
+      "date": "2026-02-02T21:56:33",
+      "category": "REJECTION",
+      "reason": "Generic thank you for applying, no interview invitation."
+    },
+    {
+      "company": "Visa Hiring Team",
+      "subject": "Thank you for your interest in Visa",
+      "sender": "Visa Hiring Team <notifications@smartrecruiters.com>",
+      "date": "2026-02-03T15:27:13",
+      "category": "REJECTION",
+      "reason": "States decision to move ahead with other candidates"
+    },
+    {
+      "company": "Box",
+      "subject": "Thank you for your interest in Box",
+      "sender": "no-reply@box.com",
+      "date": "2026-02-03T19:42:57",
+      "category": "REJECTION",
+      "reason": "Informs applicant they are not selected for the role and encourages applying for other positions."
+    },
+    {
+      "company": "Hq",
+      "subject": "Thank You for Your Interest in BILL",
+      "sender": "no-reply@hq.bill.com",
+      "date": "2026-02-04T02:16:02",
+      "category": "REJECTION",
+      "reason": "Declines candidacy and encourages future applications."
+    },
+    {
+      "company": "Fundraiseup",
+      "subject": "Thank You for Your Interest in Fundraise Up",
+      "sender": "no-reply@fundraiseup.com",
+      "date": "2026-02-04T14:00:10",
+      "category": "REJECTION",
+      "reason": "Declines application and encourages future opportunities."
+    },
+    {
+      "company": "Fundraiseup",
+      "subject": "Thank You for Your Interest in Fundraise Up",
+      "sender": "no-reply@fundraiseup.com",
+      "date": "2026-02-04T14:00:10",
+      "category": "REJECTION",
+      "reason": "Declines application and encourages future opportunities."
+    },
+    {
+      "company": "Workflow",
+      "subject": "No interview for  Data Engineer/Analyst",
+      "sender": "Southern Company Talent Acquisition\r\n <emje.fa.sender@workflow.mail.us6.oraclecloud.com>",
+      "date": "2026-01-28T15:01:44",
+      "category": "REJECTION",
+      "reason": "Subject indicates no interview for the applied position."
+    }
+  ],
+  "interviews": [
+    {
+      "company": "Talent Acquisition (Do Not Reply)",
+      "subject": "Software Engineer - Java, Application Support 2330029 at\r\n UnitedHealth Group",
+      "sender": "\"Talent Acquisition (Do Not Reply)\" <careers@recruiting.uhg.com>",
+      "date": "2026-01-23T06:37:41",
+      "category": "INTERVIEW",
+      "reason": "Invitation to apply for a specific job opening from a company's recruitment team."
+    },
+    {
+      "company": "Brighthire",
+      "subject": "You have an interview with MetroStar",
+      "sender": "BrightHire <hello@brighthire.ai>",
+      "date": "2026-01-22T10:15:09",
+      "category": "INTERVIEW",
+      "reason": "Informs candidate of upcoming interview and provides details about the interview process."
+    },
+    {
+      "company": "Uipath",
+      "subject": "UiPath Interview for Software Engineer II - Nuthan Reddy Vaddi Reddy",
+      "sender": "Matthew Hakaim <matthew.hakaim@uipath.com>",
+      "date": "2026-02-02T18:55:15",
+      "category": "INTERVIEW",
+      "reason": "Confirms upcoming interview details and scheduling."
+    },
+    {
+      "company": "Uipath",
+      "subject": "Nuthan: Schedule your UiPath Recruiter Screen - Software Engineer II",
+      "sender": "Matthew Hakaim <matthew.hakaim@uipath.com>",
+      "date": "2026-02-02T17:15:33",
+      "category": "INTERVIEW",
+      "reason": "Invites scheduling a recruiter screen and discusses role alignment."
+    }
+  ],
+  "updates": [
+    {
+      "company": "Invalidemail",
+      "subject": "An update on your application for Software Engineer (Java) \u2013 Merchant Services Technologies  - (25015235)",
+      "sender": "Amex Recruiting <Amex_Recruiting_AXP@invalidemail.com>",
+      "date": "2026-01-06T16:11:02",
+      "category": "UPDATE",
+      "reason": "Provides status on application without final decision."
+    },
+    {
+      "company": "Myworkday",
+      "subject": "GE HealthCare Job Application Update: Position Cancelled",
+      "sender": "GE HealthCare Workday Notifications <gehc@myworkday.com>",
+      "date": "2026-01-07T05:09:50",
+      "category": "UPDATE",
+      "reason": "Informs of position cancellation, not a rejection or interview."
+    },
+    {
+      "company": "Unknown",
+      "subject": "Amazon application: Status update",
+      "sender": "noreply@mail.amazon.jobs",
+      "date": "2026-01-08T17:22:11",
+      "category": "UPDATE",
+      "reason": "Provides a status update on an application."
+    },
+    {
+      "company": "Unknown",
+      "subject": "Amazon application: Status update",
+      "sender": "noreply@mail.amazon.jobs",
+      "date": "2026-01-09T17:23:54",
+      "category": "UPDATE",
+      "reason": "Provides a status update on an application."
+    },
+    {
+      "company": "Workflow",
+      "subject": "Your job application status (Job number: 210659910)",
+      "sender": "\"JPMorgan Chase & Co. Human Resources\"\r\n <eino.fa.sender@workflow.mail.us2.cloud.oracle.com>",
+      "date": "2026-01-14T20:06:05",
+      "category": "UPDATE",
+      "reason": "Provides job application status with a reference number, but does not specify the outcome."
+    },
+    {
+      "company": "Workflow",
+      "subject": "Your recent job application for Snowflake Data Analyst - 212442",
+      "sender": "DTCC Talent Acquisition Team\r\n <ebxr.fa.sender@workflow.mail.us2.cloud.oracle.com>",
+      "date": "2026-01-20T04:55:38",
+      "category": "UPDATE",
+      "reason": "Provides application status and requests additional information for next steps."
+    },
+    {
+      "company": "Talent Acquisition (Do Not Reply)",
+      "subject": "UnitedHealth Group and its family of businesses update on Software\r\n Engineer - Java, Application Support - 2330029",
+      "sender": "\"Talent Acquisition (Do Not Reply)\" <careers@recruiting.uhg.com>",
+      "date": "2026-01-23T06:37:19",
+      "category": "UPDATE",
+      "reason": "Provides status on a specific job application without final decision."
+    },
+    {
+      "company": "Workflow",
+      "subject": "Your recent application for the position of Data Engineer/Analyst",
+      "sender": "Southern Company Talent Acquisition\r\n <emje.fa.sender@workflow.mail.us6.oraclecloud.com>",
+      "date": "2026-01-24T08:59:08",
+      "category": "UPDATE",
+      "reason": "Acknowledges application and provides status update or next steps."
+    },
+    {
+      "company": "Us",
+      "subject": "Security code for your application to PlayStation Global",
+      "sender": "Greenhouse <no-reply@us.greenhouse-mail.io>",
+      "date": "2026-01-24T10:09:06",
+      "category": "UPDATE",
+      "reason": "Provides a security code for application process, not a final decision."
+    },
+    {
+      "company": "InductiveHealth Informatics",
+      "subject": "Important Update - Data Engineer Application",
+      "sender": "InductiveHealth Informatics <no-reply@hire.lever.co>",
+      "date": "2026-01-26T22:34:39",
+      "category": "UPDATE",
+      "reason": "Requests applicant to reapply due to missing information."
+    }
+  ],
+  "spam": [
+    {
+      "company": "Us",
+      "subject": "Security code for your application to Enumerate",
+      "sender": "Greenhouse <no-reply@us.greenhouse-mail.io>",
+      "date": "2026-01-13T20:02:18",
+      "category": "SPAM",
+      "reason": "Not related to job application status; appears to be an automated security code message."
+    }
+  ]
+}

@@ -1,0 +1,633 @@
+================================================================================
+📧 EMAIL CLASSIFICATION REPORT
+Generated: 2026-02-04 01:22:58
+================================================================================
+
+✅ APPLICATION CONFIRMATIONS (371)
+--------------------------------------------------------------------------------
+
+Us
+  Subject: Thank you for applying to Nex
+  Date: 2026-02-03T02:22:08
+
+Unknown
+  Subject: Thank You
+  Date: 2026-02-02T13:48:04
+
+Propio
+  Subject: Thank you for applying!
+  Date: 2026-01-30T11:29:35
+
+Us
+  Subject: Thank you for applying to Beacon Biosignals
+  Date: 2026-01-30T11:24:03
+
+Ashbyhq
+  Subject: Thank you for applying to Meter!
+  Date: 2026-01-30T11:18:09
+
+Box
+  Subject: Thank you for applying to Box!
+  Date: 2026-01-30T11:17:03
+
+Adyen
+  Subject: Thank you for applying to Adyen!
+  Date: 2026-01-30T11:08:04
+
+Us
+  Subject: Thank you for applying to Point72
+  Date: 2026-01-30T11:06:05
+
+Us
+  Subject: Thank you for applying to Anthropic
+  Date: 2026-01-30T10:57:04
+
+Ashbyhq
+  Subject: Thank you for your application to UiPath: Software Engineer II
+  Date: 2026-01-30T10:49:30
+
+Us
+  Subject: Thank you for applying to Nymbus, Inc.
+  Date: 2026-01-30T10:41:08
+
+Ats
+  Subject: Thank you for applying to Terray Therapeutics, Inc.
+  Date: 2026-01-30T10:40:14
+
+Experian
+  Subject: Thank you for your interest in Experian
+  Date: 2026-01-30T10:37:07
+
+Cayuse Holdings
+  Subject: Thank You For Your Application
+  Date: 2026-01-30T05:27:25
+
+Hiya
+  Subject: Application Received for AI Engineer Role at Hiya
+  Date: 2026-01-30T05:09:22
+
+Oracle
+  Subject: Thank you for your application to Oracle
+  Date: 2026-01-28T20:16:13
+
+Us
+  Subject: Thank You For Your Interest in Temporal Technologies
+  Date: 2026-01-28T16:00:18
+
+Sapsf
+  Subject: Thank you for applying for Software Engineer - Production (28256)
+  Date: 2026-01-24T10:17:45
+
+Sony
+  Subject: Thank you for applying to PlayStation Global
+  Date: 2026-01-24T10:13:05
+
+Kiewit
+  Subject: Thank You for Applying: Palantir Software Developer (178411)
+  Date: 2026-01-24T10:01:23
+
+
+❌ REJECTIONS (84)
+--------------------------------------------------------------------------------
+
+Experience level: 22 rejections
+  - Ashbyhq (2026-02-02)
+  - Kiewit (2026-01-31)
+  - Us (2026-01-29)
+  - Ashbyhq (2026-01-27)
+  - Us (2026-01-25)
+
+More qualified candidates: 1 rejections
+  - Sony (2026-01-31)
+
+General rejection: 54 rejections
+  - Match Group (2026-01-30)
+  - Ashbyhq (2026-01-30)
+  - Holidayinnclub (2026-01-28)
+  - Makenotion (2026-01-27)
+  - InductiveHealth (2026-01-26)
+
+Location mismatch: 4 rejections
+  - Doosan (2026-01-29)
+  - Doosan (2026-01-24)
+  - Successfactors (2026-01-21)
+  - Cintas (2025-10-29)
+
+Position already filled: 3 rejections
+  - Stitchfix (2025-11-06)
+  - Myworkday (2025-09-29)
+  - Udemy (2025-09-13)
+
+
+🌟 INTERVIEWS (121)
+--------------------------------------------------------------------------------
+
+Metronetinc - general
+  Subject: Update on Your Application - Software Engineer at Metronet
+  Date: 2026-02-03T21:06:51
+
+Fundraiseup - general
+  Subject: Thank you for applying to Fundraise Up! What's Next?
+  Date: 2026-02-03T03:01:07
+
+Fundraiseup - general
+  Subject: Thank you for applying to Fundraise Up! What's Next?
+  Date: 2026-02-03T02:04:05
+
+Uipath - phone_screen
+  Subject: UiPath Interview for Software Engineer II - Nuthan Reddy Vaddi Reddy
+  Date: 2026-02-02T18:55:15
+
+Uipath - phone_screen
+  Subject: Nuthan: Schedule your UiPath Recruiter Screen - Software Engineer II
+  Date: 2026-02-02T17:15:33
+
+Ashbyhq - general
+  Subject: NinjaTech AI received your job application!
+  Date: 2026-01-30T11:13:43
+
+Coinbase - general
+  Subject: Thank you for applying to Coinbase
+  Date: 2026-01-30T10:48:05
+
+Stackadapt - general
+  Subject: Thank you for your interest in StackAdapt!
+  Date: 2026-01-30T10:44:03
+
+Workflow - phone_screen
+  Subject: No interview for  Data Engineer/Analyst
+  Date: 2026-01-28T15:01:44
+
+Ashbyhq - general
+  Subject: Application Received – Frontend Engineer, Marketing at Cartesia
+  Date: 2026-01-24T09:36:33
+
+Metronetinc - general
+  Subject: Thank You for Your Application - Software Engineer at Metronet
+  Date: 2026-01-24T09:30:32
+
+Us - general
+  Subject: Nuthan Reddy, thank you for applying to SoFi!
+  Date: 2026-01-24T09:27:05
+
+ServiceNow - technical
+  Subject: Thank You for Applying to ServiceNow!
+  Date: 2026-01-24T09:24:01
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2026-01-24T09:20:01
+
+Oracle - general
+  Subject: We received your application
+  Date: 2026-01-24T08:39:19
+
+Thetradedesk - general
+  Subject: Thank you for applying to The Trade Desk
+  Date: 2026-01-24T07:37:03
+
+Ashbyhq - general
+  Subject: We received your application for Associate Software Engineer!
+  Date: 2026-01-24T07:25:03
+
+Brighthire - general
+  Subject: You have an interview with MetroStar
+  Date: 2026-01-22T10:15:09
+
+Hq - general
+  Subject: Thank You for Applying to Join BILL!
+  Date: 2026-01-21T11:21:06
+
+Successfactors - general
+  Subject: Thank You for Applying to BOK Financial
+  Date: 2026-01-21T11:02:08
+
+Successfactors - general
+  Subject: McDonald's Talent Attraction: Application Confirmation
+  Date: 2026-01-21T10:51:43
+
+Ashbyhq - general
+  Subject: We received your application for Software Engineer II (Full-Stack,
+ Backend-leaning)!
+  Date: 2026-01-21T00:00:14
+
+Vestwell - general
+  Subject: Thank you for applying to Vestwell!
+  Date: 2026-01-20T23:45:15
+
+Notifications - general
+  Subject: Thank you for applying for the Client Data Analyst position
+  Date: 2026-01-20T21:19:55
+
+RealPage, Inc. - general
+  Subject: Thank you for applying to RealPage's AI Engineer I position
+  Date: 2026-01-20T00:16:22
+
+Oracle - general
+  Subject: We received your application
+  Date: 2026-01-14T08:28:37
+
+Candidatecare - general
+  Subject: Bastian Solutions - Thanks For Your Application!
+  Date: 2026-01-14T04:53:46
+
+Us - general
+  Subject: Nuthan Reddy, thank you for applying to SoFi!
+  Date: 2026-01-14T04:00:10
+
+Us - phone_screen
+  Subject: Thank you for applying to Forter!
+  Date: 2026-01-14T03:53:08
+
+Us - technical
+  Subject: Thank you for applying to Wavelo
+  Date: 2026-01-14T03:27:14
+
+Us - phone_screen
+  Subject: Your application to Callibrity
+  Date: 2026-01-11T11:00:02
+
+Us - general
+  Subject: Thank you for applying to Callibrity
+  Date: 2026-01-10T09:06:03
+
+Ashbyhq - phone_screen
+  Subject: 👋 Thank you for applying to Whatnot!
+  Date: 2025-12-17T19:51:47
+
+Us - phone_screen
+  Subject: Thank you for applying to Pomelo Care
+  Date: 2025-12-17T19:28:14
+
+Oracle - general
+  Subject: We received your application
+  Date: 2025-12-17T03:15:19
+
+Fuku - general
+  Subject: Hi Nuthan, You are invited to an interview for the Machine Learning Engineer – Search, Ranking & Personalization position
+  Date: 2025-12-10T17:16:48
+
+Successfactors - general
+  Subject: Confirmation of receipt application
+  Date: 2025-12-10T09:41:07
+
+Us - general
+  Subject: Thank you for applying to Freeform
+  Date: 2025-12-10T08:21:06
+
+Barton Associates - video
+  Subject: Congrats, Your Barton Associates Application is Complete!
+  Date: 2025-12-10T03:58:56
+
+Barton Associates - general
+  Subject: Don’t Delay—Finish Your Barton Associates Application!
+  Date: 2025-12-10T03:56:23
+
+Cognizant - phone_screen
+  Subject: Profile screened for an open position in Cognizant
+  Date: 2025-12-09T06:53:51
+
+Cognizant - phone_screen
+  Subject: Profile screened for an open position in Cognizant
+  Date: 2025-12-09T06:53:22
+
+Oracle - general
+  Subject: We received your application
+  Date: 2025-12-08T20:35:28
+
+Ashbyhq - general
+  Subject: Thank you for your application to Dandy
+  Date: 2025-12-03T02:11:08
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-12-03T01:16:29
+
+Successfactors - general
+  Subject: McDonald's Talent Attraction: Application Confirmation
+  Date: 2025-11-07T09:34:51
+
+Opendoor - video
+  Subject: Thank you for applying to Opendoor
+  Date: 2025-11-07T08:40:03
+
+Roblox - general
+  Subject: Thank you for applying to Roblox!
+  Date: 2025-11-05T23:06:02
+
+Ashbyhq - general
+  Subject: We received your application to Rad AI!
+  Date: 2025-11-05T19:14:40
+
+Aa - phone_screen
+  Subject: Thanks for your submission to American Airlines Engineer/Sr
+ Engineer, IT Software position, Job ID: 82145
+  Date: 2025-11-05T08:20:03
+
+Marina Ong - technical
+  Subject: Re: Thank you for interviewing at PayPal
+  Date: 2025-10-30T20:14:26
+
+Marina Ong - technical
+  Subject: Re: Thank you for interviewing at PayPal
+  Date: 2025-10-30T00:23:46
+
+Marina Ong - general
+  Subject: Thank you for interviewing at PayPal
+  Date: 2025-10-28T21:18:03
+
+Marina Ong - technical
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-22T16:57:29
+
+Marina Ong - technical
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-22T16:03:33
+
+Us - general
+  Subject: Thank you for applying to Orion Innovation
+  Date: 2025-10-21T20:20:06
+
+Us - general
+  Subject: Thank you for applying to Cariad, Inc.
+  Date: 2025-10-21T05:09:03
+
+Us - general
+  Subject: Thank you for applying to Cogstate
+  Date: 2025-10-21T04:47:05
+
+Us - general
+  Subject: We’re Reviewing Your Application – Stay Tuned!
+  Date: 2025-10-21T02:48:01
+
+Marina Ong - technical
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-20T17:03:13
+
+CTG - general
+  Subject: Thank you for applying at CTG
+  Date: 2025-10-19T02:37:24
+
+Marina Ong - technical
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-13T22:13:24
+
+Marina Ong - technical
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-08T16:53:59
+
+Marina Ong - general
+  Subject: Next steps with PayPal: Team Interview
+  Date: 2025-10-07T19:25:30
+
+Paypal - technical
+  Subject: Re: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-09-29T23:09:52
+
+Telusdigital - general
+  Subject: Exciting News: WillowTree is Now TELUS Digital - Your Application
+ Continues
+  Date: 2025-09-23T19:57:14
+
+Walmart - general
+  Subject: Re: EXT: Re: Opportunity at Walmart: Senior Software Engineer: AI/ML
+  Date: 2025-09-22T16:56:09
+
+Greenhouse - phone_screen
+  Subject: Reminder for interview with xAI for the Software Engineer - Code
+ Sandbox (London) position
+  Date: 2025-09-22T13:45:01
+
+Marina Ong - general
+  Subject: Nuthan Reddy, your PayPal Application: Software Engineer (R0130657)
+  Date: 2025-09-19T21:21:55
+
+Doordash - general
+  Subject: Thank you for applying to DoorDash
+  Date: 2025-09-18T06:09:02
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-09-17T15:12:31
+
+Us - general
+  Subject: NuthanReddy, thank you for applying to SoFi!
+  Date: 2025-09-15T17:06:09
+
+Clearcompany - general
+  Subject: Application Received
+  Date: 2025-09-12T22:54:38
+
+Tapestry - general
+  Subject: Your Application For the Position Data Scientist, Forecasting
+  Date: 2025-09-10T18:38:36
+
+Ashbyhq - general
+  Subject: Thank you for your application - Data Engineer 1813 at MeridianLink
+  Date: 2025-09-10T17:48:22
+
+Ashbyhq - general
+  Subject: 📚 Thank you for your application to Scribd!
+  Date: 2025-09-10T16:41:41
+
+Ashbyhq - general
+  Subject: Thank you for applying to Snowflake | Fullstack Software Engineer -
+ Product Experiences
+  Date: 2025-09-08T22:33:31
+
+Lumenalta - video
+  Subject: Lumenalta Application Complete
+  Date: 2025-09-08T22:09:35
+
+Ashbyhq - phone_screen
+  Subject: Thank you for Applying.
+  Date: 2025-09-08T15:33:20
+
+Us - general
+  Subject: Thank you for applying to Boosted.ai
+  Date: 2025-09-04T22:51:03
+
+Applied Systems, Inc. - phone_screen
+  Subject: We've Received Your Application!
+  Date: 2025-09-04T15:07:51
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-09-03T19:10:32
+
+Ashbyhq - general
+  Subject: Thank you for applying to Equip!
+  Date: 2025-08-29T22:06:41
+
+Successfactors - general
+  Subject: Thank You for Applying for Business Intelligence Analyst at
+ Paramount
+  Date: 2025-08-27T18:54:29
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-08-27T18:27:28
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-08-27T18:24:28
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-08-27T18:10:29
+
+Visa - general
+  Subject: Visa has received your application
+  Date: 2025-08-27T18:03:32
+
+Us - general
+  Subject: Thank you for applying to Aperia Technologies, Inc
+  Date: 2025-07-22T18:39:06
+
+Cbre - phone_screen
+  Subject: Thank you for applying at CBRE  - 229843 Data Analyst
+  Date: 2025-07-21T22:20:40
+
+Carefirst - general
+  Subject: Thank you for applying for this Job!
+  Date: 2025-07-17T18:00:57
+
+Ashbyhq - general
+  Subject: We received your application for Data Scientist!
+  Date: 2025-07-16T22:28:04
+
+Atc - phone_screen
+  Subject: Thank You for Applying to ATC
+  Date: 2025-07-09T19:14:33
+
+Robinhood - general
+  Subject: Thank you for applying to Robinhood
+  Date: 2025-07-07T21:44:04
+
+Dayforce - general
+  Subject: Operations Continuous Improvement - Data Solutions Analyst
+ Application Status update
+  Date: 2025-07-06T15:20:26
+
+Oracle - general
+  Subject: We received your application
+  Date: 2025-06-25T17:07:01
+
+PUBLICISGROUPE - general
+  Subject: Thank You For Your Application to PDX
+  Date: 2025-06-25T16:49:45
+
+Ashbyhq - general
+  Subject: Nuthanreddy Vaddireddy | Thank you for applying @ Aescape!
+  Date: 2025-06-20T04:55:33
+
+Ashbyhq - general
+  Subject: Nuthanreddy Vaddireddy | Thank you for applying @ Aescape!
+  Date: 2025-06-20T04:54:10
+
+Ashbyhq - general
+  Subject: Nuthan Reddy Vaddi reddy | Thank you for applying @ Aescape!
+  Date: 2025-06-20T04:51:20
+
+Kasmoglobal - general
+  Subject: L1 Interview for Nuthan Reddy
+  Date: 2025-06-03T22:07:46
+
+Kasmodigital - general
+  Subject: L1 Interview for Nuthan Reddy
+  Date: 2025-05-08T05:24:33
+
+Drinkag1 - general
+  Subject: Thank you for applying to AG1!
+  Date: 2025-05-07T19:03:11
+
+Mckinsey - general
+  Subject: Nuthan Reddy, thank you for your application to McKinsey & Company
+  Date: 2025-05-07T15:34:31
+
+Ashbyhq - general
+  Subject: Thank you for applying to Equip!
+  Date: 2025-05-05T22:46:05
+
+Markarch - general
+  Subject: Nuthanreddy, we've received your resume for the Media Data Analyst
+ role!
+  Date: 2025-05-02T17:50:57
+
+Jacob Armosino - video
+  Subject: You are invited to interview with HGV
+  Date: 2025-04-28T23:10:24
+
+Us - general
+  Subject: Thank you for applying at BambooHR!
+  Date: 2025-04-27T21:30:02
+
+Us - general
+  Subject: Thank you for applying to CharterUP
+  Date: 2025-04-21T17:49:18
+
+Ashbyhq - general
+  Subject: We received your application for Software Engineer I (San
+ Francisco)!
+  Date: 2025-04-21T17:01:35
+
+Careers Netflix - general
+  Subject: Nuthan, we have received your application for Data Analyst,
+ Production Finance Operations & Innovation
+  Date: 2025-04-19T02:49:08
+
+Talent Vibe Solutions - general
+  Subject: Nuthanreddy , you’ve been approved for the Data Entry Clerk interview!!
+  Date: 2025-04-16T14:33:20
+
+Us - general
+  Subject: Thank you for applying to Retool!
+  Date: 2025-04-16T04:33:02
+
+=?UTF-8?B?5a2X6IqC6Lez5YqoIEJ5dGVEYW5jZQ==?= - phone_screen
+  Subject: Thank you for applying to ByteDance!
+  Date: 2025-04-16T01:38:09
+
+=?UTF-8?B?5a2X6IqC6Lez5YqoIEJ5dGVEYW5jZQ==?= - phone_screen
+  Subject: Thank you for applying to ByteDance!
+  Date: 2025-04-16T01:37:15
+
+Doordash - general
+  Subject: Thank you for applying to DoorDash
+  Date: 2025-04-15T16:54:02
+
+Us - general
+  Subject: Thank you for applying to Authentic Brands Group
+  Date: 2025-04-13T17:21:13
+
+Grantstreet - general
+  Subject: We received your application!
+  Date: 2025-04-03T15:29:35
+
+Ashbyhq - general
+  Subject: We received your application for Data Scientist!
+  Date: 2025-03-31T16:07:39
+
+Clearcompany - general
+  Subject: Application Received
+  Date: 2025-03-26T17:15:59
+
+Dayforce - general
+  Subject: Data Analytics Intern  - Application Received- Thank you!
+  Date: 2025-02-12T12:36:45
+
+
+================================================================================
+📊 SUMMARY STATISTICS
+--------------------------------------------------------------------------------
+Total Confirmations: 371
+Total Rejections: 84
+Total Interviews: 121
+
+Top Rejection Reasons:
+  General rejection: 54 (64.3%)
+  Experience level: 22 (26.2%)
+  Location mismatch: 4 (4.8%)
+  Position already filled: 3 (3.6%)
+  More qualified candidates: 1 (1.2%)

@@ -1,0 +1,514 @@
+================================================================================
+🎯 INTERVIEW & JOB APPLICATION ANALYSIS REPORT
+Generated: 2026-02-04 01:09:41
+================================================================================
+
+📧 ALL INTERVIEW/SCREENING EMAILS FOUND:
+--------------------------------------------------------------------------------
+
+1. Uipath
+   Subject: UiPath Interview for Software Engineer II - Nuthan Reddy Vaddi Reddy
+   From: Matthew Hakaim <matthew.hakaim@uipath.com>
+   Date: 2026-02-02 18:55
+
+2. Uipath
+   Subject: Nuthan: Schedule your UiPath Recruiter Screen - Software Engineer II
+   From: Matthew Hakaim <matthew.hakaim@uipath.com>
+   Date: 2026-02-02 17:15
+
+3. Workflow
+   Subject: No interview for  Data Engineer/Analyst
+   From: Southern Company Talent Acquisition
+ <emje.fa.sender@workflow.mail.us6.oraclecloud.com>
+   Date: 2026-01-28 15:01
+
+4. Brighthire
+   Subject: You have an interview with MetroStar
+   From: BrightHire <hello@brighthire.ai>
+   Date: 2026-01-22 10:15
+
+5. Metrostar
+   Subject: YOU'RE SCHEDULED! Software Developer (Natural/Adabas) | MetroStar | Phone
+ Screen Confirmation
+   From: Amanda Franklin <afranklin@metrostar.com>
+   Date: 2026-01-22 10:07
+
+6. Uber
+   Subject: Ride on your schedule, Nuthan reddy
+   From: Uber <noreply@uber.com>
+   Date: 2025-12-28 15:18
+
+7. Fuku
+   Subject: Hi Nuthan, You are invited to an interview for the Machine Learning Engineer – Search, Ranking & Personalization position
+   From: Fuku <service@fuku.ai>
+   Date: 2025-12-10 17:16
+
+8. Idr Inc
+   Subject: Final Reminder | Data Engineer | idr Screening
+   From: IDR Recruiting <kjohnson@idr-inc.com>
+   Date: 2025-11-02 23:29
+
+9. Idr Inc
+   Subject: Request for Screening | Data Engineer | idr
+   From: IDR Recruiting <kjohnson@idr-inc.com>
+   Date: 2025-11-01 22:26
+
+10. Idr Inc
+   Subject: Request for Screening | Data Engineer | idr
+   From: IDR Recruiting <kjohnson@idr-inc.com>
+   Date: 2025-10-31 22:25
+
+11. Fernanda Villavicencio
+   Subject: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: Fernanda Villavicencio <fvillavicencio@talent.paypal.com>
+   Date: 2025-10-23 18:31
+
+12. Paypal
+   Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: "Fernanda Villavicencio (CW)" <fvillavicencio@paypal.com>
+   Date: 2025-10-23 18:31
+
+13. Marina Ong
+   Subject: Re: Next steps with PayPal: Team Interview
+   From: Marina Ong <marinong+m275442215360@talent.paypal.com>
+   Date: 2025-10-22 16:57
+
+14. Marina Ong
+   Subject: Re: Next steps with PayPal: Team Interview
+   From: Marina Ong <marinong+m275442186256@talent.paypal.com>
+   Date: 2025-10-22 16:03
+
+15. Marina Ong
+   Subject: Re: Next steps with PayPal: Team Interview
+   From: Marina Ong <marinong+m275440782958@talent.paypal.com>
+   Date: 2025-10-20 17:03
+
+16. Marina Ong
+   Subject: Re: Next steps with PayPal: Team Interview
+   From: Marina Ong <marinong+m275437930353@talent.paypal.com>
+   Date: 2025-10-13 22:13
+
+17. Paypal
+   Subject: Paypal interview - hackerrank link
+   From: Lu Chen <chenlu2@paypal.com>
+   Date: 2025-10-13 19:17
+
+18. Fernanda Villavicencio
+   Subject: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: Fernanda Villavicencio <fvillavicencio@talent.paypal.com>
+   Date: 2025-10-08 17:56
+
+19. Paypal
+   Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: "Fernanda Villavicencio (CW)" <fvillavicencio@paypal.com>
+   Date: 2025-10-08 17:56
+
+20. Paypal
+   Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: "Fernanda Villavicencio (CW)" <fvillavicencio@paypal.com>
+   Date: 2025-10-08 17:56
+
+21. Marina Ong
+   Subject: Re: Next steps with PayPal: Team Interview
+   From: Marina Ong <marinong+m275434710110@talent.paypal.com>
+   Date: 2025-10-08 16:53
+
+22. Marina Ong
+   Subject: Next steps with PayPal: Team Interview
+   From: Marina Ong <marinong@talent.paypal.com>
+   Date: 2025-10-07 19:25
+
+23. Fernanda Villavicencio
+   Subject: Rescheduled: Please Confirm Your PayPal Interview | Software
+ Engineer, Experimentation
+   From: Fernanda Villavicencio <fvillavicencio@talent.paypal.com>
+   Date: 2025-09-30 16:52
+
+24. Paypal
+   Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: "Fernanda Villavicencio (CW)" <fvillavicencio@paypal.com>
+   Date: 2025-09-30 16:52
+
+25. Paypal
+   Subject: Canceled: Calendar Invite for Your PayPal Interview | Software
+ Engineer, Experimentation
+   From: "Fernanda Villavicencio (CW)" <fvillavicencio@paypal.com>
+   Date: 2025-09-30 16:51
+
+26. Paypal
+   Subject: Re: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: Marina Ong <marinong@paypal.com>
+   Date: 2025-09-30 16:47
+
+27. Stackline
+   Subject: Next Steps at Stackline
+   From: Arielle Morrison <amorrison@stackline.com>
+   Date: 2025-09-29 23:54
+
+28. Paypal
+   Subject: Re: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: Marina Ong <marinong@paypal.com>
+   Date: 2025-09-29 23:09
+
+29. Fernanda Villavicencio
+   Subject: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: Fernanda Villavicencio <fvillavicencio@talent.paypal.com>
+   Date: 2025-09-25 15:05
+
+30. Paypal
+   Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+   From: "Fernanda Villavicencio (CW)" <fvillavicencio@paypal.com>
+   Date: 2025-09-25 15:05
+
+31. Greenhouse
+   Subject: Reminder for interview with xAI for the Software Engineer - Code
+ Sandbox (London) position
+   From: Greenhouse <no-reply@greenhouse.io>
+   Date: 2025-09-22 13:45
+
+32. X
+   Subject: xAI Interview Confirmation
+   From: Darren Tomlin <darren@x.ai>
+   Date: 2025-09-22 10:33
+
+33. X
+   Subject: xAI Availability Request
+   From: Toby Pohlen <pohlen@x.ai>
+   Date: 2025-09-18 15:10
+
+34. Bridgesoft
+   Subject: Technical Screening- Nuthan
+   From: Sravani Pothuganti <sravani.p@bridgesoft.com>
+   Date: 2025-09-10 21:45
+
+35. Codesignal
+   Subject: Next steps for the AI Tutor role with xAI (General Assessment)
+   From: CodeSignal <no-reply@codesignal.com>
+   Date: 2025-08-01 18:08
+
+36. X
+   Subject: Next steps for the AI Tutor role with xAI (General Assessment)
+   From: no-reply@x.ai
+   Date: 2025-08-01 18:07
+
+37. Kasmoglobal
+   Subject: L1 Interview for Nuthan Reddy
+   From: Mritunjay Singh <mritunjay.s@kasmoglobal.com>
+   Date: 2025-06-03 22:07
+
+38. Adzuna
+   Subject: Ace your next interview
+   From: =?UTF-8?B?TWlhIGF0IEFkenVuYQ==?= <no-reply@adzuna.com>
+   Date: 2025-05-27 15:31
+
+39. Kasmodigital
+   Subject: L1 Interview for Nuthan Reddy
+   From: Banita Biswasroy <banita.biswasroy@kasmodigital.com>
+   Date: 2025-05-08 05:24
+
+40. Luxe Royale Endeavors
+   Subject: Nuthanreddy , ! Interview Stage!
+   From: Luxe Royale Endeavors <mail@hire.lever.co>
+   Date: 2025-05-04 17:37
+
+41. Kasmoglobal
+   Subject: Screening Call - Nuthan
+   From: Keshav CV <keshav.cv@kasmoglobal.com>
+   Date: 2025-04-30 17:04
+
+42. Jacob Armosino
+   Subject: You are invited to interview with HGV
+   From: Jacob Armosino <noreply@mail.modernhire.com>
+   Date: 2025-04-28 23:10
+
+43. Talent Vibe Solutions
+   Subject: Nuthanreddy , you’ve been approved for the Data Entry Clerk interview!!
+   From: Talent Vibe Solutions <mail@hire.lever.co>
+   Date: 2025-04-16 14:33
+
+44. "Tableau Conference"
+   Subject: DataFam, 40+ streaming sessions just dropped. Explore the schedule.
+   From: "Tableau Conference" <email@mail.salesforce.com>
+   Date: 2025-04-04 10:46
+
+45. Jobrightai
+   Subject: [Get Free Interview Cheat Sheet] We Are Eager to Make Improvements for You!
+   From: Eric <eric@jobrightai.com>
+   Date: 2025-02-12 16:16
+
+
+================================================================================
+🔧 COMPANY NAMES FIXED:
+--------------------------------------------------------------------------------
+
+- notion_ff54d0b3-d30f-4622-b6e6-9b9c6e4132ea
+  Before: Join our community
+  After:  Ashbyhq
+
+- loves_1359076800
+  Before: Join our community
+  After:  Loves
+
+- ramp_d1183b00-6590-4fe4-a585-28d84e578fe3
+  Before: Join our community
+  After:  Ashbyhq
+
+- 8vc_4fea7270-2409-4701-b147-fc961d95588d
+  Before: Join our community
+  After:  Ashbyhq
+
+- cartesia_d3e3f8b6-b476-428c-bd04-3e2ada3c8b10
+  Before: Join our community
+  After:  Ashbyhq
+
+- greenlite_1015afce-d16a-4adf-a686-0f2d7abf579d
+  Before: Join our community
+  After:  Ashbyhq
+
+- cursor_6171cf55-7b93-494d-b334-daf91448dbfd
+  Before: Join our community
+  After:  Ashbyhq
+
+- tennr_9aae43bf-3303-468e-aae0-038b7fb395f3
+  Before: Join our community
+  After:  Ashbyhq
+
+- unlearn_a7e00671-b40e-407b-9774-ad68cb89fbc6
+  Before: Join our community
+  After:  Ashbyhq
+
+- adp_617552
+  Before: Join our community
+  After:  Adp
+
+- ashand-harris-executive-search_06F6727D04
+  Before: Join our community
+  After:  Workable
+
+
+================================================================================
+✅ INTERVIEWS MATCHED TO APPLICATIONS:
+--------------------------------------------------------------------------------
+
+🌟 Uipath
+   Folder: uipath_782f6fa0-34f4b-8be8-c08a80f4bfd0
+   Position: Life at UiPath
+   Email Subject: UiPath Interview for Software Engineer II - Nuthan Reddy Vaddi Reddy
+   Date: 2026-02-02
+
+🌟 Uipath
+   Folder: uipath_782f6fa0-34f4b-8be8-c08a80f4bfd0
+   Position: Life at UiPath
+   Email Subject: Nuthan: Schedule your UiPath Recruiter Screen - Software Engineer II
+   Date: 2026-02-02
+
+
+================================================================================
+⚠️  INTERVIEWS NOT MATCHED (might be manual applications):
+--------------------------------------------------------------------------------
+
+- Workflow
+  Subject: No interview for  Data Engineer/Analyst
+  Date: 2026-01-28
+
+- Brighthire
+  Subject: You have an interview with MetroStar
+  Date: 2026-01-22
+
+- Metrostar
+  Subject: YOU'RE SCHEDULED! Software Developer (Natural/Adabas) | MetroStar | Phone
+ Screen Confirmation
+  Date: 2026-01-22
+
+- Uber
+  Subject: Ride on your schedule, Nuthan reddy
+  Date: 2025-12-28
+
+- Fuku
+  Subject: Hi Nuthan, You are invited to an interview for the Machine Learning Engineer – Search, Ranking & Personalization position
+  Date: 2025-12-10
+
+- Idr Inc
+  Subject: Final Reminder | Data Engineer | idr Screening
+  Date: 2025-11-02
+
+- Idr Inc
+  Subject: Request for Screening | Data Engineer | idr
+  Date: 2025-11-01
+
+- Idr Inc
+  Subject: Request for Screening | Data Engineer | idr
+  Date: 2025-10-31
+
+- Fernanda Villavicencio
+  Subject: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-10-23
+
+- Paypal
+  Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-10-23
+
+- Marina Ong
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-22
+
+- Marina Ong
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-22
+
+- Marina Ong
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-20
+
+- Marina Ong
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-13
+
+- Paypal
+  Subject: Paypal interview - hackerrank link
+  Date: 2025-10-13
+
+- Fernanda Villavicencio
+  Subject: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-10-08
+
+- Paypal
+  Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-10-08
+
+- Paypal
+  Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-10-08
+
+- Marina Ong
+  Subject: Re: Next steps with PayPal: Team Interview
+  Date: 2025-10-08
+
+- Marina Ong
+  Subject: Next steps with PayPal: Team Interview
+  Date: 2025-10-07
+
+- Fernanda Villavicencio
+  Subject: Rescheduled: Please Confirm Your PayPal Interview | Software
+ Engineer, Experimentation
+  Date: 2025-09-30
+
+- Paypal
+  Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-09-30
+
+- Paypal
+  Subject: Canceled: Calendar Invite for Your PayPal Interview | Software
+ Engineer, Experimentation
+  Date: 2025-09-30
+
+- Paypal
+  Subject: Re: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-09-30
+
+- Stackline
+  Subject: Next Steps at Stackline
+  Date: 2025-09-29
+
+- Paypal
+  Subject: Re: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-09-29
+
+- Fernanda Villavicencio
+  Subject: Please Confirm Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-09-25
+
+- Paypal
+  Subject: Calendar Invite for Your PayPal Interview | Software Engineer,
+ Experimentation
+  Date: 2025-09-25
+
+- Greenhouse
+  Subject: Reminder for interview with xAI for the Software Engineer - Code
+ Sandbox (London) position
+  Date: 2025-09-22
+
+- X
+  Subject: xAI Interview Confirmation
+  Date: 2025-09-22
+
+- X
+  Subject: xAI Availability Request
+  Date: 2025-09-18
+
+- Bridgesoft
+  Subject: Technical Screening- Nuthan
+  Date: 2025-09-10
+
+- Codesignal
+  Subject: Next steps for the AI Tutor role with xAI (General Assessment)
+  Date: 2025-08-01
+
+- X
+  Subject: Next steps for the AI Tutor role with xAI (General Assessment)
+  Date: 2025-08-01
+
+- Kasmoglobal
+  Subject: L1 Interview for Nuthan Reddy
+  Date: 2025-06-03
+
+- Adzuna
+  Subject: Ace your next interview
+  Date: 2025-05-27
+
+- Kasmodigital
+  Subject: L1 Interview for Nuthan Reddy
+  Date: 2025-05-08
+
+- Luxe Royale Endeavors
+  Subject: Nuthanreddy , ! Interview Stage!
+  Date: 2025-05-04
+
+- Kasmoglobal
+  Subject: Screening Call - Nuthan
+  Date: 2025-04-30
+
+- Jacob Armosino
+  Subject: You are invited to interview with HGV
+  Date: 2025-04-28
+
+- Talent Vibe Solutions
+  Subject: Nuthanreddy , you’ve been approved for the Data Entry Clerk interview!!
+  Date: 2025-04-16
+
+- "Tableau Conference"
+  Subject: DataFam, 40+ streaming sessions just dropped. Explore the schedule.
+  Date: 2025-04-04
+
+- Jobrightai
+  Subject: [Get Free Interview Cheat Sheet] We Are Eager to Make Improvements for You!
+  Date: 2025-02-12
+
+
+================================================================================
+📊 SUMMARY:
+--------------------------------------------------------------------------------
+Total interview emails found: 45
+Company names fixed: 11
+Interviews matched to folders: 2
+Interviews not matched: 43
+================================================================================

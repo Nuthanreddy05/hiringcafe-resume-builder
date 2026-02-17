@@ -1,0 +1,51 @@
+================================================================================
+WEEKLY DATA COLLECTION - 2026-02-04
+================================================================================
+
+Total Applications: 50
+Confirmations: 41
+Rejections: 10
+Interviews: 0
+Pending: -1
+
+--------------------------------------------------------------------------------
+BY PLATFORM:
+
+Greenhouse:
+  Total: 6
+  Confirmed: 0
+  Rejected: 0
+
+Custom/Direct:
+  Total: 32
+  Confirmed: 14
+  Rejected: 1
+
+Ashby:
+  Total: 9
+  Confirmed: 3
+  Rejected: 2
+
+Lever:
+  Total: 2
+  Confirmed: 0
+  Rejected: 0
+
+iCIMS:
+  Total: 1
+  Confirmed: 0
+  Rejected: 0
+
+--------------------------------------------------------------------------------
+BY SCORE:
+  90-100: 33
+  80-89: 17
+  70-79: 0
+  below_70: 0
+
+--------------------------------------------------------------------------------
+BY FRESHNESS:
+  < 12h: 0
+  12-24h: 0
+  24-48h: 0
+  > 48h: 0

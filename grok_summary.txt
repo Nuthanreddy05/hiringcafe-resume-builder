@@ -1,0 +1,68 @@
+
+📊 JOB APPLICATION SUMMARY - LAST 30 DAYS
+Generated: 2026-02-04 01:05
+
+OVERVIEW:
+- Total Applications: 181
+- Date Range: 2026-01-05 to 2026-02-04
+- Average Resume Score: 78.3/100
+
+PLATFORMS USED:
+- Custom/Direct: 120 (66.3%)
+- Greenhouse: 26 (14.4%)
+- Ashby: 24 (13.3%)
+- Lever: 6 (3.3%)
+- Workday: 5 (2.8%)
+
+TOP COMPANIES (by application count):
+- Join our community: 11 applications
+- Capgemini: 5 applications
+- Google: 4 applications
+- Optum: 3 applications
+- Oracle: 3 applications
+- Jerry.ai: 2 applications
+- SoFi: 2 applications
+- Kiewit Corporation: 2 applications
+- JPMorganChase: 2 applications
+- PlayStation Global: 2 applications
+- Cloudflare: 2 applications
+- EmpiRx Health: 2 applications
+- Lockheed Martin: 1 application
+- Holiday Inn Club Vacations: 1 application
+- Doosan Group: 1 application
+
+RECENT APPLICATIONS:
+1. [2026-02-03] Itential - Software Development Engineer I at Itential (Score: 88, Platform: Custom/Direct)
+2. [2026-02-03] Ziff Davis - Software Engineer I (Laravel/PHP) at Ziff Davis (Score: 89, Platform: Custom/Direct)
+3. [2026-02-03] USA01 - USA Automotive - Data Scientist - Supply Chain Analytics at USA01 - (Score: 88, Platform: Custom/Direct)
+4. [2026-02-03] Whatnot - Machine Learning Engineer, Fraud at Whatnot (Score: 87, Platform: Ashby)
+5. [2026-02-03] SoFi - Marketing Data Scientist at SoFi (Score: 87, Platform: Custom/Direct)
+6. [2026-02-03] 0101022-GIA PROD US LOS ANGELES - Senior Associate, Full-Stack Engineer at 0101022-G (Score: 98, Platform: Custom/Direct)
+7. [2026-02-03] Funnel Leasing Inc. - Software Engineer L1 at Funnel Leasing Inc. (Score: 96, Platform: Custom/Direct)
+8. [2026-02-03] Lyft - Data Scientist, Algorithms at Lyft (Score: 97, Platform: Custom/Direct)
+9. [2026-02-03] Capgemini - Software Engineer (New York, NY, US) at Capgemini (Score: 99, Platform: Custom/Direct)
+10. [2026-02-03] Ipsos - Data Scientist, Creative Excellence at Ipsos (Score: 98, Platform: Custom/Direct)
+11. [2026-02-03] EmpiRx Health - Software Engineer II at EmpiRx Health (Score: 94, Platform: Custom/Direct)
+12. [2026-02-03] Heartland Food Products Group - Data Engineer at Heartland Food Products Group (Score: 90, Platform: Custom/Direct)
+13. [2026-02-03] Thyme Care - Software Engineer at Thyme Care (Score: 93, Platform: Custom/Direct)
+14. [2026-02-03] Blank Metal - Associate Full Stack Engineer at Blank Metal (Score: 97, Platform: Ashby)
+15. [2026-01-30] StackAdapt - Software Engineer, Stats & Analytics at StackAdapt (Score: 96, Platform: Greenhouse)
+16. [2026-01-30] Adyen - Data Engineer II at Adyen (Score: 94, Platform: Greenhouse)
+17. [2026-01-30] Terray - ML Engineer, RL & Autonomous Discovery at Terray (Score: 94, Platform: Custom/Direct)
+18. [2026-01-30] Goldman Sachs - Asset & Wealth Management - Software Engineer - As (Score: 89, Platform: Custom/Direct)
+19. [2026-01-30] Matchgroup - Data Scientist I, Integrity at Matchgroup (Score: 95, Platform: Lever)
+20. [2026-01-30] SBServiceNow - Assoc Software Engineer at SBServiceNow (Score: 89, Platform: Custom/Direct)
+
+
+DATA QUALITY:
+- All 181 applications have complete metadata
+- Resume scores range from 0 to 100
+- Platforms tracked: 5
+
+PROMPT FOR GROK:
+"Based on this job application data, analyze:
+1. Which platforms have best response rates?
+2. What job titles should I focus on?
+3. Are there any patterns in companies I'm targeting?
+4. What's my application strategy effectiveness?
+5. Any recommendations for improvement?"

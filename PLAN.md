@@ -73,19 +73,31 @@ To verify and solidify this architecture, run these commands:
     *   Check if `meta.json` was created correctly in the output folder.
 
 ### Step 4: Implement Extension Intelligence (User Request)
-**Goal:** Enable full auto-fill (Address, Phone, AI Questions) and File Uploads.
+**Goal:** Enhance existing scripts for full auto-fill and "Context-Aware" Answering.
 
-1.  **Create `content-scripts/question-solver.js`:**
-    *   Implement `findQuestionBox()`: Detect textarea/inputs for screening questions.
-    *   Implement `fetchAnswer()`: Call the `native_host` to get AI answer (using Context Triad).
-    *   Implement `pasteAnswer()`: Insert text into the box.
+1.  **Enhance `question-solver.js`:**
+    *   Verify `fetchAnswer()` correctly calls `native_host` with Context Triad.
+    *   Ensure `typeAnswer` uses **robust stealth delays** (50-150ms).
+    *   Confirm "Review Modal" UX is polished.
 
-2.  **Create `content-scripts/field-finder.js`:**
-    *   Implement `fillDemographics()`: Auto-fill Address, Phone, Email from `user_profile.json` (or hardcoded for now).
-    *   Implement `detectPlatform()`: Handle Workday vs Lever vs Greenhouse.
+2.  **Enhance `generic.js`:**
+    *   Replace primitive `setNativeValue` with stealthy `humanType` function.
+    *   Ensure it covers Address, Phone, and Zip codes from `profile.json`.
 
 3.  **Ensure `resume-uploader.js`:**
-    *   Connect the "Upload Resume" button to the Local Folder path found by `folder_reader.py`.
+    *   Verify valid connection to Local Folder path found by `fold
+    er_reader.py`.
+
+### Step 5: Stealth & Anti-Detection (User Request)
+**Goal:** Prevent bots from detecting "fast filling" behavior.
+
+1.  **Stealth Typing Engine:**
+    *   Standardize `humanType(element, text)` across ALL scripts.
+    *   Implement variable speed typing (simulating thought pauses).
+    *   Add `humanScroll` smoothness.
+
+2.  **Platform Awareness:**
+    *   Audit `workday.js` (if exists) or create logic to handle multi-page persistence.
 
 ### 🧪 Testing & Verification Strategy
 - **Unit:** Test `_escape_latex` separately.

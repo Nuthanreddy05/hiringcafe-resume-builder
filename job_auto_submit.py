@@ -17,6 +17,7 @@ from typing import Dict, Any, Optional
 import gmail_helper
 
 from playwright.sync_api import sync_playwright, Page, Locator
+from submission_tracker import SubmissionTracker, check_before_applying, mark_job_submitted
 from openai import OpenAI
 import random
 import numpy as np
@@ -36,17 +37,33 @@ def human_type(locator: Locator, text: str):
     """Types text with random delays between key presses."""
     if not text: return
     try:
+        # Ensure field is ready
         locator.scroll_into_view_if_needed()
+        locator.wait_for(state="visible", timeout=5000)
+        
+        # Click to focus
         locator.click()
-        # Clear existing text human-like
-        locator.press("Meta+A")
-        locator.press("Backspace")
-        # Type character by character with random delay
-        locator.press_sequentially(text, delay=random.randint(50, 150))
+        time.sleep(0.2)
+        
+        # Clear existing text
+        locator.fill("")  # Fastest way to clear
+        time.sleep(0.1)
+       
+        # Type text
+        locator.press_sequentially(text, delay=random.randint(30, 80))
+        
+        # Verify it actually filled
+        actual_value = locator.input_value()
+        if actual_value != text:
+            # Press_sequentially failed, use fill as backup
+            locator.fill(text)
+            
     except Exception as e:
-        print(f"      ⚠️  Human Type Error: {e}")
-        # Fallback
-        locator.fill(text)
+        # Fallback to simple fill
+        try:
+            locator.fill(text)
+        except Exception as e2:
+            print(f"      ❌ Failed to fill field: {str(e2)[:50]}")
 
 def get_bezier_curve(p0, p1, p2, p3):
     """Generates points for a Bezier curve."""
@@ -124,10 +141,85 @@ def answer_question_with_ai(question: str, context: str, custom_answers: Optiona
                 return answer
 
     # Quick filter for simple questions to save API calls
-    if "sponsorship" in q_lower or "visa" in q_lower:
+    
+    # Load comprehensive profile if available
+    complete_profile_path = Path(__file__).parent / "complete_profile.json"
+    complete_profile = {}
+    if complete_profile_path.exists():
+        try:
+            with open(complete_profile_path) as f:
+                complete_profile = json.load(f)
+        except:
+            pass
+    
+    # SALARY QUESTIONS - Use user's expectations
+    if any(word in q_lower for word in ['salary', 'compensation', 'pay expectations', 'expected salary', 'salary range']):
+        return "$100,000 - $120,000"
+    
+    # SPECIFIC LOCATION QUESTIONS - User is NOT in these regions
+    if any(region in q_lower for region in ['spain', 'portugal', 'cyprus', 'poland', 'serbia', 'georgia', 'armenia', 'turkey']):
+        if 'located' in q_lower or 'are you' in q_lower:
+            return "No"
+    
+    # LANGUAGE QUESTIONS - User doesn't speak Russian
+    if 'russian' in q_lower and ('speak' in q_lower or 'fluently' in q_lower):
         return "No"
+    
+    # PHONE NUMBER - If asking for phone itself, not yes/no
+    if q_lower.strip() in ['phone', 'phone number'] or (q_lower.startswith('phone') and '?' not in q_lower):
+        return ""  # Let system handle from profile
+    
+    # ============================================================
+    # SPONSORSHIP - ALWAYS ANSWER "NO" (Strategic for screening)
+    # ============================================================
+    if "sponsorship" in q_lower or "visa sponsorship" in q_lower:
+        # All variations: "Do you need", "Will you require", "Do you now or in the future"
+        return "No"
+    
+    # WORK AUTHORIZATION - Professional answer
     if "authorized" in q_lower or "legally" in q_lower:
-        return "Yes"
+        if "united states" in q_lower or "us" in q_lower or "work" in q_lower:
+            return complete_profile.get("work_authorization", {}).get("professional_answer_authorized", 
+                "Yes, I am currently authorized to work in the United States.")
+    
+    # VISA STATUS - If specifically asked (rare)
+    if "visa status" in q_lower or "immigration status" in q_lower or "f1" in q_lower or "opt" in q_lower:
+        return complete_profile.get("work_authorization", {}).get("visa_status_if_asked", 
+            "Authorized to work in the United States")
+    
+    # ============================================================
+    # DEMOGRAPHIC QUESTIONS (EEO - Equal Employment Opportunity)
+    # ============================================================
+    
+    # GENDER
+    if "gender" in q_lower:
+        return "Male"
+    
+    # RACE/ETHNICITY
+    if "race" in q_lower or "ethnicity" in q_lower:
+        if "hispanic" in q_lower or "latino" in q_lower:
+            return "No"
+        return "Asian"
+    
+    # MILITARY/VETERAN STATUS
+    if "veteran" in q_lower or "military" in q_lower:
+        return "I am not a protected veteran"
+    
+    # DISABILITY
+    if "disability" in q_lower or "disabled" in q_lower:
+        return "No"
+    
+    # LOCATION/CITY (for dropdown selection)
+    if ("city" in q_lower or "location" in q_lower) and ("where" in q_lower or "select" in q_lower or "drop" in q_lower):
+        # Try common variations
+        if "arlington" in context.lower():
+            return "Arlington"
+        return "Dallas"  # Fallback
+    
+    # START DATE
+    if "start" in q_lower and ("date" in q_lower or "available" in q_lower or "when" in q_lower):
+        return complete_profile.get("availability", {}).get("start_date_professional", 
+            "I am available to start within one week of receiving and accepting an offer")
     # Strict heuristics for user specific rules
     # 1. Past Employment at TARGET company (User only worked at Albertsons/ValueLabs)
     # PitchBook/Morningstar specific check
@@ -308,9 +400,29 @@ def validate_and_fix_form(page: Page, profile: Dict[str, Any], context_text: str
     print("      ✅ Validation Passed (Auto-Fix applied where needed).")
     return True
 
-def handle_greenhouse(page: Page, profile: Dict[str, Any], resume_path: Path, submit: bool = False, context_text: str = "") -> str:
+def handle_greenhouse(page: Page, profile: Dict[str, Any], resume_path: Path, submit: bool = False, context_text: str = "", batch: bool = False) -> str:
     """Fill Greenhouse application form sequentially (1-by-1) for human-like behavior."""
     print("      🟢 Detected: Greenhouse (Sequential Mode)")
+    
+    # STEP 1: Click "Apply" button if on job description page
+    print("      🔍 Looking for Apply button...")
+    apply_button_selectors = [
+        "#submit_app",
+        "a#apply_button",
+        "button:has-text('Apply for this job')",
+        "a:has-text('Apply for this job')",
+        ".application-button",
+        "[data-mapped='application-button']"
+    ]
+    
+    for selector in apply_button_selectors:
+        apply_btn = page.locator(selector).first
+        if apply_btn.count() > 0 and apply_btn.is_visible():
+            print(f"      ✅ Found Apply button: {selector}")
+            human_click(page, apply_btn)
+            page.wait_for_load_state("domcontentloaded")
+            page.wait_for_timeout(3000)  # Wait for form to load
+            break
     
     custom_answers = profile.get("custom_question_answers", {})
     
@@ -380,23 +492,20 @@ def handle_greenhouse(page: Page, profile: Dict[str, Any], resume_path: Path, su
                     is_react = True
             
             if is_react:
-                # Determine Answer
-                answer = "Yes" # Default safe
+                # Use improved AI answer function
+                answer = answer_question_with_ai(label_text, context_text)
                 
-                # Logic Mapping
-                if "sponsorship" in label_lower: answer = "No" # Or profile logic
-                elif "authorized" in label_lower: answer = "Yes"
-                elif "relocat" in label_lower: answer = "No" # FORCE NEGATIVE for Relocation
-                elif "country" in label_lower: answer = "United States"
-                elif "location" in label_lower: answer = "New York, NY" # fallback
-                elif "gender" in label_lower: answer = profile.get("demographics", {}).get("gender", "Male")
-                elif "race" in label_lower: answer = profile.get("demographics", {}).get("race", "Asian")
-                elif "veteran" in label_lower: answer = profile.get("demographics", {}).get("veteran", "I am not")
-                elif "disability" in label_lower: answer = profile.get("demographics", {}).get("disability", "No")
-                elif "privacy" in label_lower or "policy" in label_lower: answer = "Yes" # Agreement
-                else: 
-                     # Use AI or Profile default
-                     pass
+                # Override for specific patterns that need structured answers
+                if "country" in label_lower and answer.lower() in ["yes", "no"]:
+                    answer = "United States"
+                elif "gender" in label_lower:
+                    answer = profile.get("gender", "Male")
+                elif "race" in label_lower:
+                    answer = profile.get("race", "Asian")
+                elif "veteran" in label_lower:
+                    answer = profile.get("veteran", "I am not a protected veteran")
+                elif "disability" in label_lower:
+                    answer = profile.get("disability", "No, I do not have a disability")
                 
                 # Click logic
                 print(f"      ⚛️  React-Select: '{label_text}' -> '{answer}'")
@@ -432,7 +541,7 @@ def handle_greenhouse(page: Page, profile: Dict[str, Any], resume_path: Path, su
                 elif "last" in label_lower and "name" in label_lower: answer = profile["last_name"]
                 elif "full" in label_lower and "name" in label_lower: answer = f"{profile['first_name']} {profile['last_name']}"
                 elif "email" in label_lower: answer = profile["email"]
-                # elif "phone" in label_lower: answer = profile["phone"] # BROKEN FOR TESTING AUTO-FIX
+                elif "phone" in label_lower: answer = profile["phone"]  # Re-enabled
                 elif "linkedin" in label_lower: answer = profile.get("linkedin", "")
                 elif "website" in label_lower or "portfolio" in label_lower: answer = profile.get("portfolio") or profile.get("linkedin", "")
                 elif "city" in label_lower: answer = "New York, NY" # Default or profile
@@ -460,6 +569,51 @@ def handle_greenhouse(page: Page, profile: Dict[str, Any], resume_path: Path, su
             print(f"      ⚠️  Error on field {i}: {e}")
             continue
 
+    # UNIVERSAL RESUME UPLOAD - Multiple Strategies
+    print("      📄 Looking for resume upload...")
+    upload_success = False
+    
+    # Strategy 1: Try visible "Attach" or "Upload Resume" buttons first
+    attach_buttons = page.locator("button:has-text('Attach'), a:has-text('Attach Resume'), button:has-text('Upload')").all()
+    for btn in attach_buttons:
+        if "resume" in btn.inner_text().lower() or btn.inner_text().strip() == "Attach":
+            try:
+                print(f"      🔘 Clicking: {btn.inner_text()}")
+                human_click(page, btn)
+                page.wait_for_timeout(1000)
+                break
+            except:
+                pass
+    
+    # Strategy 2: Find all file inputs and try each
+    file_inputs = page.locator("input[type='file']").all()
+    print(f"      🔍 Found {len(file_inputs)} file input(s)")
+    
+    for idx, file_input in enumerate(file_inputs):
+        try:
+            # Check if this is a resume field (not cover letter)
+            input_id = file_input.get_attribute("id") or ""
+            input_name = file_input.get_attribute("name") or ""
+            
+            # Skip cover letter inputs
+            if "cover" in input_id.lower() or "cover" in input_name.lower():
+                print(f"      ⏭️  Skipping cover letter input")
+                continue
+            
+            print(f"      📎 Attempting upload on input #{idx+1}...")
+            file_input.set_input_files(str(resume_path))
+            print(f"      ✅ Resume uploaded: {resume_path.name}")
+            upload_success = True
+            page.wait_for_timeout(2000)
+            break
+        except Exception as e:
+            print(f"      ⚠️  Upload attempt #{idx+1} failed: {str(e)[:50]}")
+            continue
+    
+    if not upload_success:
+        print(f"      ⚠️  No resume upload field found (may upload later in flow)")
+
+
     # Run Validation
     is_valid = validate_and_fix_form(page, profile, context_text)
     if not is_valid:
@@ -473,9 +627,12 @@ def handle_greenhouse(page: Page, profile: Dict[str, Any], resume_path: Path, su
             human_click(page, submit_btn)
             return "Submitted"
             
-    # Verification Pause
-    print("      👀 Paused for manual review (Sequential Mode).")
-    input("      Press Enter to finish...") 
+    # Verification Pause (skip in batch mode)
+    if not batch:
+        print("      👀 Paused for manual review (Sequential Mode).")
+        input("      Press Enter to finish...") 
+    else:
+        print("      ⏭️  Batch mode: Auto-proceeding to next job")
     
     return "Ready for Review"
 
@@ -669,6 +826,387 @@ def handle_workday(page: Page, profile: Dict[str, Any], resume_path: Path, submi
 
     return "Ready for Review (Workday Hybrid)"
 
+
+def handle_taleo(page: Page, profile: Dict, resume_path: Path, submit: bool = False, context_text: str = "") -> str:
+    """
+    Automated handler for Taleo ATS.
+    Creates account (or logs in), fills fields, uploads resume.
+    """
+    print("   🏢 Taleo ATS detected - Starting automation...")
+    
+    try:
+        # Wait for page to load
+        page.wait_for_load_state("domcontentloaded")
+        time.sleep(2)
+        
+        # Step 0: Check if we're on a job description page (not application form yet)
+        print("   🔍 Looking for Apply button...")
+        
+        # Common Taleo "Apply" button selectors (comprehensive list)
+        apply_selectors = [
+            # Text-based detection (most common)
+            "a:has-text('Apply')",
+            "button:has-text('Apply')",
+            "a:has-text('Apply Now')",
+            "button:has-text('Apply Now')",
+            "input[value*='Apply']",
+            
+            # Attribute-based
+            "a[title*='Apply']",
+            "button[title*='Apply']",
+            "a[aria-label*='Apply']",
+            "button[aria-label*='Apply']",
+            
+            # Class and ID based
+            "a.btn:has-text('Apply')",
+            "#applybtn",
+            ".apply-button",
+            ".applyBtn",
+            "a[href*='apply']",
+            "button[id*='apply']",
+            "a[id*='apply']",
+            
+            # Taleo-specific
+            "span.pbButton:has-text('Apply')",
+            "a.jobGlobalApplyButton",
+            "input[name='apply']"
+        ]
+        
+        apply_clicked = False
+        for selector in apply_selectors:
+            try:
+                apply_btn = page.locator(selector).first
+                if apply_btn.count() > 0 and apply_btn.is_visible():
+                    print(f"   🎯 Found Apply button (selector: {selector[:30]}...), clicking...")
+                    human_click(page, apply_btn)
+                    page.wait_for_load_state("domcontentloaded")
+                    time.sleep(3)
+                    apply_clicked = True
+                    print("      ✅ Navigated to application form")
+                    break
+            except Exception as e:
+                continue
+        
+        if not apply_clicked:
+            print("      ℹ️  No Apply button found (might already be on application form)")
+            # Try to detect if we're actually on login/application page
+            if page.locator("input[type='email'], input[type='password'], textarea").count() > 0:
+                print("      ✓ Detected form fields, proceeding with application")
+
+        
+        # Step 1: Check if already logged in or need to create account
+        print("   📝 Checking login status...")
+        
+        # Look for "Apply as Guest" or "New User" button
+        guest_btn = page.locator("text=/Apply as Guest/i").first
+        new_user_btn = page.locator("text=/New User/i").first
+        login_btn = page.locator("text=/Login|Sign In/i").first
+        
+        # Check if there's a login form (returning user)
+        username_field = page.locator("input[name*='user'], input[name*='email'], input[id*='user']").first
+        password_field = page.locator("input[type='password']").first
+        
+        if username_field.count() > 0 and password_field.count() > 0:
+            print("   🔐 Logging in with existing account...")
+            taleo_email = profile.get('taleo_email', 'nuthanreddy001@gmail.com')
+            taleo_password = profile.get('taleo_password', '#Include789')
+            
+            human_type(username_field, taleo_email)
+            human_type(password_field, taleo_password)
+            
+            login_submit = page.locator("button[type='submit'], input[type='submit'], button:has-text('Login'), button:has-text('Sign In')").first
+            if login_submit.count() > 0:
+                human_click(page, login_submit)
+                page.wait_for_load_state("domcontentloaded")
+                time.sleep(3)
+                print("      ✅ Logged in successfully")
+        
+        elif guest_btn.count() > 0 and guest_btn.is_visible():
+            print("   👤 Applying as guest...")
+            human_click(page, guest_btn)
+            page.wait_for_load_state("domcontentloaded")
+            time.sleep(2)
+        elif new_user_btn.count() > 0 and new_user_btn.is_visible():
+            print("   🆕 Creating new account...")
+            human_click(page, new_user_btn)
+            page.wait_for_load_state("domcontentloaded")
+            time.sleep(2)
+            
+            # Fill registration form if present
+            email_field = page.locator("input[type='email'], input[name*='email'], input[id*='email']").first
+            if email_field.count() > 0:
+                # Use specific Taleo email
+                taleo_email = profile.get('taleo_email', 'nuthanreddy001@gmail.com')
+                human_type(email_field, taleo_email)
+                print(f"      📧 Email: {taleo_email}")
+                
+            # Use specific Taleo password
+            pwd_field = page.locator("input[type='password']").first
+            if pwd_field.count() > 0:
+                taleo_password = profile.get('taleo_password', '#Include789')
+                human_type(pwd_field, taleo_password)
+                print("      🔒 Password: ********")
+                
+            # Confirm password if required
+            pwd_confirm = page.locator("input[type='password']").nth(1)
+            if pwd_confirm.count() > 0 and pwd_confirm.is_visible():
+                human_type(pwd_confirm, taleo_password)
+                
+            # Submit registration
+            submit_reg = page.locator("button[type='submit'], input[type='submit']").first
+            if submit_reg.count() > 0:
+                human_click(page, submit_reg)
+                page.wait_for_load_state("domcontentloaded")
+                time.sleep(3)
+        
+        # Step 2: Fill application form
+        print("   ✍️  Filling application fields...")
+        
+        # Common Taleo fields
+        fields_to_fill = {
+            "firstName": profile.get("first_name", ""),
+            "lastName": profile.get("last_name", ""),
+            "email": profile.get("email", ""),
+            "phone": profile.get("phone", ""),
+            "city": profile.get("city", "Dallas"),
+            "state": profile.get("state", "TX"),
+            "zip": profile.get("zip", "75001"),
+            "country": profile.get("country", "United States"),
+            "linkedin": profile.get("linkedin", "https://www.linkedin.com/in/nuthan-reddy-vaddi-reddy/"),
+            "salary": profile.get("salary_expectations", "100000-120000"),
+        }
+        
+        filled_count = 0
+        for field_name, value in fields_to_fill.items():
+            if not value:
+                continue
+                
+            # Try multiple selectors
+            selectors = [
+                f"input[name*='{field_name}']",
+                f"input[id*='{field_name}']",
+                f"input[placeholder*='{field_name}']",
+            ]
+            
+            # Add field-specific selectors
+            if field_name == "salary":
+                selectors.extend([
+                    "input[name*='salary']",
+                    "input[name*='compensation']",
+                    "input[name*='expected']",
+                    "input[id*='salary']",
+                    "input[id*='compensation']",
+                    "input[placeholder*='salary']",
+                    "textarea[name*='salary']",
+                ])
+            elif field_name == "linkedin":
+                selectors.extend([
+                    "input[name*='linkedin']",
+                    "input[name*='LinkedIn']",
+                    "input[id*='linkedin']",
+                    "input[placeholder*='LinkedIn']",
+                ])
+
+            
+            for selector in selectors:
+                field = page.locator(selector).first
+                if field.count() > 0 and field.is_visible():
+                    try:
+                        human_type(field, str(value))
+                        filled_count += 1
+                        time.sleep(0.5)
+                        break
+                    except:
+                        pass
+        
+        print(f"      ✅ Filled {filled_count} fields")
+        
+        # Step 3: Upload Resume
+        print("   📄 Uploading resume...")
+        
+        # Look for file upload field (including hidden ones)
+        file_inputs = page.locator("input[type='file']").all()
+        uploaded = False
+        
+        for idx, file_input in enumerate(file_inputs):
+            try:
+                # Try to upload even if not visible (some file inputs are hidden)
+                file_input.set_input_files(str(resume_path))
+                print(f"      ✅ Resume uploaded: {resume_path.name}")
+                uploaded = True
+                time.sleep(2)
+                break
+            except Exception as e:
+                # Try clicking nearby label/button to reveal file input
+                try:
+                    parent = page.locator(f"input[type='file']:nth-child({idx + 1})").locator("xpath=ancestor::div[1]").first
+                    upload_btn = parent.locator("button, a, label").first
+                    if upload_btn.count() > 0:
+                        human_click(page, upload_btn)
+                        time.sleep(1)
+                        # Try upload again
+                        file_input.set_input_files(str(resume_path))
+                        print(f"      ✅ Resume uploaded: {resume_path.name}")
+                        uploaded = True
+                        break
+                except:
+                    pass
+                    
+        if not uploaded:
+            print(f"      ⚠️  Resume upload: No file input found or upload failed")
+            print(f"      📂 Resume available at: {resume_path}")
+        
+        # Step 4: Answer common questions
+        print("   💬 Answering screening questions...")
+        
+        # Work authorization
+        auth_fields = page.locator("text=/authorized to work/i").all()
+        for field in auth_fields[:3]:  # Limit to first 3
+            try:
+                parent = field.locator("xpath=ancestor::div[contains(@class, 'question') or contains(@class, 'field')]").first
+                yes_option = parent.locator("text=/yes/i, input[value='Yes']").first
+                if yes_option.count() > 0:
+                    human_click(page, yes_option)
+                    time.sleep(0.5)
+            except:
+                pass
+        
+        # Sponsorship
+        sponsor_fields = page.locator("text=/sponsorship/i, text=/visa/i").all()
+        for field in sponsor_fields[:3]:
+            try:
+                parent = field.locator("xpath=ancestor::div[contains(@class, 'question') or contains(@class, 'field')]").first
+                no_option = parent.locator("text=/no/i, input[value='No']").first
+                if no_option.count() > 0:
+                    human_click(page, no_option)
+                    time.sleep(0.5)
+            except:
+                pass
+        
+        # Step 5: AI-Powered Custom Questions
+        print("   🤖 Using AI for custom questions...")
+        
+        # Find all text areas (essay questions like "Why interested?")
+        textareas = page.locator("textarea").all()
+        ai_answers = 0
+        
+        for textarea in textareas[:5]:  # Limit to first 5
+            try:
+                if not textarea.is_visible():
+                    continue
+                
+                # Find the question label
+                label = textarea.locator("xpath=preceding::label[1]").first
+                if label.count() == 0:
+                    # Try finding nearby text
+                    parent = textarea.locator("xpath=ancestor::div[1]").first
+                    label = parent.locator("label, legend, span").first
+                
+                if label.count() > 0:
+                    question_text = label.inner_text()
+                    
+                    # Use AI to answer
+                    print(f"      💬 Question: {question_text[:60]}...")
+                    answer = answer_question_with_ai(question_text, context_text)
+                    
+                    # Type the answer
+                    human_type(textarea, answer)
+                    ai_answers += 1
+                    time.sleep(1)
+            except Exception as e:
+                print(f"      ⚠️  Textarea error: {e}")
+        
+        print(f"      ✅ AI answered {ai_answers} custom questions")
+        
+        # Step 6: AI-Powered Dropdown Selection
+        print("   🎯 AI selecting dropdowns...")
+        
+        # Find dropdowns (years of experience, etc.)
+        selects = page.locator("select").all()
+        dropdown_selected = 0
+        
+        for select in selects[:10]:  # Check first 10 dropdowns
+            try:
+                if not select.is_visible():
+                    continue
+                
+                # Skip if already selected
+                current_value = select.evaluate("el => el.value")
+                if current_value and current_value != "":
+                    continue
+                
+                # Find the question for this dropdown
+                label = select.locator("xpath=preceding::label[1]").first
+                if label.count() == 0:
+                    parent = select.locator("xpath=ancestor::div[1]").first
+                    label = parent.locator("label, legend").first
+                
+                if label.count() > 0:
+                    question_text = label.inner_text()
+                    
+                    # Get all options
+                    options = select.locator("option").all()
+                    option_texts = [opt.inner_text() for opt in options if opt.inner_text().strip()]
+                    
+                    if len(option_texts) <= 1:  # Skip if no real options
+                        continue
+                    
+                    # Use AI to select best option
+                    print(f"      🔽 Dropdown: {question_text[:40]}...")
+                    
+                    ai_prompt = f"""
+Question: {question_text}
+
+Available options:
+{chr(10).join(f"- {opt}" for opt in option_texts[:15])}
+
+Based on this context:
+{context_text[:2000]}
+
+Select the MOST APPROPRIATE option. Output ONLY the exact option text, nothing else.
+"""
+                    
+                    selected_option = answer_question_with_ai(ai_prompt, "")
+                    selected_option = selected_option.strip()
+                    
+                    # Try to select the option
+                    for opt_text in option_texts:
+                        if selected_option.lower() in opt_text.lower() or opt_text.lower() in selected_option.lower():
+                            select.select_option(label=opt_text)
+                            print(f"         ✓ Selected: {opt_text}")
+                            dropdown_selected += 1
+                            time.sleep(0.5)
+                            break
+                    
+            except Exception as e:
+                print(f"      ⚠️  Dropdown error: {e}")
+        
+        print(f"      ✅ AI selected {dropdown_selected} dropdowns")
+
+        
+        print("   ✅ Taleo automation complete!")
+        print("   ⏸️  Pausing for manual review...")
+        
+        return "Ready for Review (Taleo)"
+        
+    except Exception as e:
+        print(f"   ❌ Taleo automation error: {e}")
+        print("   📄 Resume available at:", resume_path)
+        return "Manual Completion Required (Taleo - Error)"
+
+
+def handle_custom(page: Page, profile: Dict, resume_path: Path, submit: bool = False, context_text: str = "") -> str:
+    """
+    Basic handler for custom career portals (MongoDB, SmartRecruiters, etc.)
+    Opens the page and pauses for manual completion.
+    """
+    print("   🌐 Custom career portal detected")
+    print("   ⚠️  Custom portal requires manual application")
+    print(f"   📄 Resume ready: {resume_path}")
+    print("   👉 Please complete the application manually in the browser")
+    
+    return "Manual Completion Required (Custom)"
+
 def identify_ats(url: str) -> str:
     """Identify ATS from URL"""
     if "boards.greenhouse.io" in url:
@@ -677,6 +1215,10 @@ def identify_ats(url: str) -> str:
         return "lever"
     if "workday" in url:
         return "workday"
+    if "taleo.net" in url:
+        return "taleo"
+    if "mongodb.com/careers" in url or "smartrecruiters.com" in url or "ashbyh q.com" in url:
+        return "custom"
     return "unknown"
 
 
@@ -689,7 +1231,8 @@ def process_job(
     profile: Dict[str, Any], 
     context, 
     headless: bool = False,
-    submit: bool = False
+    submit: bool = False,
+    batch: bool = False
 ):
     """Process a single job folder"""
     
@@ -786,16 +1329,20 @@ def process_job(
         
         status = "Failed"
         if ats == "greenhouse":
-            status = handle_greenhouse(page, profile, resume_pdf, submit=submit, context_text=context_text)
+            status = handle_greenhouse(page, profile, resume_pdf, submit=submit, context_text=context_text, batch=batch)
         elif ats == "lever":
             status = handle_lever(page, profile, resume_pdf, submit=submit, context_text=context_text)
         elif ats == "workday":
             status = handle_workday(page, profile, resume_pdf, submit=submit, context_text=context_text)
+        elif ats == "taleo":
+            status = handle_taleo(page, profile, resume_pdf, submit=submit, context_text=context_text)
+        elif ats == "custom":
+            status = handle_custom(page, profile, resume_pdf, submit=submit, context_text=context_text)
             
         print(f"      ℹ️  Status: {status}")
         
-        # If not headless, pause for manual review/submit
-        if not headless:
+        # If not headless and not batch, pause for manual review/submit
+        if not headless and not batch:
             print("      👀 Paused for manual review. Check browser window.")
             print("      👉 ACTION REQUIRED: ")
             print("          1. Complete any CAPTHCA or missing fields.")
@@ -812,6 +1359,10 @@ def process_job(
                     return False
                 elif response == 'skip':
                     return False
+        elif batch:
+            print("      ⏭️  Batch mode: Form filled, moving to next job")
+            time.sleep(3)  # Brief pause to see the filled form
+            return False
         
         # In HEADLESS mode:
         # If we successfully automated it (returned "Submitted"), return True
@@ -833,6 +1384,7 @@ def main():
     parser.add_argument("--profile", required=True, help="Path to profile.json")
     parser.add_argument("--headless", action="store_true", help="Run headless (default False)")
     parser.add_argument("--submit", action="store_true", help="Actually submit the application (default False)")
+    parser.add_argument("--batch", action="store_true", help="Batch mode: fill all jobs without manual pauses")
     
     args = parser.parse_args()
     
@@ -893,7 +1445,7 @@ def main():
                 page.close() 
                 
                 # Refactor call: process_job currently takes context.
-                success = process_job(job_folder, profile, context, headless=args.headless, submit=args.submit)
+                success = process_job(job_folder, profile, context, headless=args.headless, submit=args.submit, batch=args.batch)
                 
                 if success and "Submitted" in str(success):
                     print(f"✅ Job Done: {job_folder.name}")

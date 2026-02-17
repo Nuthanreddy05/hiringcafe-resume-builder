@@ -92,7 +92,7 @@
     };
 
     // 3. Execution Function (Stateful)
-    const runAutoFill = (attempt = 1) => {
+    const runAutoFill = async (attempt = 1) => {
         const MAX_ATTEMPTS = 20; // 10 seconds total (20 * 500ms)
         console.log(`⏳ Greenhouse: Attempt ${attempt}/${MAX_ATTEMPTS} to find fields...`);
 
@@ -115,6 +115,94 @@
         // Website/Portfolio (Optional)
         fillField(Mappings.portfolio, Profile.portfolio);
         fillField(Mappings.github, Profile.github);
+
+        // Location Fields
+        if (fillField(Mappings.city, Profile.city)) filledCount++;
+        if (fillField(Mappings.state, Profile.state)) filledCount++;
+        if (fillField(Mappings.zip, Profile.zip)) filledCount++;
+        if (fillField(Mappings.location, Profile.location)) filledCount++;
+
+        // Education
+        fillField(Mappings.school, Profile.school);
+        fillField(Mappings.degree, Profile.degree);
+        fillField(Mappings.major, Profile.major);
+
+        // Professional
+        fillField(Mappings.yearsExperience, Profile.yearsExperience);
+        fillField(Mappings.startDate, Profile.startDate);
+
+        // DEMOGRAPHICS - Using DropdownFiller
+        const DF = window.DropdownFiller;
+
+        // Gender
+        const genderField = findField(Mappings.gender, 'select') ||
+            findField(Mappings.gender, 'input');
+        if (genderField) {
+            if (await DF.fill(genderField, Profile.gender)) {
+                filledCount++;
+                VF.markSafe(genderField);
+            }
+        }
+
+        // Race
+        const raceField = findField(Mappings.race, 'select') ||
+            findField(Mappings.race, 'input');
+        if (raceField) {
+            if (await DF.fill(raceField, Profile.race)) {
+                filledCount++;
+                VF.markSafe(raceField);
+            }
+        }
+
+        // Ethnicity (Hispanic/Latino)
+        const ethnicityField = findField(Mappings.ethnicity, 'select') ||
+            findField(Mappings.ethnicity, 'input');
+        if (ethnicityField) {
+            if (await DF.fill(ethnicityField, Profile.ethnicity)) {
+                filledCount++;
+                VF.markSafe(ethnicityField);
+            }
+        }
+
+        // Veteran Status
+        const veteranField = findField(Mappings.veteran, 'select') ||
+            findField(Mappings.veteran, 'input');
+        if (veteranField) {
+            if (await DF.fill(veteranField, Profile.veteran)) {
+                filledCount++;
+                VF.markSafe(veteranField);
+            }
+        }
+
+        // Disability Status
+        const disabilityField = findField(Mappings.disability, 'select') ||
+            findField(Mappings.disability, 'input');
+        if (disabilityField) {
+            if (await DF.fill(disabilityField, Profile.disability)) {
+                filledCount++;
+                VF.markSafe(disabilityField);
+            }
+        }
+
+        // Work Authorization
+        const workAuthField = findField(Mappings.workAuthorization, 'select') ||
+            findField(Mappings.workAuthorization, 'input');
+        if (workAuthField) {
+            if (await DF.fill(workAuthField, Profile.workAuthorization)) {
+                filledCount++;
+                VF.markSafe(workAuthField);
+            }
+        }
+
+        // Sponsorship
+        const sponsorshipField = findField(Mappings.sponsorship, 'select') ||
+            findField(Mappings.sponsorship, 'input');
+        if (sponsorshipField) {
+            if (await DF.fill(sponsorshipField, Profile.sponsorship)) {
+                filledCount++;
+                VF.markSafe(sponsorshipField);
+            }
+        }
 
         // Resume Section (Always check)
         const resumeBtn = document.querySelector('button[aria-label="Upload Resume"]') ||

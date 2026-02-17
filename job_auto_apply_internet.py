@@ -133,6 +133,8 @@ class Job:
     description: str
     apply_url: str
     job_id: str = ""
+    recruiter_name: str = ""
+    recruiter_email: str = ""
 
 
 import jinja2
@@ -885,10 +887,43 @@ def scrape_full_jd_from_career_page(context: BrowserContext, career_url: str) ->
 
 
 # ============================================================================
-# Job Scraping from HiringCafe
+# Job Scraping from HiringCafe  
 # ============================================================================
 
-def collect_job_links(start_url: str, max_jobs: int, headless: bool = True) -> List[str]:
+def parse_hiringcafe_timestamp(relative_time: str) -> Optional[datetime]:
+    """
+    Parse HiringCafe relative timestamp (e.g., '7h', '1d', '21h') to absolute datetime.
+    This represents when HiringCafe discovered/indexed the job, NOT when company posted it.
+    
+    Args:
+        relative_time: String like '7h' (hours) or '1d' (days)
+    
+    Returns:
+        datetime of when job was discovered by HiringCafe, or None if parsing fails
+    """
+    if not relative_time:
+        return None
+    
+    # Match pattern like 7h, 21h, 1d, 2d
+    import re
+    match = re.match(r'^(\d+)([hd])$', relative_time.strip())
+    if not match:
+        return None
+    
+    value = int(match.group(1))
+    unit = match.group(2)
+    
+    now = datetime.now()
+    
+    if unit == 'h':  # hours
+        return now - timedelta(hours=value)
+    elif unit == 'd':  # days  
+        return now - timedelta(days=value)
+    
+    return None
+
+
+def collect_job_links(start_url: str, max_jobs: int, headless: bool = True) -> List[Dict[str, str]]:
     """Collect job links from HiringCafe search page"""
     print(f"\n📋 Collecting job links from HiringCafe...")
     links = []
@@ -909,33 +944,96 @@ def collect_job_links(start_url: str, max_jobs: int, headless: bool = True) -> L
             page.mouse.wheel(0, 2000)
             time.sleep(0.6)
         
-        # Extract job links
-        anchors = page.locator("a[href*='/viewjob/']")
-        count = anchors.count()
-        print(f"   ✓ Found {count} job links on page")
+        # Extract job links AND timestamps
+        # Find all job cards (they contain both link and timestamp)
+        job_data = []
         
-        for i in range(count):
-            href = anchors.nth(i).get_attribute("href") or ""
-            if "/viewjob/" not in href:
-                continue
-            if href.startswith("/"):
-                href = "https://hiring.cafe" + href
-            if href.startswith("https://hiring.cafe/viewjob/"):
-                links.append(href)
+        # Execute JavaScript to get both links and timestamps
+        try:
+            jobs_info = page.evaluate("""
+            () => {
+                const results = [];
+                // Find all job card containers
+                const jobCards = document.querySelectorAll('a[href*="/viewjob/"]');
+                
+                jobCards.forEach(card => {
+                    const link = card.href;
+                    
+                    // Look for timestamp nearby (usually in same parent or sibling)
+                    let timestamp = '';
+                    const parent = card.closest('div, article, section');
+                    if (parent) {
+                        // Search for patterns like "7h", "1d" in nearby text
+                        const textContent = parent.textContent || '';
+                        const timeMatch = textContent.match(/\b(\d+[hd])\b/);
+                        if (timeMatch) {
+                            timestamp = timeMatch[1];
+                        }
+                    }
+                    
+                    if (link && link.includes('/viewjob/')) {
+                        results.push({link: link, timestamp: timestamp});
+                    }
+                });
+                
+                return results;
+            }
+            """)
+            
+            print(f"   ✓ Found {len(jobs_info)} jobs with timing data")
+            
+            for job_info in jobs_info:
+                link = job_info.get('link', '')
+                timestamp = job_info.get('timestamp', '')
+                
+                if not link or '/viewjob/' not in link:
+                    continue
+                
+                # Normalize URL
+                if link.startswith("/"):
+                    link = "https://hiring.cafe" + link
+                
+                if link.startswith("https://hiring.cafe/viewjob/"):
+                    job_data.append({
+                        'url': link,
+                        'hiringcafe_timestamp': timestamp,
+                        'discovered_at': parse_hiringcafe_timestamp(timestamp)
+                    })
+        
+        except Exception as e:
+            print(f"   ⚠️  Could not extract timestamps, falling back to links only: {e}")
+            # Fallback to old method
+            anchors = page.locator("a[href*='/viewjob/']")
+            count = anchors.count()
+            print(f"   ✓ Found {count} job links on page")
+            
+            for i in range(count):
+                href = anchors.nth(i).get_attribute("href") or ""
+                if "/viewjob/" not in href:
+                    continue
+                if href.startswith("/"):
+                    href = "https://hiring.cafe" + href
+                if href.startswith("https://hiring.cafe/viewjob/"):
+                    job_data.append({
+                        'url': href,
+                        'hiringcafe_timestamp': '',
+                        'discovered_at': None
+                    })
         
         context.close()
         browser.close()
     
-    # Deduplicate
+    # Deduplicate by URL
     seen = set()
     unique = []
-    for u in links:
-        if u not in seen:
-            seen.add(u)
-            unique.append(u)
+    for job in job_data:
+        url = job['url']
+        if url not in seen:
+            seen.add(url)
+            unique.append(job)
     
     result = unique[:max_jobs]
-    print(f"   ✓ Returning {len(result)} unique job links\n")
+    print(f"   ✓ Returning {len(result)} unique jobs with timing data\n")
     return result
 
 
@@ -1059,6 +1157,8 @@ def fetch_job_from_hiringcafe(context: BrowserContext, job_url: str, deepseek_cl
         if not is_relevant:
             print(f"   ⊗ SKIPPED: {reason}")
             return None
+            
+        print(f"   ✓ Relevance Check Passed: {reason}")
         
         return job
     
@@ -1716,6 +1816,8 @@ def save_job_package(
     best_iteration: IterationResult,
     all_iterations: List[IterationResult],
     pdf_path: Path,
+    discovered_at: Optional[datetime] = None,
+    hiringcafe_freshness: str = ""
 ) -> Path:
     """Save complete job application package"""
     
@@ -1742,7 +1844,7 @@ def save_job_package(
         "job_url": job.url,
         "apply_url": job.apply_url,
         "resume_text": best_iteration.resume_json.get("summary", "")[:500], # Preview
-        "status": "generated", # Initial status
+        "status": "ready_to_apply", # Initial status - ready for application
         "created_at": str(datetime.now())
     }
     (package_dir / "meta.json").write_text(json.dumps(meta_content, indent=2), encoding="utf-8")
@@ -1752,7 +1854,32 @@ def save_job_package(
     final_pdf = package_dir / "NuthanReddy.pdf"
     final_pdf.write_bytes(pdf_path.read_bytes())
     
-    # 5. Save metadata
+    # 6. Extract plain text from PDF for OpenClaw automation
+    try:
+        result = subprocess.run(
+            ["pdftotext", str(final_pdf), "-"],
+            capture_output=True,
+            text=True,
+            timeout=10
+        )
+        if result.returncode == 0:
+            resume_text = result.stdout
+            (package_dir / "resume.txt").write_text(resume_text, encoding="utf-8")
+        else:
+            print(f"      ⚠️ pdftotext failed with code {result.returncode}: {result.stderr}")
+            # Fallback: save LaTeX content as plain text
+            (package_dir / "resume.txt").write_text(best_iteration.latex_content, encoding="utf-8")
+    except subprocess.TimeoutExpired:
+        print(f"      ⚠️ pdftotext timed out after 10 seconds")
+        (package_dir / "resume.txt").write_text(best_iteration.latex_content, encoding="utf-8")
+    except FileNotFoundError:
+        print(f"      ⚠️ pdftotext not found. Install with: brew install poppler")
+        (package_dir / "resume.txt").write_text(best_iteration.latex_content, encoding="utf-8")
+    except Exception as e:
+        print(f"      ⚠️ Failed to extract text from PDF: {e}")
+        (package_dir / "resume.txt").write_text(best_iteration.latex_content, encoding="utf-8")
+    
+    # 7. Save metadata
     metadata = {
         "job_url": job.url,
         "apply_url": job.apply_url,
@@ -1760,7 +1887,7 @@ def save_job_package(
         "company": job.company,
         "job_id": build_job_id(job),
         "scraped_at": datetime.now().isoformat(),
-        "best_iteration": best_iteration.iteration,
+        "best_iteration":best_iteration.iteration,
         "best_score": best_iteration.gemini_score,
         "total_iterations": len(all_iterations),
         "models_used": {
@@ -1768,9 +1895,16 @@ def save_job_package(
             "evaluator": GEMINI_MODEL,
         }
     }
+    
+    # Add HiringCafe timing data if available
+    if discovered_at:
+        metadata["discovered_at"] = discovered_at.isoformat()
+        metadata["hiringcafe_freshness"] = hiringcafe_freshness
+        metadata["note"] = "discovered_at = when HiringCafe found job, NOT company post date"
+    
     (package_dir / "meta.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     
-    # 6. Save all iterations log
+    # 8. Save all iterations log
     iterations_log = []
     for it in all_iterations:
         iterations_log.append({
@@ -1781,7 +1915,7 @@ def save_job_package(
         })
     (package_dir / "iterations.json").write_text(json.dumps(iterations_log, indent=2), encoding="utf-8")
     
-    print(f"      ✓ Saved: JD.txt, apply_url.txt, resume.tex, NuthanReddy.pdf, meta.json, iterations.json")
+    print(f"      ✓ Saved: JD.txt, apply_url.txt, resume.tex, resume.txt, NuthanReddy.pdf, meta.json, iterations.json")
     
     return package_dir
 
@@ -1909,11 +2043,21 @@ def main_hiringcafe():
         browser = p.chromium.launch(headless=args.headless)
         context = browser.new_context()
         
-        for idx, job_url in enumerate(job_links, 1):
+        for idx, job_data in enumerate(job_links, 1):
             print("\n" + "=" * 80)
             print(f"🔍 JOB {idx}/{len(job_links)}")
             print("=" * 80)
+            
+            # Extract URL and timestamp from job data
+            job_url = job_data['url']
+            hiringcafe_timestamp = job_data.get('hiringcafe_timestamp', '')
+            discovered_at = job_data.get('discovered_at')
+            
             print(f"URL: {job_url}")
+            if hiringcafe_timestamp:
+                print(f"📅 HiringCafe Discovery: {hiringcafe_timestamp} ago")
+                if discovered_at:
+                    print(f"   Calculated: {discovered_at.strftime('%Y-%m-%d %H:%M:%S')}")
             
             try:
                 # Fetch job
@@ -2054,7 +2198,16 @@ def main_hiringcafe():
                 if best_iteration:
                     pdf_path = compile_latex_to_pdf(best_iteration.latex_content, output_root, "NuthanReddy")
                     if pdf_path:
-                        save_job_package(output_root, job, cleaned_jd, best_iteration, all_iterations, pdf_path)
+                        save_job_package(
+                            output_root, 
+                            job, 
+                            cleaned_jd, 
+                            best_iteration, 
+                            all_iterations, 
+                            pdf_path,
+                            discovered_at=discovered_at,
+                            hiringcafe_freshness=hiringcafe_timestamp
+                        )
                         print(f"   ✅ Processed: {job.title}")
                         processed += 1
                         print("\n   🚀 Ready for Batch Execution")

@@ -201,7 +201,7 @@ def handle_message(message):
     try:
         if action == "get_jobs":
             # Default to Desktop/Google Auto if no path provided
-            base_path = message.get("base_path", "~/Desktop/Google Auto")
+            base_path = message.get("base_path", "/Users/nuthanreddyvaddireddy/Desktop/Google Auto")
             return get_jobs(base_path)
             
         elif action == "update_status":
@@ -337,7 +337,7 @@ def generate_ai_answer(message):
     if not resume_text:
         try:
             # Find job folder
-            base_path = Path.home() / "Desktop" / "Google Auto"
+            base_path = Path("/Users/nuthanreddyvaddireddy/Desktop/Google Auto")
             job_path = None
             
             if job_folder_id and job_folder_id != "LATEST":
@@ -453,7 +453,7 @@ def generate_cover_letter_func(message):
     if not resume_text:
          # Fallback logic (Duplicated for simplicity to avoid refactoring risk)
          try:
-            base_path = Path.home() / "Desktop" / "Google Auto"
+            base_path = Path("/Users/nuthanreddyvaddireddy/Desktop/Google Auto")
             job_folder_id = message.get("job_folder_id")
             job_path = None
             if job_folder_id and job_folder_id != "LATEST":

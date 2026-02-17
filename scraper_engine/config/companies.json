@@ -1,0 +1,169 @@
+{
+  "companies": [
+    {
+      "name": "Stripe",
+      "careers_url": "https://stripe.com/jobs/search",
+      "ats_type": "custom",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "Top H1B sponsor, fintech"
+    },
+    {
+      "name": "Airbnb",
+      "careers_url": "https://careers.airbnb.com/positions/",
+      "ats_type": "greenhouse",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "Top H1B sponsor"
+    },
+    {
+      "name": "Figma",
+      "careers_url": "https://www.figma.com/careers/#job-openings",
+      "ats_type": "greenhouse",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "High valuation, design tools"
+    },
+    {
+      "name": "Notion",
+      "careers_url": "https://www.notion.so/careers",
+      "ats_type": "lever",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "High growth startup"
+    },
+    {
+      "name": "Databricks",
+      "careers_url": "https://www.databricks.com/company/careers/open-positions",
+      "ats_type": "greenhouse",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "Top H1B sponsor, data/AI"
+    },
+    {
+      "name": "Plaid",
+      "careers_url": "https://plaid.com/careers/openings/",
+      "ats_type": "greenhouse",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "Fintech, known sponsor"
+    },
+    {
+      "name": "Scale AI",
+      "careers_url": "https://scale.com/careers",
+      "ats_type": "lever",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "AI company, recently funded"
+    },
+    {
+      "name": "Anthropic",
+      "careers_url": "https://www.anthropic.com/careers",
+      "ats_type": "ashby",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "AI safety, top tier"
+    },
+    {
+      "name": "OpenAI",
+      "careers_url": "https://openai.com/careers/search",
+      "ats_type": "greenhouse",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "Top AI company"
+    },
+    {
+      "name": "Coinbase",
+      "careers_url": "https://www.coinbase.com/careers/positions",
+      "ats_type": "greenhouse",
+      "priority": 8,
+      "h1b_sponsor": true,
+      "notes": "Crypto, public company"
+    },
+    {
+      "name": "Discord",
+      "careers_url": "https://discord.com/careers",
+      "ats_type": "greenhouse",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "Communication platform"
+    },
+    {
+      "name": "Vercel",
+      "careers_url": "https://vercel.com/careers",
+      "ats_type": "lever",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "Developer tools"
+    },
+    {
+      "name": "Ramp",
+      "careers_url": "https://ramp.com/careers",
+      "ats_type": "ashby",
+      "priority": 10,
+      "h1b_sponsor": true,
+      "notes": "Fintech, fast growing"
+    },
+    {
+      "name": "Rippling",
+      "careers_url": "https://www.rippling.com/careers",
+      "ats_type": "lever",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "HR tech"
+    },
+    {
+      "name": "Brex",
+      "careers_url": "https://www.brex.com/careers",
+      "ats_type": "greenhouse",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "Fintech"
+    },
+    {
+      "name": "Instacart",
+      "careers_url": "https://instacart.careers/current-openings/",
+      "ats_type": "greenhouse",
+      "priority": 8,
+      "h1b_sponsor": true,
+      "notes": "Grocery delivery"
+    },
+    {
+      "name": "DoorDash",
+      "careers_url": "https://careers.doordash.com/",
+      "ats_type": "greenhouse",
+      "priority": 8,
+      "h1b_sponsor": true,
+      "notes": "Delivery, public company"
+    },
+    {
+      "name": "Robinhood",
+      "careers_url": "https://robinhood.com/us/en/careers/openings/",
+      "ats_type": "greenhouse",
+      "priority": 8,
+      "h1b_sponsor": true,
+      "notes": "Fintech trading"
+    },
+    {
+      "name": "Snowflake",
+      "careers_url": "https://careers.snowflake.com/us/en/search-results",
+      "ats_type": "custom",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "Data cloud, public company"
+    },
+    {
+      "name": "MongoDB",
+      "careers_url": "https://www.mongodb.com/careers",
+      "ats_type": "greenhouse",
+      "priority": 9,
+      "h1b_sponsor": true,
+      "notes": "Database, public company"
+    }
+  ],
+  "metadata": {
+    "last_updated": "2025-01-24",
+    "total_companies": 20,
+    "notes": "Sample list - add more companies as needed"
+  }
+}

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Analytics Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            height: 100vh;
+            position: relative;
+        }
+        
+        .slide {
+            display: none;
+            height: 100vh;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .slide-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .slide-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .slide-indicator {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .stat-number {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 18px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Table Styles */
+        .data-table {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .table-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background: #f3f4f6;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        tr:hover {
+            background: #f9fafb;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-interview { background: #fef08a; color: #854d0e; }
+        
+        .total { color: #667eea; }
+        .confirmed { color: #10b981; }
+        .rejected { color: #ef4444; }
+        .interviewed { color: #f59e0b; }
+        .pending { color: #6b7280; }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="slide-indicator">Slide <span id="current-slide">1</span> / 4</div>
+        
+        <!-- Slide 1: Overview -->
+        <div class="slide active">
+            <div class="slide-header">
+                <h1 class="slide-title">📊 Application Overview</h1>
+                <p class="slide-subtitle">Complete Statistics</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number total">181</div>
+                    <div class="stat-label">Total Applied</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number confirmed">124</div>
+                    <div class="stat-label">Confirmed</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number rejected">46</div>
+                    <div class="stat-label">Rejected</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number interviewed">4</div>
+                    <div class="stat-label">Interviews</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number pending">11</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2: Pending Companies -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">⏳ Pending & Active</h1>
+                <p class="slide-subtitle">Companies waiting for response • Interviews in progress</p>
+            </div>
+            
+            <div class="data-table">
+                <div class="table-title">Pending Companies (108)</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Position</th>
+                            <th>Applied Date</th>
+                            <th>Days Waiting</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td><strong>Thyme Care</strong></td>
+                <td>Software Engineer at Thyme Care</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Itential</strong></td>
+                <td>Software Development Engineer I at Itential</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>0101022-GIA PROD US LOS ANGELES</strong></td>
+                <td>Senior Associate, Full-Stack Engineer at 0101022-G</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Ziff Davis</strong></td>
+                <td>Software Engineer I (Laravel/PHP) at Ziff Davis</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Lyft</strong></td>
+                <td>Data Scientist, Algorithms at Lyft</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Heartland Food Products Group</strong></td>
+                <td>Data Engineer at Heartland Food Products Group</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Blank Metal</strong></td>
+                <td>Associate Full Stack Engineer at Blank Metal</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>SoFi</strong></td>
+                <td>Marketing Data Scientist at SoFi</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Ipsos</strong></td>
+                <td>Data Scientist, Creative Excellence at Ipsos</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Funnel Leasing Inc.</strong></td>
+                <td>Software Engineer L1 at Funnel Leasing Inc.</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>EmpiRx Health</strong></td>
+                <td>Software Engineer II at EmpiRx Health</td>
+                <td>2026-02-03</td>
+                <td>1 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>CNH Industrial</strong></td>
+                <td>Software Engineer (Oak Brook, IL, US) at CNH Indus</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Goldman Sachs</strong></td>
+                <td>Asset & Wealth Management - Software Engineer - As</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>MDxHealth</strong></td>
+                <td>Jr. Software Engineer - Part-time Position at MDxH</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Meter</strong></td>
+                <td>Software Engineer, Product at Meter</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>ether.fi</strong></td>
+                <td>Software Engineer - Android at ether.fi</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Textron</strong></td>
+                <td>Software Engineer at Textron</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>SBServiceNow</strong></td>
+                <td>Assoc Software Engineer at SBServiceNow</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Nomura</strong></td>
+                <td>Data Engineer Associate (New York, NY, US, 10019) </td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>TeamSnap</strong></td>
+                <td>Data Engineer at TeamSnap</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Safe-Guard Products International</strong></td>
+                <td>Data Engineer at Safe-Guard Products International</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Honeywell</strong></td>
+                <td>Software Engineer II - Automation & Validation at </td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>UiPath</strong></td>
+                <td>Life at UiPath</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-interview">🌟 Interview</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>EmpiRx Health</strong></td>
+                <td>Software Development Engineer in Test II at EmpiRx</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Nymbus, Inc.</strong></td>
+                <td>AI-First Software Engineer (Entry Level) at Nymbus</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Terray</strong></td>
+                <td>ML Engineer, RL & Autonomous Discovery at Terray</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>AQR Capital Management</strong></td>
+                <td>Junior Software Engineer - Portfolio Implementatio</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Cayuse Holdings</strong></td>
+                <td>Software Engineer II at Cayuse Holdings</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>CENTRL</strong></td>
+                <td>Software Engineer at CENTRL</td>
+                <td>2026-01-30</td>
+                <td>5 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Loves</strong></td>
+                <td>#LI-Onsite</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>SoFi</strong></td>
+                <td>Software Engineer, Loans Platform at SoFi</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Fortanix</strong></td>
+                <td>Software Engineer - Backend Microservices/Rust (Ba</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Visa International Service Association</strong></td>
+                <td>Software Engineer - C/C++ at Visa International Se</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Checkmate</strong></td>
+                <td>Software Engineer at Checkmate</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Southern Company Services</strong></td>
+                <td>Data Engineer/Analyst at Southern Company Services</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Creative Chaos</strong></td>
+                <td>Full Stack Engineer - Python+React at Creative Cha</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>FanDuel</strong></td>
+                <td>Software Engineer at FanDuel</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>NYC Department of City Planning</strong></td>
+                <td>Data Scientist at NYC Department of City Planning</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Uvation</strong></td>
+                <td>Software Engineer Backend(Django) at Uvation</td>
+                <td>2026-01-24</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Lilo Social</strong></td>
+                <td>Full Stack Engineer at Lilo Social</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>maxRTE</strong></td>
+                <td>Software Engineer I at maxRTE</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Doosan Group</strong></td>
+                <td>Software Engineer II- AI Solutions (West Fargo, US</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Terra AI</strong></td>
+                <td>Full Stack Engineer, Scientific Modeling Tools at </td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>CodaMetrix</strong></td>
+                <td>Machine Learning Engineer I at CodaMetrix</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Jerry.ai</strong></td>
+                <td>Associate Software Engineer at Jerry.ai</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>TeamDynamix</strong></td>
+                <td>Senior Software Engineer - Full Stack / C# at Team</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Re:Build Manufacturing</strong></td>
+                <td>Software Engineer - ReCAM at Re:Build Manufacturin</td>
+                <td>2026-01-23</td>
+                <td>11 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Databricks</strong></td>
+                <td>Senior Software Engineer - Observability (Database</td>
+                <td>2026-01-21</td>
+                <td>14 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>Google</strong></td>
+                <td>Engineering Analyst, Trust And Safety, Ads And Sho</td>
+                <td>2026-01-21</td>
+                <td>14 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+            <tr>
+                <td><strong>JPMorganChase</strong></td>
+                <td>Business Modeling - Applied AI ML Senior Associate</td>
+                <td>2026-01-21</td>
+                <td>14 days</td>
+                <td><span class="status-badge badge-pending">⏳ Pending</span></td>
+            </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Rejections -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">❌ Rejections Analysis</h1>
+                <p class="slide-subtitle">Applied vs Rejected Timeline</p>
+            </div>
+            
+            <div class="data-table">
+                <div class="table-title">Rejection Timeline (22)</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Applied</th>
+                            <th>Rejected</th>
+                            <th>Response Time</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td><strong>Ashbyhq</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-02-04</td>
+                <td>11.0 days</td>
+                <td style="max-width: 300px">Declines candidacy and encourages future applications.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Metronet</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-02-03</td>
+                <td>10.8 days</td>
+                <td style="max-width: 300px">Informs candidate they are not moving forward and encourages future applications</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Box</strong></td>
+                <td>2026-01-30</td>
+                <td>2026-02-03</td>
+                <td>4.7 days</td>
+                <td style="max-width: 300px">Informs applicant they are not selected for the role and encourages applying for</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Known</strong></td>
+                <td>2026-01-20</td>
+                <td>2026-02-02</td>
+                <td>13.5 days</td>
+                <td style="max-width: 300px">Declines application and states focus on other candidates</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Propio</strong></td>
+                <td>2026-01-30</td>
+                <td>2026-02-02</td>
+                <td>3.8 days</td>
+                <td style="max-width: 300px">Generic thank you for applying, no interview invitation.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>PlayStation Global</strong></td>
+                <td>2026-01-21</td>
+                <td>2026-01-31</td>
+                <td>9.9 days</td>
+                <td style="max-width: 300px">Informs applicant they are not moving forward and encourages applying for other </td>
+            </tr>
+        
+            <tr>
+                <td><strong>Kiewit Corporation</strong></td>
+                <td>2026-01-30</td>
+                <td>2026-01-31</td>
+                <td>1.8 days</td>
+                <td style="max-width: 300px">States decision to pursue other candidates for the position.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Comfy Org / ComfyUI</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-30</td>
+                <td>6.0 days</td>
+                <td style="max-width: 300px">Declines candidacy due to lack of ideal fit.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Trovo Health</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-29</td>
+                <td>5.2 days</td>
+                <td style="max-width: 300px">States moving forward with other candidates</td>
+            </tr>
+        
+            <tr>
+                <td><strong>USA01 - USA Automotive</strong></td>
+                <td>2026-02-03</td>
+                <td>2026-01-28</td>
+                <td>-140.4h</td>
+                <td style="max-width: 300px">Declines application and will not proceed further</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Holiday Inn Club Vacations</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-28</td>
+                <td>4.8 days</td>
+                <td style="max-width: 300px">States moving forward with other candidates</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Whatnot</strong></td>
+                <td>2026-02-03</td>
+                <td>2026-01-28</td>
+                <td>-141.5h</td>
+                <td style="max-width: 300px">Subject indicates no interview for the applied position.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Five and Fly</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-26</td>
+                <td>2.6 days</td>
+                <td style="max-width: 300px">Informs applicant they are not moving forward with the opportunity.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Neurophos</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-26</td>
+                <td>2.7 days</td>
+                <td style="max-width: 300px">Declines candidacy due to lack of ideal fit.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Cottingham & Butler</strong></td>
+                <td>2026-01-20</td>
+                <td>2026-01-22</td>
+                <td>2.0 days</td>
+                <td style="max-width: 300px">Applicant not selected for further consideration.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Cloudflare</strong></td>
+                <td>2026-01-21</td>
+                <td>2026-01-21</td>
+                <td>14.9h</td>
+                <td style="max-width: 300px">Declines to move forward with interview process for the applied position.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Bok Financial</strong></td>
+                <td>2026-01-21</td>
+                <td>2026-01-21</td>
+                <td>12.8h</td>
+                <td style="max-width: 300px">States narrowing down to a core group and not moving forward with the applicant.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>AmeriHealth Caritas</strong></td>
+                <td>2026-01-21</td>
+                <td>2026-01-21</td>
+                <td>8.0h</td>
+                <td style="max-width: 300px">Generic thank you email after application, likely an automated response indicati</td>
+            </tr>
+        
+            <tr>
+                <td><strong>AmeriHealth Caritas</strong></td>
+                <td>2026-01-21</td>
+                <td>2026-01-21</td>
+                <td>8.0h</td>
+                <td style="max-width: 300px">Generic thank you email after application, likely an automated response indicati</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Workable</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-21</td>
+                <td>-55.0h</td>
+                <td style="max-width: 300px">Thanks for interest but not moving forward at this time.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Thomson Reuters</strong></td>
+                <td>2026-01-21</td>
+                <td>2026-01-19</td>
+                <td>-38.6h</td>
+                <td style="max-width: 300px">Declines candidacy and states selection of another candidate.</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Workable</strong></td>
+                <td>2026-01-24</td>
+                <td>2026-01-16</td>
+                <td>-174.9h</td>
+                <td style="max-width: 300px">Thanks for interest but not moving forward at this time.</td>
+            </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Slide 4: ATS Performance -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">🏢 ATS Performance</h1>
+                <p class="slide-subtitle">Platform approval rates & response times</p>
+            </div>
+            
+            <div class="data-table">
+                <div class="table-title">Platform Analytics</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Platform</th>
+                            <th>Total Apps</th>
+                            <th>Confirmed</th>
+                            <th>Rejected</th>
+                            <th>Confirm Rate</th>
+                            <th>Avg Response</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td><strong>Custom/Direct</strong></td>
+                <td>117</td>
+                <td class="confirmed">42</td>
+                <td class="rejected">12</td>
+                <td>35.9%</td>
+                <td>-81.5h</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Greenhouse</strong></td>
+                <td>26</td>
+                <td class="confirmed">16</td>
+                <td class="rejected">5</td>
+                <td>61.5%</td>
+                <td>-10.2h</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Ashby</strong></td>
+                <td>24</td>
+                <td class="confirmed">8</td>
+                <td class="rejected">4</td>
+                <td>33.3%</td>
+                <td>-27.1h</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Lever</strong></td>
+                <td>6</td>
+                <td class="confirmed">6</td>
+                <td class="rejected">0</td>
+                <td>100.0%</td>
+                <td>1.2d</td>
+            </tr>
+        
+            <tr>
+                <td><strong>Workday</strong></td>
+                <td>5</td>
+                <td class="confirmed">0</td>
+                <td class="rejected">1</td>
+                <td>0.0%</td>
+                <td>N/A</td>
+            </tr>
+        
+            <tr>
+                <td><strong>iCIMS</strong></td>
+                <td>3</td>
+                <td class="confirmed">2</td>
+                <td class="rejected">0</td>
+                <td>66.7%</td>
+                <td>0.1h</td>
+            </tr>
+        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="nav-container">
+            <button class="nav-btn" onclick="changeSlide(-1)">← Previous</button>
+            <button class="nav-btn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+    </script>
+</body>
+</html>

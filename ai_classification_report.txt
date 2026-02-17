@@ -1,0 +1,264 @@
+================================================================================
+🤖 DEEPSEEK AI CLASSIFICATION REPORT
+Generated: 2026-02-04 16:06
+================================================================================
+
+❌ REJECTIONS (46)
+--------------------------------------------------------------------------------
+
+Brassring
+  Date: 2026-01-08
+  Subject: FCPS Employment Application
+  Reason: Informs applicant that another candidate was selected.
+
+Us
+  Date: 2026-01-11
+  Subject: Your application to Callibrity
+  Reason: Informs candidate they are not selected and may be considered for future roles.
+
+Talent Acquisition (Do Not Reply)
+  Date: 2026-01-12
+  Subject: Software Engineer - Java, Application Support 2330029 at
+  Reason: Generic template from a recruiting system, no interview invitation or positive update.
+
+Ashbyhq
+  Date: 2026-01-14
+  Subject: Update on your application for Machine Learning Engineer
+  Reason: States moving forward with other candidates
+
+Basf
+  Date: 2026-01-14
+  Subject: Your application with BASF - Data Scientist (125513)
+  Reason: Declines application and encourages future applications.
+
+Helloalma
+  Date: 2026-01-14
+  Subject: Update on your Alma Application
+  Reason: Informs applicant they will not proceed with the application for the current opening.
+
+Goenumerate
+  Date: 2026-01-14
+  Subject: Important information about your application to Enumerate
+  Reason: Informs applicant they are not proceeding with the candidacy.
+
+GitHub, Inc.
+  Date: 2026-01-15
+  Subject: GitHub Application Follow Up for NuthanReddy Vaddi Reddy
+  Reason: States moving forward with other candidates
+
+Cloudflare
+  Date: 2026-01-21
+  Subject: Cloudflare Application Update | Systems Reliability (SRE) / Platform Engineer
+ - Edge
+  Reason: Declines to move forward with interview process for the applied position.
+
+Phiture
+  Date: 2026-01-22
+  Subject: Your application for the Data Analyst - Remote in the US role at Phiture
+  Reason: States moving forward with other candidates
+
+Eu
+  Date: 2026-01-22
+  Subject: Thank you for your application through Growe Talents
+  Reason: Informs applicant they are not selected for the role but may be considered for future opportunities.
+
+Cottinghambutler
+  Date: 2026-01-22
+  Subject: Update regarding your application to Cottingham & Butler
+  Reason: Applicant not selected for further consideration.
+
+Ashbyhq
+  Date: 2026-01-23
+  Subject: Update on your application to Ramp
+  Reason: Declines candidacy and will not move forward.
+
+Us
+  Date: 2026-01-23
+  Subject: Regarding your application to NewLimit
+  Reason: Declines candidacy for the current opening.
+
+Optoinvest
+  Date: 2026-01-23
+  Subject: Your Application to Opto Investments
+  Reason: Declines candidacy and does not move forward with application.
+
+Doosan
+  Date: 2026-01-24
+  Subject: Doosan Bobcat Job Application Update
+  Reason: States moving forward with other candidates
+
+Us
+  Date: 2026-01-25
+  Subject: Important information about your application to Re:Build Manufacturing
+  Reason: Declines candidacy and will keep application on file for future opportunities.
+
+Pinpoint
+  Date: 2026-01-26
+  Subject: Your application to Five and Fly
+  Reason: Informs applicant they are not moving forward with the opportunity.
+
+Ashbyhq
+  Date: 2026-01-26
+  Subject: Neurophos Application Update
+  Reason: Declines candidacy due to lack of ideal fit.
+
+Makenotion
+  Date: 2026-01-27
+  Subject: Update on your application to Notion, Nuthan
+  Reason: Informs candidate they are not moving forward with the application.
+
+Ashbyhq
+  Date: 2026-01-27
+  Subject: Update regarding your application for Frontend Engineer, Marketing
+ at Cartesia
+  Reason: States moving forward with other candidates
+
+Us
+  Date: 2026-01-29
+  Subject: Important information about your application to Trovo Health
+  Reason: States moving forward with other candidates
+
+Doosan
+  Date: 2026-01-29
+  Subject: Doosan Bobcat Job Application Update
+  Reason: States moving forward with other candidates
+
+Us
+  Date: 2026-01-29
+  Subject: Your application for Data Scientist, AI Engineering with Candidly
+  Reason: Informs applicant that the current applicant pool is being closed and encourages reapplying.
+
+Ashbyhq
+  Date: 2026-01-30
+  Subject: Comfy Application Update
+  Reason: Declines candidacy due to lack of ideal fit.
+
+Sony
+  Date: 2026-01-31
+  Subject: Important information about your application to PlayStation Global
+  Reason: Informs applicant they are not moving forward and encourages applying for other roles.
+
+Kiewit
+  Date: 2026-01-31
+  Subject: Application Update: AI Engineer (179547)
+  Reason: States decision to pursue other candidates for the position.
+
+Ashbyhq
+  Date: 2026-02-02
+  Subject: Your Application to Tennr: Backend Software Engineer
+  Reason: States moving forward with other candidates
+
+Metronetinc
+  Date: 2026-02-03
+  Subject: Update on Your Application - Software Engineer at Metronet
+  Reason: Informs candidate they are not moving forward and encourages future applications.
+
+Successfactors
+  Date: 2026-01-21
+  Subject: BOK Financial Transfund Data Analyst Position
+  Reason: States narrowing down to a core group and not moving forward with the applicant.
+
+Successfactors
+  Date: 2026-01-16
+  Subject: Great Lakes Cheese -  Thank you for your interest
+  Reason: States moving forward with another candidate.
+
+Workflow
+  Date: 2026-01-16
+  Subject: Nuthan, Thank you for your interest in DTCC
+  Reason: Thanks for interest but not moving forward at this time.
+
+NAF Recruiters
+  Date: 2026-01-19
+  Subject: New American Funding, Thank you for applying!
+  Reason: Declines candidacy and states selection of another candidate.
+
+Amerihealthcaritas
+  Date: 2026-01-21
+  Subject: Thank you from the AmeriHealth Caritas Family of Companies
+  Reason: Generic thank you email after application, likely an automated response indicating no further action.
+
+Amerihealthcaritas
+  Date: 2026-01-21
+  Subject: Thank you from the AmeriHealth Caritas Family of Companies
+  Reason: Generic thank you email after application, likely an automated response indicating no further action.
+
+Workflow
+  Date: 2026-01-21
+  Subject: Nuthan, Thank you for your interest in DTCC
+  Reason: Thanks for interest but not moving forward at this time.
+
+Us
+  Date: 2026-01-28
+  Subject: Thank You For Your Interest in Temporal Technologies
+  Reason: Declines application and will not proceed further
+
+Holidayinnclub
+  Date: 2026-01-28
+  Subject: Thank You for Your Interest
+  Reason: States moving forward with other candidates
+
+Unknown
+  Date: 2026-02-02
+  Subject: Thank You
+  Reason: Declines application and states focus on other candidates
+
+Propio
+  Date: 2026-02-02
+  Subject: Thank you for your interest in Propio
+  Reason: Generic thank you for applying, no interview invitation.
+
+Visa Hiring Team
+  Date: 2026-02-03
+  Subject: Thank you for your interest in Visa
+  Reason: States decision to move ahead with other candidates
+
+Box
+  Date: 2026-02-03
+  Subject: Thank you for your interest in Box
+  Reason: Informs applicant they are not selected for the role and encourages applying for other positions.
+
+Hq
+  Date: 2026-02-04
+  Subject: Thank You for Your Interest in BILL
+  Reason: Declines candidacy and encourages future applications.
+
+Fundraiseup
+  Date: 2026-02-04
+  Subject: Thank You for Your Interest in Fundraise Up
+  Reason: Declines application and encourages future opportunities.
+
+Fundraiseup
+  Date: 2026-02-04
+  Subject: Thank You for Your Interest in Fundraise Up
+  Reason: Declines application and encourages future opportunities.
+
+Workflow
+  Date: 2026-01-28
+  Subject: No interview for  Data Engineer/Analyst
+  Reason: Subject indicates no interview for the applied position.
+
+
+🌟 INTERVIEWS (4)
+--------------------------------------------------------------------------------
+
+Talent Acquisition (Do Not Reply)
+  Subject: Software Engineer - Java, Application Support 2330029 at
+ UnitedHealth Group
+  Date: 2026-01-23
+  Reason: Invitation to apply for a specific job opening from a company's recruitment team.
+
+Brighthire
+  Subject: You have an interview with MetroStar
+  Date: 2026-01-22
+  Reason: Informs candidate of upcoming interview and provides details about the interview process.
+
+Uipath
+  Subject: UiPath Interview for Software Engineer II - Nuthan Reddy Vaddi Reddy
+  Date: 2026-02-02
+  Reason: Confirms upcoming interview details and scheduling.
+
+Uipath
+  Subject: Nuthan: Schedule your UiPath Recruiter Screen - Software Engineer II
+  Date: 2026-02-02
+  Reason: Invites scheduling a recruiter screen and discusses role alignment.

@@ -1,0 +1,606 @@
+Fix the H1B Job Scraper with these critical changes:
+
+══════════════════════════════════════════════════════════════════════════
+PROBLEM 1: Scraping ALL jobs instead of only Software/Data roles
+══════════════════════════════════════════════════════════════════════════
+
+Currently scraping jobs like "Compute Transactions & Partnerships" which is NOT a software/data role.
+
+FIX: Update the job relevance filter to be STRICT. Only include jobs that are:
+- Software Engineer, Senior Software Engineer, Staff Software Engineer
+- Data Scientist, Data Engineer, Data Analyst
+- Machine Learning Engineer, ML Engineer, AI Engineer
+- Backend Engineer, Frontend Engineer, Full Stack Engineer
+- DevOps Engineer, SRE, Platform Engineer
+- Research Engineer, Research Scientist (AI/ML related)
+- Cloud Engineer, Infrastructure Engineer
+- Security Engineer, AppSec Engineer
+- Mobile Engineer (iOS, Android)
+- QA Engineer, SDET, Test Automation Engineer
+
+EXCLUDE these roles (even if they have "tech" in them):
+- Partnerships, Business Development, Account Manager
+- Product Manager (unless "Technical Product Manager")
+- Technical Program Manager, Program Manager
+- Recruiter, Talent Acquisition, HR
+- Sales, Marketing, Content, Design (unless UX Engineer)
+- Legal, Finance, Operations, Office Manager
+- Customer Success, Support
+
+Update backend/extractors/job_filter.py (create if not exists):
+
+```python
+"""
+Strict job relevance filter - ONLY software/data roles
+"""
+
+# MUST contain at least one of these
+SOFTWARE_DATA_TITLES = [
+    "software engineer", "software developer", "swe",
+    "data scientist", "data engineer", "data analyst",
+    "machine learning", "ml engineer", "ai engineer",
+    "backend engineer", "frontend engineer", "full stack",
+    "fullstack", "full-stack",
+    "devops", "sre", "site reliability",
+    "platform engineer", "infrastructure engineer",
+    "cloud engineer", "systems engineer",
+    "security engineer", "appsec", "application security",
+    "mobile engineer", "ios engineer", "android engineer",
+    "qa engineer", "sdet", "test automation",
+    "research engineer", "research scientist",
+    "python developer", "java developer", "golang developer",
+    "rust developer", "javascript developer", "typescript",
+]
+
+# MUST NOT contain these (immediate disqualification)
+EXCLUDE_TITLES = [
+    "partnership", "business development", "account manager",
+    "product manager",  # unless technical PM
+    "program manager",  # unless TPM
+    "recruiter", "talent acquisition", "hr ",
+    "sales", "marketing", "content", "copywriter",
+    "designer",  # unless UX engineer
+    "legal", "counsel", "attorney",
+    "finance", "accountant", "controller",
+    "operations", "office manager", "executive assistant",
+    "customer success", "support", "success manager",
+    "policy", "communications", "pr ",
+]
+
+def is_software_data_role(title: str) -> bool:
+    """
+    Strict filter: Returns True ONLY for software/data engineering roles.
+    """
+    title_lower = title.lower().strip()
+
+    # First check exclusions - if any match, immediately reject
+    for exclude in EXCLUDE_TITLES:
+        if exclude in title_lower:
+            # Exception: "Technical Product Manager" is OK
+            if "technical product manager" in title_lower:
+                return True
+            # Exception: "UX Engineer" is OK
+            if "ux engineer" in title_lower:
+                return True
+            return False
+
+    # Must contain at least one software/data keyword
+    for keyword in SOFTWARE_DATA_TITLES:
+        if keyword in title_lower:
+            return True
+
+    return False
+```
+
+══════════════════════════════════════════════════════════════════════════
+PROBLEM 2: Job description has raw HTML, needs clean formatting
+══════════════════════════════════════════════════════════════════════════
+
+FIX: Create a function to clean HTML and format job description properly.
+
+Update backend/extractors/html_cleaner.py (create if not exists):
+
+```python
+"""
+Clean HTML from job descriptions for display and AI processing
+"""
+import re
+from bs4 import BeautifulSoup
+
+def clean_job_description(html: str) -> dict:
+    """
+    Clean HTML and extract structured job information.
+
+    Returns:
+    {
+        "clean_text": str,  # Plain text for display
+        "sections": {
+            "about": str,
+            "responsibilities": list,
+            "requirements": list,
+            "nice_to_have": list,
+            "salary": str,
+            "benefits": str,
+            "visa_info": str,
+        },
+        "salary_range": {"min": int, "max": int},  # Extracted salary
+    }
+    """
+    if not html:
+        return {"clean_text": "", "sections": {}, "salary_range": None}
+
+    soup = BeautifulSoup(html, 'lxml')
+
+    # Remove script/style tags
+    for tag in soup(['script', 'style']):
+        tag.decompose()
+
+    # Get clean text
+    clean_text = soup.get_text(separator='\n', strip=True)
+
+    # Extract sections
+    sections = {}
+
+    # Find all headers and their content
+    for header in soup.find_all(['h2', 'h3', 'strong']):
+        header_text = header.get_text(strip=True).lower()
+
+        # Get content after this header
+        content = []
+        for sibling in header.find_next_siblings():
+            if sibling.name in ['h2', 'h3']:
+                break
+            if sibling.name == 'ul':
+                content.extend([li.get_text(strip=True) for li in sibling.find_all('li')])
+            elif sibling.name == 'p':
+                content.append(sibling.get_text(strip=True))
+
+        if 'responsibilit' in header_text:
+            sections['responsibilities'] = content
+        elif 'requirement' in header_text or 'qualification' in header_text or 'you might' in header_text:
+            sections['requirements'] = content
+        elif 'nice to have' in header_text or 'strong candidate' in header_text or 'bonus' in header_text:
+            sections['nice_to_have'] = content
+        elif 'about' in header_text:
+            sections['about'] = ' '.join(content)
+        elif 'salary' in header_text or 'compensation' in header_text:
+            sections['salary'] = ' '.join(content)
+
+    # Extract salary range
+    salary_range = extract_salary(clean_text)
+
+    # Extract visa/sponsorship info
+    visa_info = extract_visa_info(clean_text)
+    sections['visa_info'] = visa_info
+
+    return {
+        "clean_text": clean_text,
+        "sections": sections,
+        "salary_range": salary_range,
+    }
+
+def extract_salary(text: str) -> dict:
+    """Extract salary range from text"""
+    # Pattern: $XXX,XXX - $XXX,XXX
+    pattern = r'\$(\d{1,3}(?:,\d{3})*)\s*[-–—]\s*\$(\d{1,3}(?:,\d{3})*)'
+    match = re.search(pattern, text)
+    if match:
+        min_sal = int(match.group(1).replace(',', ''))
+        max_sal = int(match.group(2).replace(',', ''))
+        return {"min": min_sal, "max": max_sal}
+    return None
+
+def extract_visa_info(text: str) -> str:
+    """Extract visa sponsorship related text"""
+    text_lower = text.lower()
+
+    # Find sentences containing visa/sponsorship keywords
+    sentences = text.split('.')
+    visa_sentences = []
+
+    keywords = ['visa', 'sponsor', 'h1b', 'h-1b', 'work authorization', 'immigration']
+
+    for sentence in sentences:
+        sentence_lower = sentence.lower()
+        if any(kw in sentence_lower for kw in keywords):
+            visa_sentences.append(sentence.strip())
+
+    return ' '.join(visa_sentences) if visa_sentences else ""
+```
+
+══════════════════════════════════════════════════════════════════════════
+PROBLEM 3: Need Groq AI to rate H1B probability on 1-5 scale
+══════════════════════════════════════════════════════════════════════════
+
+FIX: Update backend/ai/h1b_analyzer.py to use Groq for smart rating:
+
+```python
+"""
+AI-powered H1B sponsorship analyzer using Groq
+Returns 1-5 rating based on multiple factors
+"""
+import os
+from groq import Groq
+
+# H1B sponsorship history by company (based on public data)
+KNOWN_H1B_SPONSORS = {
+    # Tier 1: Heavy sponsors (1000+ H1B per year)
+    "google": 5, "meta": 5, "amazon": 5, "microsoft": 5, "apple": 5,
+    "intel": 5, "cisco": 5, "qualcomm": 5, "nvidia": 5,
+
+    # Tier 2: Strong sponsors (500-1000 H1B per year)
+    "uber": 4, "lyft": 4, "airbnb": 4, "salesforce": 4, "oracle": 4,
+    "linkedin": 4, "twitter": 4, "pinterest": 4, "snap": 4,
+
+    # Tier 3: Good sponsors (100-500 H1B per year)
+    "stripe": 4, "databricks": 4, "snowflake": 4, "mongodb": 4,
+    "openai": 4, "anthropic": 4, "coinbase": 4, "robinhood": 4,
+
+    # Tier 4: Sponsors but less frequently
+    "notion": 3, "figma": 3, "vercel": 3, "discord": 3, "ramp": 3,
+}
+
+# Salary thresholds for H1B likelihood
+# Higher salary = company more willing to sponsor
+SALARY_THRESHOLDS = {
+    200000: 5,  # $200k+ = very likely to sponsor
+    150000: 4,  # $150k-200k = likely
+    120000: 3,  # $120k-150k = moderate
+    100000: 2,  # $100k-120k = less likely
+    0: 1,       # Below $100k = unlikely
+}
+
+def get_salary_score(salary_min: int, salary_max: int) -> int:
+    """Score based on salary range"""
+    if not salary_min and not salary_max:
+        return 3  # Unknown, neutral score
+
+    avg_salary = ((salary_min or 0) + (salary_max or 0)) / 2
+
+    for threshold, score in sorted(SALARY_THRESHOLDS.items(), reverse=True):
+        if avg_salary >= threshold:
+            return score
+    return 1
+
+def get_company_history_score(company_name: str) -> int:
+    """Score based on company's H1B history"""
+    company_lower = company_name.lower().strip()
+
+    for known, score in KNOWN_H1B_SPONSORS.items():
+        if known in company_lower:
+            return score
+
+    return 3  # Unknown company, neutral score
+
+async def analyze_h1b_with_groq(
+    job_description: str,
+    job_title: str,
+    company_name: str,
+    salary_min: int = None,
+    salary_max: int = None,
+    visa_text: str = ""
+) -> dict:
+    """
+    Analyze H1B sponsorship probability using Groq AI.
+
+    Returns:
+    {
+        "rating": 1-5,  # 1=unlikely, 5=very likely
+        "status": "sponsors" | "does_not_sponsor" | "unknown",
+        "confidence": 0.0-1.0,
+        "reasons": [str],  # Why this rating
+        "visa_snippet": str,  # Relevant text from JD
+        "factors": {
+            "salary_score": 1-5,
+            "company_score": 1-5,
+            "text_score": 1-5,
+        }
+    }
+    """
+    # Calculate base scores
+    salary_score = get_salary_score(salary_min, salary_max)
+    company_score = get_company_history_score(company_name)
+
+    # Check for explicit mentions first
+    desc_lower = job_description.lower()
+
+    # Explicit NO sponsorship
+    no_sponsor_phrases = [
+        "will not sponsor", "cannot sponsor", "unable to sponsor",
+        "must be authorized to work", "without sponsorship",
+        "no sponsorship", "u.s. citizen", "permanent resident only",
+        "green card required", "security clearance required",
+    ]
+
+    for phrase in no_sponsor_phrases:
+        if phrase in desc_lower:
+            return {
+                "rating": 1,
+                "status": "does_not_sponsor",
+                "confidence": 0.95,
+                "reasons": [f"Job description explicitly states: '{phrase}'"],
+                "visa_snippet": visa_text or phrase,
+                "factors": {
+                    "salary_score": salary_score,
+                    "company_score": company_score,
+                    "text_score": 1,
+                }
+            }
+
+    # Explicit YES sponsorship
+    yes_sponsor_phrases = [
+        "we do sponsor", "visa sponsorship available", "will sponsor",
+        "sponsorship available", "h1b sponsor", "immigration support",
+    ]
+
+    for phrase in yes_sponsor_phrases:
+        if phrase in desc_lower:
+            return {
+                "rating": 5,
+                "status": "sponsors",
+                "confidence": 0.95,
+                "reasons": [f"Job description explicitly states: '{phrase}'"],
+                "visa_snippet": visa_text or phrase,
+                "factors": {
+                    "salary_score": salary_score,
+                    "company_score": company_score,
+                    "text_score": 5,
+                }
+            }
+
+    # Use Groq for nuanced analysis
+    api_key = os.getenv("GROQ_API_KEY")
+    if api_key:
+        try:
+            client = Groq(api_key=api_key)
+
+            prompt = f"""Analyze this job posting for H1B visa sponsorship likelihood.
+
+Company: {company_name}
+Job Title: {job_title}
+Salary Range: ${salary_min or 'Unknown'} - ${salary_max or 'Unknown'}
+
+Job Description (relevant excerpt):
+{job_description[:2000]}
+
+Visa-related text found: {visa_text or 'None explicitly mentioned'}
+
+Based on:
+1. The job description language and tone about work authorization
+2. The salary level (higher = more likely to sponsor)
+3. The company's typical hiring practices for this role type
+4. Any mentions of visa, work authorization, or citizenship
+
+Rate the H1B sponsorship likelihood from 1-5:
+1 = Very unlikely (explicit no, or strong indicators against)
+2 = Unlikely (some negative signals)
+3 = Uncertain (no clear signals either way)
+4 = Likely (positive signals, good company history)
+5 = Very likely (explicit yes, or very strong indicators)
+
+Respond in this exact JSON format:
+{{"rating": <1-5>, "status": "<sponsors|does_not_sponsor|unknown>", "reason": "<one sentence explanation>"}}"""
+
+            response = client.chat.completions.create(
+                model=os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile"),
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1,
+                max_tokens=200,
+            )
+
+            import json
+            result_text = response.choices[0].message.content.strip()
+
+            # Parse JSON from response
+            if '{' in result_text and '}' in result_text:
+                json_str = result_text[result_text.find('{'):result_text.rfind('}')+1]
+                ai_result = json.loads(json_str)
+
+                text_score = ai_result.get("rating", 3)
+
+                # Calculate final weighted rating
+                final_rating = round(
+                    (salary_score * 0.3) +
+                    (company_score * 0.3) +
+                    (text_score * 0.4)
+                )
+                final_rating = max(1, min(5, final_rating))
+
+                return {
+                    "rating": final_rating,
+                    "status": ai_result.get("status", "unknown"),
+                    "confidence": 0.8,
+                    "reasons": [ai_result.get("reason", "AI analysis")],
+                    "visa_snippet": visa_text,
+                    "factors": {
+                        "salary_score": salary_score,
+                        "company_score": company_score,
+                        "text_score": text_score,
+                    }
+                }
+        except Exception as e:
+            print(f"Groq API error: {e}")
+
+    # Fallback: average the known scores
+    avg_score = round((salary_score + company_score) / 2)
+
+    return {
+        "rating": avg_score,
+        "status": "unknown",
+        "confidence": 0.5,
+        "reasons": [
+            f"Salary indicates {'strong' if salary_score >= 4 else 'moderate' if salary_score >= 3 else 'weak'} sponsorship likelihood",
+            f"Company history: {'known sponsor' if company_score >= 4 else 'may sponsor' if company_score >= 3 else 'unknown'}",
+        ],
+        "visa_snippet": visa_text,
+        "factors": {
+            "salary_score": salary_score,
+            "company_score": company_score,
+            "text_score": 3,
+        }
+    }
+```
+
+══════════════════════════════════════════════════════════════════════════
+PROBLEM 4: Frontend needs to show H1B rating (1-5 stars) and clean JD
+══════════════════════════════════════════════════════════════════════════
+
+FIX: Update frontend/components/JobCard.tsx:
+
+```tsx
+'use client';
+import { motion } from 'framer-motion';
+
+interface JobCardProps {
+  job: {
+    title: string;
+    company_name: string;
+    location: string;
+    h1b_rating: number;  // 1-5 scale
+    h1b_status: string;
+    salary_min?: number;
+    salary_max?: number;
+    posted_date: string;
+    job_url: string;
+    remote_type?: string;
+    h1b_reasons?: string[];
+  };
+  index: number;
+}
+
+// Star rating component
+function H1BRating({ rating }: { rating: number }) {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <span key={i} className={i <= rating ? 'text-gold-500' : 'text-cream-300'}>
+        ★
+      </span>
+    );
+  }
+
+  const labels = {
+    1: 'Unlikely',
+    2: 'Low Chance',
+    3: 'Possible',
+    4: 'Likely',
+    5: 'Very Likely',
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <div className="text-lg">{stars}</div>
+      <span className="text-sm text-brown-400">
+        {labels[rating as keyof typeof labels] || 'Unknown'}
+      </span>
+    </div>
+  );
+}
+
+export default function JobCard({ job, index }: JobCardProps) {
+  const formatSalary = (min?: number, max?: number) => {
+    if (!min && !max) return null;
+    const format = (n: number) => `$${(n / 1000).toFixed(0)}k`;
+    if (min && max) return `${format(min)} - ${format(max)}`;
+    if (min) return `${format(min)}+`;
+    return `Up to ${format(max!)}`;
+  };
+
+  return (
+    <motion.div
+      className="bg-cream-50 rounded-2xl shadow-md hover:shadow-xl transition-shadow
+                 duration-300 p-6 border border-cream-300"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={{ y: -4 }}
+    >
+      {/* Header */}
+      <div className="flex justify-between items-start mb-3">
+        <div>
+          <h3 className="font-display text-xl text-brown-600 mb-1">
+            {job.title}
+          </h3>
+          <p className="font-body text-brown-500">{job.company_name}</p>
+        </div>
+      </div>
+
+      {/* H1B Rating */}
+      <div className="mb-4 p-3 bg-cream-100 rounded-xl">
+        <p className="text-sm text-brown-400 mb-1">H1B Sponsorship Likelihood:</p>
+        <H1BRating rating={job.h1b_rating || 3} />
+        {job.h1b_reasons && job.h1b_reasons[0] && (
+          <p className="text-xs text-brown-400 mt-1 italic">
+            {job.h1b_reasons[0]}
+          </p>
+        )}
+      </div>
+
+      {/* Details */}
+      <div className="flex flex-wrap gap-3 mb-4 text-sm text-brown-400">
+        <span className="flex items-center gap-1">
+          📍 {job.location}
+        </span>
+        {job.remote_type && (
+          <span className="flex items-center gap-1">
+            🏠 {job.remote_type}
+          </span>
+        )}
+        {formatSalary(job.salary_min, job.salary_max) && (
+          <span className="flex items-center gap-1">
+            💰 {formatSalary(job.salary_min, job.salary_max)}
+          </span>
+        )}
+      </div>
+
+      {/* Action */}
+      <a
+        href={job.job_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block w-full text-center bg-gold-500 hover:bg-gold-600
+                   text-brown-600 font-body font-semibold py-3 rounded-xl
+                   transition-colors duration-300"
+      >
+        Apply Now ✨
+      </a>
+    </motion.div>
+  );
+}
+```
+
+══════════════════════════════════════════════════════════════════════════
+PROBLEM 5: Update database to store H1B rating and salary
+══════════════════════════════════════════════════════════════════════════
+
+FIX: Update backend/storage/database.py - add h1b_rating column:
+
+In the jobs table creation, add:
+- h1b_rating INTEGER DEFAULT 3  (1-5 scale)
+
+Update save_job method to include h1b_rating.
+
+══════════════════════════════════════════════════════════════════════════
+SUMMARY: What This Fix Does
+══════════════════════════════════════════════════════════════════════════
+
+1. ✅ ONLY scrapes software/data roles (strict filter)
+2. ✅ Cleans HTML and extracts structured sections
+3. ✅ Extracts salary range from job descriptions
+4. ✅ Uses Groq AI to analyze H1B likelihood
+5. ✅ Rates jobs 1-5 based on:
+   - Salary level (30% weight)
+   - Company H1B history (30% weight)
+   - Job description analysis (40% weight)
+6. ✅ Shows star rating on job cards
+7. ✅ Shows salary range on job cards
+8. ✅ Explains WHY the rating was given
+
+Example output for Anthropic job:
+- Title: Software Engineer
+- Salary: $200k - $350k → Score 5
+- Company: Anthropic → Score 4 (known sponsor)
+- Text: "We do sponsor visas!" → Score 5
+- FINAL RATING: ⭐⭐⭐⭐⭐ (5/5 - Very Likely)
+
+Build all these files and update existing ones as needed.

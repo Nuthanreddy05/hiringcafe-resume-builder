@@ -1,0 +1,164 @@
+\documentclass[10pt, letterpaper]{article}
+
+% Packages (Minimal Set for Basic TeX)
+\usepackage[
+    ignoreheadfoot,
+    top=2 cm,
+    bottom=2 cm,
+    left=2 cm,
+    right=2 cm,
+    footskip=1.0 cm,
+]{geometry}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[dvipsnames]{xcolor} 
+\definecolor{primaryColor}{RGB}{0, 0, 0}
+\usepackage{amsmath}
+\usepackage[
+    pdftitle={Nuthan Reddy's Resume},
+    pdfauthor={Nuthan Reddy},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage{bookmark}
+\usepackage{ifthen}
+
+% Use standard fonts to avoid missing font packages
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Settings:
+\raggedright
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+\pagenumbering{gobble}
+
+% Custom Section Formatting (Without titlesec)
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries}}
+\makeatother
+
+% Custom Itemize
+\renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
+
+\newenvironment{highlights}{
+    \begin{itemize}[
+        topsep=0.10 cm,
+        parsep=0.10 cm,
+        partopsep=0pt,
+        itemsep=0pt,
+        leftmargin=0.5 cm
+    ]
+}{
+    \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+    \begin{minipage}{\linewidth}
+}{
+    \end{minipage}
+}
+
+\newenvironment{twocolentry}[2][]{
+    \noindent\textbf{#2} \hfill #1 \\
+}{
+    
+}
+
+\newenvironment{header}{
+    \setlength{\topsep}{0pt}\par\kern\topsep\centering\linespread{1.5}
+}{
+    \par\kern\topsep
+}
+
+\begin{document}
+
+\begin{header}
+    \fontsize{16 pt}{16 pt}\selectfont \textbf{NUTHAN REDDY VADDI REDDY}
+    
+    \vspace{0.5pt}
+    
+    \normalsize
+    nuthanreddy001@gmail.com | +1682-406-56-46 | github.com/Nuthanreddy05 | linkedin.com/in/nuthan-reddy-vaddi-reddy
+\end{header}
+
+\section{Summary}
+Data Analyst with 4 years of experience in financial data analysis and reporting. Specialized in SQL, Oracle Database, data visualization, and BI tools. Proven track record of improving reporting efficiency by 27\% through optimized data pipelines. Currently analyzing payment transaction data and financial reporting systems at Albertsons to support business decision-making across 2,300+ stores.
+
+\section{Experience}
+
+\begin{twocolentry}{May 2024 -- Present}
+    Data Analyst, Albertsons -- Dallas, TX
+\end{twocolentry}
+\begin{highlights}
+    \item Data analyst on payment and financial operations team handling transaction processing and financial reporting across all stores.
+    \item Developed SQL optimization scripts for financial reporting platform using Oracle PL/SQL and R, contributing to 27\% improvement in report generation efficiency.
+    \item Contributed to data quality initiative by implementing validation controls using SQL and Unix shell scripting on Oracle Database, reducing reporting errors by 58\%.
+    \item Built automated reporting solutions using Jasper Studio and Microsoft Power BI for transaction analytics platform, supporting 41\% faster distribution of financial reports.
+    \item Payment transaction platform achieved 67\% reduction in automated report failures through root cause analysis and SQL script improvements.
+\end{highlights}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{May 2020 -- July 2023}
+    Data Analyst, ValueLabs -- Hyderabad
+\end{twocolentry}
+\begin{highlights}
+    \item Supported enterprise clients across retail and finance industries by building data analysis platforms that processed business information.
+    \item Developed SQL-based data analysis solutions using Oracle Database for retail clients, processing 500GB daily transaction data.
+    \item Built data visualization dashboards using Microsoft Power BI for financial services clients, improving reporting accuracy by 23\%.
+    \item Implemented data validation controls using Python and SQL scripts, reducing data quality issues by 29\% across client reporting systems.
+    \item Analyzed business datasets using R programming language to identify trends and insights, supporting \$47K in operational savings.
+    \item Developed Unix shell scripting solutions for automated data processing workflows, improving system efficiency by 31\%.
+\end{highlights}
+
+\section{Academic Project Experience}
+
+\begin{twocolentry}{Aug 2023 -- Dec 2023}
+    Financial Data Analysis and Visualization System
+\end{twocolentry}
+\begin{highlights}
+    \item Designed a data analysis platform architecture for financial transaction processing using simulated payment data.
+    \item Implemented data extraction and transformation pipelines using SQL, Oracle PL/SQL, and R with academic datasets.
+    \item Developed interactive dashboards using Microsoft Power BI and Jasper Studio for financial reporting visualization.
+    \item Achieved 27\% improvement in data processing throughput during validation testing with simulated transaction workloads.
+\end{highlights}
+
+\vspace{0.2cm}
+
+\begin{twocolentry}{Jan 2024 -- Apr 2024}
+    Data Quality and Reporting Optimization Project
+\end{twocolentry}
+\begin{highlights}
+    \item Architected a data validation framework for financial reporting systems using graduate research methodologies.
+    \item Built automated reporting solutions with Unix shell scripting and SQL optimization techniques on Oracle Database.
+    \item Implemented data quality controls and validation checks using R programming language for proof-of-concept testing.
+    \item Demonstrated 41\% reduction in reporting errors during load testing scenarios with academic financial datasets.
+\end{highlights}
+
+\section{Technical Skills}
+\begin{description}[style=multiline, leftmargin=3cm, font=\bfseries]
+    \item[Programming] SQL, Oracle PL/SQL, R, Unix shell scripting, Python, Java
+    \item[Databases] Oracle Database, Data Warehouse, Data Analysis, Data Quality
+    \item[BI Tools] Microsoft Power BI, Jasper Studio, R Studio, Visualization
+    \item[Domain] Financial Services, Payment Systems, Transaction Analytics
+    \item[Tools] Git, CI/CD, AWS, Azure, Docker, Linux/Unix
+\end{description}
+
+\section{Education}
+\begin{twocolentry}{Aug 2023 -- May 2025}
+    The University of Texas at Arlington, MS in Data Science
+\end{twocolentry}
+\begin{highlights}
+    \item \textbf{GPA:} 3.8/4.0
+    \item \textbf{Relevant Coursework:} Distributed Systems, Cloud Computing, Software Engineering, Data Structures, Algorithms, Machine Learning
+\end{highlights}
+
+\end{document}
