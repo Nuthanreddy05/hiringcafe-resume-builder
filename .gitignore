@@ -10,15 +10,39 @@ jobs.db
 profile.json
 google_credentials.json
 
-# Outputs
+# Outputs & Local Runs
 Google Auto Internet/
 Google Auto/
 debug_screenshots/
 batch_debug.log
 *.pdf
 *.log
+application_packages/
+TEST_*/
+weekly_data/
+ai_classified_emails*.json
+emails_classified.json
+rejection_*.json
+all_applications_data.json
+ats_performance_report.json
 
-# Temp
+# Agent & Analysis Metadata
+.agent/
+*.docx
+*.xlsx
+*Analysis.md
+*Report.txt
+*Summary.md
+HANDOFF_CONTEXT.md
+MASTER_CONTEXT.md
+PLAN.md
+STRATEGY.md
+*.skill
+workflow_trace.txt
+
+# Temp & Debug
 failed_jobs.json
 debug_resume_*.txt
 Test_Generated_CVs/
+source_dump.html
+greenhouse_debug.html

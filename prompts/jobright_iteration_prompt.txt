@@ -1,8 +1,0 @@
-
---- PREVIOUS DRAFT JSON ---
-{current_resume_json}
-
---- FEEDBACK ---
-{feedback}
-
-INSTRUCTION: Refine based on feedback.
